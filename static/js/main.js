@@ -256,7 +256,12 @@ function computeAssetAllocation() {
                 break;
             }
 
-            allocationMatrix.push([viewModel.accounts()[currentAccountIndex].name()]);
+            var nextAccountVector = [viewModel.accounts()[currentAccountIndex].name()];
+            for (var depletedAssetClasses = 0; depletedAssetClasses < currentAssetIndex; depletedAssetClasses++) {
+                nextAccountVector.push('amount: $0 (0%)');
+            }
+            allocationMatrix.push(nextAccountVector);
+            
             var currentAccountBalance = parseFloat(viewModel.accounts()[currentAccountIndex].readBalance());
             var currentAccountRemainder = currentAccountBalance;
         } else {
