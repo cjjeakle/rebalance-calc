@@ -1,8 +1,61 @@
 "use strict"
 
 /*
+Example data
+*/
+var exampleData = `
+{
+  "assetClasses": [
+    {
+      "name": "US Stock",
+      "allocation": "56",
+      "notes": "VTI, FSTMX, ..."
+    },
+    {
+      "name": "ex-US Stock",
+      "allocation": "24",
+      "notes": "VXUS, FSGUX, ..."
+    },
+    {
+      "name": "US Bond",
+      "allocation": "20",
+      "notes": "BND, FBIDX, ..."
+    }
+  ],
+  "accounts": [
+    {
+      "name": "HSA",
+      "balance": "4000",
+      "notes": "No taxes on healthcare"
+    },
+    {
+      "name": "Roth IRA",
+      "balance": "7000",
+      "notes": "No taxes on growth"
+    },
+    {
+      "name": "401 (k)",
+      "balance": "12000",
+      "notes": "Tax deferred"
+    },
+    {
+      "name": "Taxable brokerage acct",
+      "balance": "2000",
+      "notes": null
+    }
+  ]
+}
+`
+
+/*
 Utility functions
 */
+
+function clearState() {
+    viewModel.assetClasses([]);
+    viewModel.accounts([]);
+}
+
 function saveState() {
     $('#save-complete-prompt').hide("easeOutQuart");
 
@@ -11,23 +64,21 @@ function saveState() {
         accounts: viewModel.accounts
     };
 
-    $('#save-link').attr("href", window.location.pathname + "?portfolioData=" + encodeURI(ko.toJSON(portfolioData)));
+    $('#save-link').attr("href", window.location.pathname + "#" + encodeURI(ko.toJSON(portfolioData)));
     $('#save-complete-prompt').show("easeOutQuart");
 }
 
-function loadState() {
-    var portfolioData = decodeURI(window.location.search.replace(/\?portfolioData=/g, ''));
-    
-    if(portfolioData) {
-        var portfolio = JSON.parse(portfolioData);
-        
-        portfolio.assetClasses.forEach(function(assetClass) {
-            addAssetClass(assetClass.name, assetClass.allocation, assetClass.notes);
-        });
-        portfolio.accounts.forEach(function(account) {
-            addAccount(account.name, account.balance, account.notes);
-        });
-    }
+function loadState(portfolioJSON) {
+    var portfolioData = JSON.parse(portfolioJSON);
+
+    clearState();
+
+    portfolioData.assetClasses.forEach(function(assetClass) {
+        addAssetClass(assetClass.name, assetClass.allocation, assetClass.notes);
+    });
+    portfolioData.accounts.forEach(function(account) {
+        addAccount(account.name, account.balance, account.notes);
+    });
 }
 
 function moveUp(observableArray, index) {
@@ -131,7 +182,7 @@ Web App Logic
 function AppViewModel() {
     this.assetClasses = ko.observableArray([]);
     this.accounts = ko.observableArray([]);
-    
+
     this.newAssetClass = function() { addAssetClass(null, null, null); };
     this.newAccount = function() { addAccount(null, null, null); };
     
@@ -241,4 +292,6 @@ viewModel.accounts.subscribe(computeAssetAllocation);
 ko.applyBindings(viewModel);
 
 // Restore any saved state
-loadState();
+if(window.location.hash) {
+    loadState(decodeURI(window.location.hash.substring(1)));
+}
