@@ -1,0 +1,16 @@
+h6 {
+	font-weight: bold;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.user-input-row {
+	padding-top: 11px;
+	border-top: thin solid lightgray;
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Portfolio Rebalancing Calculator</title>
+    <meta name="description" content="A tool to help with rebalancing one's portfolio.">
+
+    <!-- Stylesheet and script libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+
+    <!-- Hand-rolled stylesheets and scripts -->
+    <link rel="stylesheet" href="static/css/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+
+        <!-- Introduction to and explanation of this tool -->
+
+        <br/>
+        <br/>
+        <center><h3>Portfolio Rebalancing Calculator</h3></center>
+        <br/>
+        <p>
+          This tool is meant to help with rebalancing accounts, and with building a tax efficient portfolio. Rebalancing keeps one's asset allocation (and exposure to risk) in a comfortable range, and works best when all investment accounts are treated as part of a single portfolio.
+        </p>
+        <p>
+          See the bogleheads wiki for info on <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement">tax efficiency</a>, 
+          and for <a href="https://www.bogleheads.org/wiki/Video:Bogleheads%C2%AE_investment_philosophy">general investing suggestions</a>.
+        </p>
+        <ol>
+          <h6 class="no-margin">How it works:</h6>
+          <li>The total value of all accounts is determined, and is partitioned among the asset classes by percentage of the portfolio.</li>
+          <li>Assets are then allocated into accounts from top to bottom, moving to the next account when a given account's value is depleted.</li>
+          <li>The result of this is displayed below in a table.</li>
+        </ol>
+        <div class = "row">
+          <a class="six columns" href="?portfolioData=%7B%22assetClasses%22:%5B%7B%22name%22:%22US%20Stock%22,%22allocation%22:%2256%22,%22notes%22:%22VTI,%20FSTMX,%20...%22%7D,%7B%22name%22:%22ex-US%20Stock%22,%22allocation%22:%2224%22,%22notes%22:%22VXUS,%20FSGUX,%20...%22%7D,%7B%22name%22:%22US%20Bond%22,%22allocation%22:%2220%22,%22notes%22:%22BND,%20FBIDX,%20...%22%7D%5D,%22accounts%22:%5B%7B%22name%22:%22HSA%22,%22balance%22:%224000%22,%22notes%22:%22No%20taxes%20on%20healthcare%22%7D,%7B%22name%22:%22Roth%20IRA%22,%22balance%22:%227000%22,%22notes%22:%22No%20taxes%20on%20growth%22%7D,%7B%22name%22:%22401%20(k)%22,%22balance%22:%2212000%22,%22notes%22:%22Tax%20deferred%22%7D,%7B%22name%22:%22Taxable%20brokerage%20acct%22,%22balance%22:%222000%22,%22notes%22:null%7D%5D%7D">
+            Click here to load some example data.
+          </a>
+
+          <a class="six columns align-right" href="?">
+            Click here to clear all data.
+          </a>
+        </div>
+
+        <!-- User inputs for asset classes and accounts -->
+
+        <center>
+          <h5 class="no-margin">Asset Classes:</h5>
+          <p>Suggested order: Place less tax efficient (and/or higher growth) asset classes higher.</p>
+          <div data-bind="template: { name: 'asset-class-template', foreach: assetClasses }"></div>
+          <span>Total: <span data-bind="text: percentAllocated"></span>%</span>
+          <br/>
+          <button data-bind="click: newAssetClass">+</button>
+        </center>
+        <br/>
+        <br/>
+        <center>
+          <h5 class="no-margin">Accounts:</h5>
+          <p>Suggested order: Place more tax advantaged accounts higher.</p>
+          <div data-bind="template: { name: 'account-template', foreach: accounts }"></div>
+          <span>Total: $<span data-bind="text: totalAccountBalance"></span></span>
+          <br/>
+          <button data-bind="click: newAccount">+</button>
+        </center>
+        <br/>
+        <br/>
+
+        <!-- The output table -->
+
+        <center>
+          <h5 class="no-margin">Suggested Asset Allocation:</h5>
+        </center>
+        <table id="allocation-view">
+          <thead>
+            <tr data-bind="foreach: computedAllocationHeaders">
+              <th data-bind="text: $data"></th>
+            </tr>
+          </thead>
+          <tbody data-bind="foreach: computedAllocation">
+            <tr data-bind="foreach: $data">
+              <td data-bind="text: $data"></td>
+            </tr>
+          </tbody>
+        </table>
+        <br/>
+
+        <!-- The save button -->
+
+        <center>
+          <button id="save" onClick="saveState();">save</button>
+          <div id="save-complete-prompt" style="display:none;">
+            Click this link and bookmark the resulting page: 
+            <br/>
+            <a id="save-link" href="">This link contains the saved data.</a>
+          </div>
+        </center>
+      </div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+  </body>
+
+  <!-- Knockout templates: -->
+
+  <script type="text/html" id="asset-class-template">
+    <div class="user-input-row row">
+      <center>
+        <div class="eight columns">
+          <input type="text" placeholder="Asset Class" data-bind="value: name"></input>
+          <input type="number" placeholder="Percentage of Portfolio" data-bind="value: allocation"></input>
+          <input type="text" placeholder="Notes" data-bind="value: notes"></input>
+        </div>
+        <div class="four columns">
+          <button data-bind="click: moveUp">▲</button>
+          <button data-bind="click: moveDown">▼</button>
+          <button data-bind="click: remove">-</button>
+        </div>
+      </center>
+    </div>
+  </script>
+
+  <script type="text/html" id="account-template">
+    <div class="user-input-row row">
+      <center>
+        <div class="eight columns">
+          <input type="text" placeholder="Account Name" data-bind="value: name"></input>
+          <input type="number" placeholder="Account Balance" data-bind="value: balance"></input>
+          <input type="text" placeholder="Notes" data-bind="value: notes"></input>
+        </div>
+        <div class="four columns">
+          <button data-bind="click: moveUp">▲</button>
+          <button data-bind="click: moveDown">▼</button>
+          <button data-bind="click: remove">-</button>
+        </div>
+      </center>
+    </div>
+  </script>
+
+  <!-- Placed after all markup so knockout can bind successfully -->
+  <script src="static/js/main.js"></script>
+</html>
