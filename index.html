@@ -44,13 +44,17 @@
           <li>The result of this is displayed below in a table.</li>
         </ol>
         <div class = "row">
-          <a class="six columns center" href="javascript:loadState(exampleData)">
-            Click here to load some example data.
-          </a>
+          <div class="six columns center" href="javascript:loadState(exampleData)">
+            <a href="javascript:loadState(exampleData)">Click here to load some example data.</a>
+            <br/>
+            <br/>
+          </div>
 
-          <a class="six columns center" href="javascript:clearCurrentStateAndUrl()">
-            Click here to clear all data.
-          </a>
+          <div class="six columns center" href="javascript:loadState(exampleData)">
+            <a href="javascript:clearCurrentStateAndUrl()">Click here to clear all data.</a>
+            <br/>
+            <br/>
+          </div>
         </div>
 
         <!-- User inputs for asset classes and accounts -->
@@ -133,7 +137,7 @@
         <div class="four columns">
           <button data-bind="click: moveUp">▲</button>
           <button data-bind="click: moveDown">▼</button>
-          <button data-bind="click: remove">-</button>
+          <button data-bind="click: remove">x</button>
         </div>
       </div>
     </div>
@@ -150,7 +154,7 @@
         <div class="four columns">
           <button data-bind="click: moveUp">▲</button>
           <button data-bind="click: moveDown">▼</button>
-          <button data-bind="click: remove">-</button>
+          <button data-bind="click: remove">x</button>
         </div>
       </div>
     </div>
