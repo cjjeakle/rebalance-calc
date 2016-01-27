@@ -2,15 +2,24 @@ h6 {
 	font-weight: bold;
 }
 
-.no-margin {
-	margin: 0;
+.center {
+	text-align: center;
 }
 
-.align-right {
-	text-align: right;
+.no-margin {
+	margin: 0;
 }
 
 .user-input-row {
 	padding-top: 11px;
 	border-top: thin solid lightgray;
+}
+
+input[type="text"],
+input[type="number"]{
+	width: 15em;
+}
+
+input[type="number"]{
+	width: 10em;
 }

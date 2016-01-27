@@ -2,8 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Portfolio Rebalancing Calculator</title>
-    <meta name="description" content="A tool to help with rebalancing one's portfolio.">
+    <meta name="description" content="A tool to help with setting an initial asset allocation and rebalancing one's portfolio.">
 
     <!-- Stylesheet and script libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" />
@@ -23,10 +25,10 @@
 
         <br/>
         <br/>
-        <center>
+        <div class="center">
           <h3>Rebalance Calc:</h3>
           <h4>A Portfolio Rebalancing Calculator</h4>
-        </center>
+        </div>
         <br/>
         <p>
           This tool is meant to help with rebalancing accounts, and with building a tax efficient portfolio. Rebalancing keeps one's asset allocation (and exposure to risk) in a comfortable range, and works best when all investment accounts are treated as part of a single portfolio.
@@ -42,43 +44,43 @@
           <li>The result of this is displayed below in a table.</li>
         </ol>
         <div class = "row">
-          <a class="six columns" href="javascript:loadState(exampleData)">
+          <a class="six columns center" href="javascript:loadState(exampleData)">
             Click here to load some example data.
           </a>
 
-          <a class="six columns align-right" href="">
+          <a class="six columns center" href="javascript:clearCurrentStateAndUrl()">
             Click here to clear all data.
           </a>
         </div>
 
         <!-- User inputs for asset classes and accounts -->
 
-        <center>
+        <div class="center">
           <h5 class="no-margin">Asset Classes:</h5>
           <p>Suggested order: Place less tax efficient (and/or higher growth) asset classes higher.</p>
           <div data-bind="template: { name: 'asset-class-template', foreach: assetClasses }"></div>
           <span>Total: <span data-bind="text: percentAllocated"></span>%</span>
           <br/>
           <button data-bind="click: newAssetClass">+</button>
-        </center>
+        </div>
         <br/>
         <br/>
-        <center>
+        <div class="center">
           <h5 class="no-margin">Accounts:</h5>
           <p>Suggested order: Place more tax advantaged accounts higher.</p>
           <div data-bind="template: { name: 'account-template', foreach: accounts }"></div>
           <span>Total: $<span data-bind="text: totalAccountBalance"></span></span>
           <br/>
           <button data-bind="click: newAccount">+</button>
-        </center>
+        </div>
         <br/>
         <br/>
 
         <!-- The output table -->
 
-        <center>
+        <div class="center">
           <h5 class="no-margin">Suggested Asset Allocation:</h5>
-        </center>
+        </div>
         <table id="allocation-view">
           <thead>
             <tr data-bind="foreach: computedAllocationHeaders">
@@ -95,24 +97,24 @@
 
         <!-- The save button -->
 
-        <center>
+        <div class="center">
           <button id="save" onClick="saveState();">save</button>
           <div id="save-complete-prompt" style="display:none;">
             Click this link and bookmark the resulting page: 
             <br/>
             <a id="save-link" href="">This link contains the saved data.</a>
           </div>
-        </center>
+        </div>
       </div>
     </div>
     <br/>
     <br/>
     <br/>
-    <center>
+    <div class="center">
       By <a href="http://www.chrisjeakle.com" target="_blank"> Chris Jeakle.</a>
       &nbsp;&nbsp;&nbsp;///&nbsp;&nbsp;&nbsp;
       <a href="https://github.com/cjjeakle/rebalance-calc" target="_blank">View project source.</a>
-    </center>
+    </div>
     <br/>
     <br/>
     <br/>
@@ -122,10 +124,10 @@
 
   <script type="text/html" id="asset-class-template">
     <div class="user-input-row row">
-      <center>
+      <div class="center">
         <div class="eight columns">
           <input type="text" placeholder="Asset Class" data-bind="value: name"></input>
-          <input type="number" placeholder="Percentage of Portfolio" data-bind="value: allocation"></input>
+          <input type="number" min="0" max="100" placeholder="% of Portfolio" data-bind="value: allocation"></input>
           <input type="text" placeholder="Notes" data-bind="value: notes"></input>
         </div>
         <div class="four columns">
@@ -133,16 +135,16 @@
           <button data-bind="click: moveDown">▼</button>
           <button data-bind="click: remove">-</button>
         </div>
-      </center>
+      </div>
     </div>
   </script>
 
   <script type="text/html" id="account-template">
     <div class="user-input-row row">
-      <center>
+      <div class="center">
         <div class="eight columns">
           <input type="text" placeholder="Account Name" data-bind="value: name"></input>
-          <input type="number" placeholder="Account Balance" data-bind="value: balance"></input>
+          <input type="number" min="0" step="0.01" placeholder="Account Balance" data-bind="value: balance"></input>
           <input type="text" placeholder="Notes" data-bind="value: notes"></input>
         </div>
         <div class="four columns">
@@ -150,7 +152,7 @@
           <button data-bind="click: moveDown">▼</button>
           <button data-bind="click: remove">-</button>
         </div>
-      </center>
+      </div>
     </div>
   </script>
 

@@ -91,6 +91,11 @@ function loadFromCurrentUrl() {
     }
 }
 
+function clearCurrentStateAndUrl() {
+    clearState();
+    window.location.hash = '';
+}
+
 function moveUp(observableArray, index) {
     var start = index - 1;
     var numReplaced = 2;
