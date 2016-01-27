@@ -56,15 +56,18 @@ function clearState() {
     viewModel.accounts([]);
 }
 
-function saveState() {
-    $('#save-complete-prompt').hide("easeOutQuart");
-
+function getStateAsUrl() {
     var portfolioData = {
         assetClasses: viewModel.assetClasses,
         accounts: viewModel.accounts
     };
 
-    $('#save-link').attr("href", window.location.pathname + "#" + encodeURI(ko.toJSON(portfolioData)));
+    return window.location.pathname + "#" + encodeURI(ko.toJSON(portfolioData));
+}
+
+function saveState() {
+    $('#save-complete-prompt').hide("easeOutQuart");
+    $('#save-link').attr("href", getStateAsUrl());
     $('#save-complete-prompt').show("easeOutQuart");
 }
 
@@ -79,6 +82,13 @@ function loadState(portfolioJSON) {
     portfolioData.accounts.forEach(function(account) {
         addAccount(account.name, account.balance, account.notes);
     });
+}
+
+function loadFromCurrentUrl() {
+    clearState();
+    if(window.location.hash) {
+        loadState(decodeURI(window.location.hash.substring(1)));
+    }
 }
 
 function moveUp(observableArray, index) {
@@ -296,7 +306,8 @@ viewModel.accounts.subscribe(computeAssetAllocation);
 // Activates knockout.js
 ko.applyBindings(viewModel);
 
-// Restore any saved state
-if(window.location.hash) {
-    loadState(decodeURI(window.location.hash.substring(1)));
-}
+// Restore any saved state and watch for changes to the desired state
+loadFromCurrentUrl();
+$(window).bind("hashchange",function(event) {
+    loadFromCurrentUrl();
+});
