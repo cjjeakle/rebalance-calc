@@ -96,10 +96,10 @@ function clearCurrentStateAndUrl() {
     window.location.hash = '';
 }
 
-function moveUp(observableArray, index) {
+function moveElementUp(observableArray, index) {
     var start = index - 1;
     var numReplaced = 2;
-    
+
     if (index > 0) {
         var rawArray = observableArray();
         var priorElement = rawArray[index - 1];
@@ -108,7 +108,7 @@ function moveUp(observableArray, index) {
     }
 }
 
-function moveDown(observableArray, index) {
+function moveElementDown(observableArray, index) {
     var start = index;
     var numReplaced = 2;
     
@@ -150,10 +150,10 @@ class assetClass {
     }
 
     moveUp() {
-        moveUp(viewModel.assetClasses, this.getIndex());
+        moveElementUp(viewModel.assetClasses, this.getIndex());
     }
     moveDown(){
-        moveDown(viewModel.assetClasses, this.getIndex());
+        moveElementDown(viewModel.assetClasses, this.getIndex());
     }
 }
 
@@ -183,10 +183,10 @@ class account {
     }
 
     moveUp() {
-        moveUp(viewModel.accounts, this.getIndex());
+        moveElementUp(viewModel.accounts, this.getIndex());
     }
     moveDown(){
-        moveDown(viewModel.accounts, this.getIndex());
+        moveElementDown(viewModel.accounts, this.getIndex());
     }
 }
 
