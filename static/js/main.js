@@ -7,6 +7,11 @@ var exampleData = `
 {
   "assetClasses": [
     {
+      "name": "US Bond",
+      "allocation": "20",
+      "notes": "BND, FBIDX, ..."
+    },
+    {
       "name": "US Stock",
       "allocation": "56",
       "notes": "VTI, FSTMX, ..."
@@ -15,14 +20,14 @@ var exampleData = `
       "name": "ex-US Stock",
       "allocation": "24",
       "notes": "VXUS, FSGUX, ..."
-    },
-    {
-      "name": "US Bond",
-      "allocation": "20",
-      "notes": "BND, FBIDX, ..."
     }
   ],
   "accounts": [
+    {
+      "name": "401 (k)",
+      "balance": "12000",
+      "notes": "Tax deferred"
+    },
     {
       "name": "HSA",
       "balance": "4000",
@@ -32,11 +37,6 @@ var exampleData = `
       "name": "Roth IRA",
       "balance": "7000",
       "notes": "No taxes on growth"
-    },
-    {
-      "name": "401 (k)",
-      "balance": "12000",
-      "notes": "Tax deferred"
     },
     {
       "name": "Taxable brokerage acct",

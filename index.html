@@ -61,7 +61,15 @@
 
         <div class="center">
           <h5 class="no-margin">Asset Classes:</h5>
-          <p>Suggested order: Place less tax efficient (and/or higher growth) asset classes higher.</p>
+          <p>
+            Suggested order:
+            <br/>
+            Assets with high dividends relative to value growth (less tax efficient), 
+            <br/>
+            assets with high value growth relative dividends (more tax efficient), 
+            <br/>
+            assets eligible for tax credits and deductions (most tax efficient).
+          </p>
           <div data-bind="template: { name: 'asset-class-template', foreach: assetClasses }"></div>
           <span>Total: <span data-bind="text: percentAllocated"></span>%</span>
           <br/>
@@ -71,7 +79,15 @@
         <br/>
         <div class="center">
           <h5 class="no-margin">Accounts:</h5>
-          <p>Suggested order: Place more tax advantaged accounts higher.</p>
+          <p>
+            Suggested order: 
+            <br/>
+            Tax deferred accounts, 
+            <br/>
+            tax free accounts, 
+            <br/>
+            taxable accounts.
+          </p>
           <div data-bind="template: { name: 'account-template', foreach: accounts }"></div>
           <span>Total: $<span data-bind="text: totalAccountBalance"></span></span>
           <br/>
