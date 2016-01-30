@@ -1,8 +1,12 @@
 "use strict"
 
+
 /*
 Example data
+------------
 */
+
+// todo: revise
 var exampleData = `
 {
   "assetClasses": [
@@ -55,27 +59,16 @@ Utility functions
 
 
 function clearState() {
-    viewModel.assetClasses([]);
-    viewModel.accounts([]);
+    viewModel.assetClassesInefficient([]);
+    viewModel.assetClassesCredit([]);
+    viewModel.assetClassesEfficient([]);
+    viewModel.accountsTaxable([]);
+    viewModel.accountsDeferred([]);
+    viewModel.accountsFree([]);
 }
 
 function getStateAsUrl() {
-    var portfolioData = {
-        assetClasses: viewModel.assetClasses,
-        accounts: viewModel.accounts
-    };
-
-    var stripExtraData = function (key, value) {
-        switch(key) {
-            case 'parentCollection':
-            case 'remainder':
-                return;
-            default:
-                return value;
-        }
-    }
-
-    return window.location.pathname + "#" + encodeURI(ko.toJSON(portfolioData, stripExtraData));
+    return window.location.pathname + "#" + encodeURI(ko.toJSON(viewModel, stripExtraViewModelData));
 }
 
 function saveState() {
@@ -89,11 +82,25 @@ function loadState(portfolioJSON) {
 
     clearState();
 
-    portfolioData.assetClasses.forEach(function(assetClass) {
-        addAssetClass(assetClass.name, assetClass.allocation, assetClass.notes);
+    portfolioData.assetClassesInefficient.forEach(function(assetClass) {
+        addInefficientAssetClass(assetClass.name, assetClass.allocation, assetClass.notes);
     });
-    portfolioData.accounts.forEach(function(account) {
-        addAccount(account.name, account.balance, account.notes);
+    portfolioData.assetClassesCredit.forEach(function(assetClass) {
+        addCreditAssetClass(assetClass.name, assetClass.allocation, assetClass.notes);
+    });
+    portfolioData.assetClassesEfficient.forEach(function(assetClass) {
+        addEfficientAssetClass(assetClass.name, assetClass.allocation, assetClass.notes);
+    });
+
+
+    portfolioData.accountsTaxable.forEach(function(account) {
+        addTaxableAccount(account.name, account.balance, account.notes);
+    });
+    portfolioData.accountsDeferred.forEach(function(account) {
+        addDeferredAccount(account.name, account.balance, account.notes);
+    });
+    portfolioData.accountsFree.forEach(function(account) {
+        addFreeAccount(account.name, account.balance, account.notes);
     });
 }
 
@@ -107,6 +114,20 @@ function loadFromCurrentUrl() {
 function clearCurrentStateAndUrl() {
     clearState();
     window.location.hash = '';
+}
+
+function stripExtraViewModelData(key, value) {
+    switch(key) {
+        case 'parentCollection':
+        case 'remainder':
+        case 'percentAllocated':
+        case 'totalAccountBalance':
+        case 'computedAllocationHeaders':
+        case 'computedAllocation':
+            return;
+        default:
+            return value;
+    }
 }
 
 function moveElementUp(observableArray, index) {
@@ -139,8 +160,8 @@ function arrayOfNulls(length) {
 
 
 /*
-Web app classes
----------------
+Key classes
+-----------
 */
 
 
@@ -152,7 +173,7 @@ class assetClass {
         this.notes = ko.observable(notes);
         this.parentCollection = parentCollection;
 
-        this.allocation.subscribe(computepercentAllocated);
+        this.allocation.subscribe(computePercentAllocated);
         this.allocation.subscribe(computeAssetAllocation);
     }
 
@@ -161,7 +182,7 @@ class assetClass {
     }
 
     readAllocation() {
-        return this.allocation() ? this.allocation() : 0;
+        return this.allocation() ? parseFloat(this.allocation()) : 0;
     }
 
     resetRemainder() {
@@ -203,7 +224,7 @@ class account {
     }
 
     readBalance() {
-        return this.balance() ? this.balance() : 0;
+        return this.balance() ? parseFloat(this.balance()) : 0;
     }
 
     resetRemainder() {
@@ -231,17 +252,25 @@ class account {
 
 
 /*
-Web app view model and view model manipulation functions
+View model and view model manipulation functions
 --------------------------------------------------------
 */
 
 
 function AppViewModel() {
-    this.assetClasses = ko.observableArray([]);
-    this.accounts = ko.observableArray([]);
+    this.assetClassesInefficient = ko.observableArray([]);
+    this.assetClassesCredit = ko.observableArray([]);
+    this.assetClassesEfficient = ko.observableArray([]);
+    this.accountsTaxable = ko.observableArray([]);
+    this.accountsDeferred = ko.observableArray([]);
+    this.accountsFree = ko.observableArray([]);
 
-    this.newAssetClass = function() { addAssetClass(null, null, null); };
-    this.newAccount = function() { addAccount(null, null, null); };
+    this.newInefficientAssetClass = function() { addInefficientAssetClass(null, null, null); };
+    this.newCreditAssetClass = function() { addCreditAssetClass(null, null, null); };
+    this.newEfficientAssetClass = function() { addEfficientAssetClass(null, null, null); };
+    this.newTaxableAccount = function() { addTaxableAccount(null, null, null); };
+    this.newDeferredAccount = function() { addDeferredAccount(null, null, null); };
+    this.newFreeAccount = function() { addFreeAccount(null, null, null); };
     
     this.percentAllocated = ko.observable(0);
     this.totalAccountBalance = ko.observable(0);
@@ -252,26 +281,63 @@ function AppViewModel() {
 
 var viewModel = new AppViewModel();
 
-function addAssetClass(name, allocation, notes) {
-    viewModel.assetClasses.push(new assetClass(name, allocation, notes, viewModel.assetClasses));
+function addInefficientAssetClass(name, allocation, notes) {
+    viewModel.assetClassesInefficient.push(new assetClass(name, allocation, notes, viewModel.assetClassesInefficient));
 }
 
-function addAccount(name, balance, notes) {
-    viewModel.accounts.push(new account(name, balance, notes, viewModel.accounts));
+function addCreditAssetClass(name, allocation, notes) {
+    viewModel.assetClassesCredit.push(new assetClass(name, allocation, notes, viewModel.assetClassesCredit));
 }
 
-function computepercentAllocated() {
+function addEfficientAssetClass(name, allocation, notes) {
+    viewModel.assetClassesEfficient.push(new assetClass(name, allocation, notes, viewModel.assetClassesEfficient));
+}
+
+function addTaxableAccount(name, balance, notes) {
+    viewModel.accountsTaxable.push(new account(name, balance, notes, viewModel.accountsTaxable));
+}
+
+function addDeferredAccount(name, balance, notes) {
+    viewModel.accountsDeferred.push(new account(name, balance, notes, viewModel.accountsDeferred));
+}
+
+function addFreeAccount(name, balance, notes) {
+    viewModel.accountsFree.push(new account(name, balance, notes, viewModel.accountsFree));
+}
+
+function allAssetsView() {
+    return viewModel.assetClassesInefficient().concat(viewModel.assetClassesCredit(), viewModel.assetClassesEfficient());
+}
+
+function allAccountsView() {
+    return viewModel.accountsTaxable().concat(viewModel.accountsDeferred(), viewModel.accountsFree());
+}
+
+function assetCount() {
+    return viewModel.assetClassesInefficient().length + viewModel.assetClassesCredit().length + viewModel.assetClassesEfficient().length;
+}
+
+function accountCount() {
+    return viewModel.accountsTaxable().length + viewModel.accountsDeferred().length + viewModel.accountsFree().length;
+}
+
+function computePercentAllocated() {
     viewModel.percentAllocated(0);
-    viewModel.assetClasses().forEach(function(assetClass){
+    allAssetsView().forEach(function(assetClass){
         viewModel.percentAllocated(viewModel.percentAllocated() + assetClass.readAllocation());
     });
 }
 
 function computeTotalAccountBalance() {
     viewModel.totalAccountBalance(0);
-    viewModel.accounts().forEach(function(account){
+    allAccountsView().forEach(function(account){
         viewModel.totalAccountBalance(viewModel.totalAccountBalance() + account.readBalance());
     });
+}
+
+function resetRemainderTracking() {
+    allAssetsView().forEach(function(element) { element.resetRemainder(); });
+    allAccountsView().forEach(function(element) { element.resetRemainder(); });
 }
 
 
@@ -282,23 +348,56 @@ The asset allocation calculator
 
 
 function computeAssetAllocation() {
-    // Only compute the asset allocation matrix if there exist both accounts and assets
-    if (viewModel.accounts().length == 0 ||
-        viewModel.assetClasses().length == 0) {
-        viewModel.computedAllocationHeaders([]);
-        viewModel.computedAllocation([]);
-        return;
+    resetRemainderTracking();
+
+    viewModel.computedAllocationHeaders(['']);
+    allAssetsView().forEach(function(assetClass) {
+        viewModel.computedAllocationHeaders.push(assetClass.name);
+    });
+
+    var allocationMatrix = createAllocationMatrix(accountCount(), assetCount());
+
+    leastTaxEfficientPass(allocationMatrix);
+    mostTaxEfficientPass(allocationMatrix);
+    remainderPass(allocationMatrix);
+
+    viewModel.computedAllocation(allocationMatrix);
+}
+
+function createAllocationMatrix(numAccounts, numAssetClasses) {
+    var matrix = arrayOfNulls(numAccounts);
+    for(var i = 0; i < matrix.length; i++) {
+        matrix[i] = (arrayOfNulls(accountVectorDataIndex(numAssetClasses)));
+        matrix[i][0] = allAccountsView()[i].name;
     }
 
-    var currentAccountIndex = 0;
-    var currentAssetIndex = 0;
+    return matrix;
+}
 
-    var currentAccount = viewModel.accounts()[currentAccountIndex];
-    var currentAsset = viewModel.assetClasses()[currentAssetIndex];
-    var allocationMatrix = createAllocationMatrix();
+// Add 1 to account vector when accessing data.
+// This is to account for the title entry.
+function accountVectorDataIndex(index) {
+    return index + 1;
+}
 
-    currentAccount.resetRemainder();
-    currentAsset.resetRemainder();
+// Assign least tax efficient assets to:
+// Tax deferred -> tax free -> taxable
+function leastTaxEfficientPass(allocationMatrix) {
+//todo
+}
+
+// Assign the most tax efficient assets to:
+// Taxable -> tax deferred -> tax free
+function mostTaxEfficientPass(allocationMatrix) {
+//todo
+}
+
+// Assign the remaining assets (assuming they are sorted by potential for growth desc):
+// Tax free -> tax deferred -> taxable
+function remainderPass(allocationMatrix) {
+    //todo
+    var allAssets = allAssetsView();
+    var allAccounts = allAccountsView();
 
     for (;;) {
         if(currentAccount.remainder < currentAsset.remainder) {
@@ -333,32 +432,6 @@ function computeAssetAllocation() {
             currentAsset.resetRemainder();
         }
     }
-
-    viewModel.computedAllocation(allocationMatrix);
-}
-
-function createAllocationMatrix() {
-    var numAccounts = viewModel.accounts().length;
-    var numAssetClasses = viewModel.assetClasses().length;
-
-    viewModel.computedAllocationHeaders(['']);
-    viewModel.assetClasses().forEach(function(assetClass) {
-        viewModel.computedAllocationHeaders.push(assetClass.name);
-    });
-
-    var matrix = arrayOfNulls(numAccounts);
-    for(var i = 0; i < matrix.length; i++) {
-        matrix[i] = (arrayOfNulls(accountVectorDataIndex(numAssetClasses)));
-        matrix[i][0] = viewModel.accounts()[i].name;
-    }
-
-    return matrix;
-}
-
-// Add 1 to account vector when accessing data.
-// This is to account for the title entry.
-function accountVectorDataIndex(index) {
-    return index + 1;
 }
 
 function denoteAccountFullyAllocated(accountVector) {
@@ -393,10 +466,19 @@ Subscribe to the addition and removal of assets and accounts
 */
 
 
-viewModel.assetClasses.subscribe(computepercentAllocated);
-viewModel.accounts.subscribe(computeTotalAccountBalance);
-viewModel.assetClasses.subscribe(computeAssetAllocation);
-viewModel.accounts.subscribe(computeAssetAllocation);
+viewModel.assetClassesInefficient.subscribe(computePercentAllocated);
+viewModel.assetClassesEfficient.subscribe(computePercentAllocated);
+viewModel.assetClassesCredit.subscribe(computePercentAllocated);
+viewModel.accountsTaxable.subscribe(computeTotalAccountBalance);
+viewModel.accountsDeferred.subscribe(computeTotalAccountBalance);
+viewModel.accountsFree.subscribe(computeTotalAccountBalance);
+
+viewModel.assetClassesInefficient.subscribe(computeAssetAllocation);
+viewModel.assetClassesEfficient.subscribe(computeAssetAllocation);
+viewModel.assetClassesCredit.subscribe(computeAssetAllocation);
+viewModel.accountsTaxable.subscribe(computeAssetAllocation);
+viewModel.accountsDeferred.subscribe(computeAssetAllocation);
+viewModel.accountsFree.subscribe(computeAssetAllocation);
 
 
 /*

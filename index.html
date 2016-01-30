@@ -25,7 +25,7 @@
 
         <br/>
         <br/>
-        <div class="center">
+        <div class="row center">
           <h3>Rebalance Calc:</h3>
           <h4>A Portfolio Rebalancing Calculator</h4>
         </div>
@@ -59,65 +59,99 @@
 
         <!-- User inputs for asset classes and accounts -->
 
-        <div class="center">
+        <div class="row center">
           <h5 class="no-margin">Asset Classes:</h5>
-          <p>
-            Suggested order:
-            <br/>
-            Returns primairly from non-qualified dividends (less tax efficient), 
-            <br/>
-            Returns primairly from qualified dividends and capital gains (more tax efficient), 
-            <br/>
-            assets eligible for tax credits and deductions (most tax efficient).
-          </p>
-          <div data-bind="template: { name: 'asset-class-template', foreach: assetClasses }"></div>
           <span>Total: <span data-bind="text: percentAllocated"></span>%</span>
           <br/>
-          <button data-bind="click: newAssetClass">+</button>
-        </div>
-        <br/>
-        <br/>
-        <div class="center">
-          <h5 class="no-margin">Accounts:</h5>
+          <br/>
           <p>
-            Suggested order: 
-            <br/>
-            Tax deferred accounts, 
-            <br/>
-            tax free accounts, 
-            <br/>
-            taxable accounts.
+            Assets primairly earning via non-qualified dividends (tax inefficient):
           </p>
-          <div data-bind="template: { name: 'account-template', foreach: accounts }"></div>
+          <div data-bind="template: { name: 'asset-class-template', foreach: assetClassesInefficient }"></div>
+          <br/>
+          <button data-bind="click: newInefficientAssetClass">+</button>
+          <br/>
+          <br/>
+
+          <p>
+            Assets eligible for foreign tax credits (very tax efficient):
+          </p>
+          <div data-bind="template: { name: 'asset-class-template', foreach: assetClassesCredit }"></div>
+          <br/>
+          <button data-bind="click: newCreditAssetClass">+</button>
+          <br/>
+          <br/>
+
+          <p>
+            Assets primairly earning via qualified dividends 
+            <br/>
+            and/or capital gains (tax efficient):
+          </p>
+          <div data-bind="template: { name: 'asset-class-template', foreach: assetClassesEfficient }"></div>
+          <br/>
+          <button data-bind="click: newEfficientAssetClass">+</button>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div class=" row center">
+          <h5 class="no-margin">Accounts:</h5>
           <span>Total: $<span data-bind="text: totalAccountBalance"></span></span>
           <br/>
-          <button data-bind="click: newAccount">+</button>
+          <br/>
+          <p>
+            Taxable accounts:
+          </p>
+          <div data-bind="template: { name: 'account-template', foreach: accountsTaxable }"></div>
+          <br/>
+          <button data-bind="click: newTaxableAccount">+</button>
+          <br/>
+          <br/>
+
+          <p>
+            Tax deferred accounts:
+          </p>
+          <div data-bind="template: { name: 'account-template', foreach: accountsDeferred }"></div>
+          <br/>
+          <button data-bind="click: newDeferredAccount">+</button>
+          <br/>
+          <br/>
+
+          <p>
+            Tax free accounts:
+          </p>
+          <div data-bind="template: { name: 'account-template', foreach: accountsFree }"></div>
+          <br/>
+          <button data-bind="click: newFreeAccount">+</button>
         </div>
         <br/>
         <br/>
 
         <!-- The output table -->
 
-        <div class="center">
-          <h5 class="no-margin">Suggested Asset Allocation:</h5>
+        <div class="row">
+          <div class="center">
+            <h5 class="no-margin">Suggested Asset Allocation:</h5>
+          </div>
+          <table id="allocation-view">
+            <thead>
+              <tr data-bind="foreach: computedAllocationHeaders">
+                <th data-bind="text: $data"></th>
+              </tr>
+            </thead>
+            <tbody data-bind="foreach: computedAllocation">
+              <tr data-bind="foreach: $data">
+                <td data-bind="text: $data"></td>
+              </tr>
+            </tbody>
+          </table>
+          <br/>
         </div>
-        <table id="allocation-view">
-          <thead>
-            <tr data-bind="foreach: computedAllocationHeaders">
-              <th data-bind="text: $data"></th>
-            </tr>
-          </thead>
-          <tbody data-bind="foreach: computedAllocation">
-            <tr data-bind="foreach: $data">
-              <td data-bind="text: $data"></td>
-            </tr>
-          </tbody>
-        </table>
-        <br/>
 
         <!-- The save button -->
 
-        <div class="center">
+        <div class="row center">
           <button id="save" onClick="saveState();">save</button>
           <div id="save-complete-prompt" style="display:none;">
             Click this link and bookmark the resulting page: 
@@ -130,7 +164,7 @@
     <br/>
     <br/>
     <br/>
-    <div class="center">
+    <div class="row center">
       By <a href="http://www.chrisjeakle.com"> Chris Jeakle.</a>
       &nbsp;&nbsp;&nbsp;///&nbsp;&nbsp;&nbsp;
       <a href="https://github.com/cjjeakle/rebalance-calc">View project source.</a>
