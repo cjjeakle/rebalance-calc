@@ -31,7 +31,7 @@
         </div>
         <br/>
         <p>
-          This tool is meant to help with rebalancing accounts, and with building a tax efficient portfolio. Rebalancing keeps one's asset allocation (and exposure to risk) in a comfortable range, and works best when all investment accounts are treated as part of a single portfolio.
+          This tool is meant to help with rebalancing accounts, and with building a tax efficient portfolio (in the U.S.). Rebalancing keeps one's asset allocation (and exposure to risk) in a comfortable range, and works best when all investment accounts are treated as part of a single portfolio.
         </p>
         <p>
           See the bogleheads wiki for info on <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement">tax efficiency</a>, 
@@ -68,7 +68,6 @@
             Assets primairly earning via non-qualified dividends (tax inefficient):
           </p>
           <div data-bind="template: { name: 'asset-class-template', foreach: assetClassesInefficient }"></div>
-          <br/>
           <button data-bind="click: newInefficientAssetClass">+</button>
           <br/>
           <br/>
@@ -77,7 +76,6 @@
             Assets eligible for foreign tax credits (very tax efficient):
           </p>
           <div data-bind="template: { name: 'asset-class-template', foreach: assetClassesCredit }"></div>
-          <br/>
           <button data-bind="click: newCreditAssetClass">+</button>
           <br/>
           <br/>
@@ -88,14 +86,13 @@
             and/or capital gains (tax efficient):
           </p>
           <div data-bind="template: { name: 'asset-class-template', foreach: assetClassesEfficient }"></div>
-          <br/>
           <button data-bind="click: newEfficientAssetClass">+</button>
         </div>
 
         <br/>
         <br/>
 
-        <div class=" row center">
+        <div class="row center">
           <h5 class="no-margin">Accounts:</h5>
           <span>Total: $<span data-bind="text: totalAccountBalance"></span></span>
           <br/>
@@ -104,7 +101,6 @@
             Taxable accounts:
           </p>
           <div data-bind="template: { name: 'account-template', foreach: accountsTaxable }"></div>
-          <br/>
           <button data-bind="click: newTaxableAccount">+</button>
           <br/>
           <br/>
@@ -113,7 +109,6 @@
             Tax deferred accounts:
           </p>
           <div data-bind="template: { name: 'account-template', foreach: accountsDeferred }"></div>
-          <br/>
           <button data-bind="click: newDeferredAccount">+</button>
           <br/>
           <br/>
@@ -122,7 +117,6 @@
             Tax free accounts:
           </p>
           <div data-bind="template: { name: 'account-template', foreach: accountsFree }"></div>
-          <br/>
           <button data-bind="click: newFreeAccount">+</button>
         </div>
         <br/>
@@ -152,7 +146,7 @@
         <!-- The save button -->
 
         <div class="row center">
-          <button id="save" onClick="saveState();">save</button>
+          <button id="save" class="button-primary" onClick="saveState();">save</button>
           <div id="save-complete-prompt" style="display:none;">
             Click this link and bookmark the resulting page: 
             <br/>

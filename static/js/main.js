@@ -399,7 +399,7 @@ function remainderPass(allocationMatrix) {
     var allAssets = allAssetsView();
     var allAccounts = allAccountsView();
 
-    for (;;) {
+    for (;0;) {
         if(currentAccount.remainder < currentAsset.remainder) {
             currentAsset.remainder -= currentAccount.remainder;
 
