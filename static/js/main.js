@@ -173,88 +173,73 @@ Key classes
 */
 
 
-class assetClass {
-    constructor(name, allocation, notes, parentCollection) {
-        this.name = ko.observable(name);
-        this.allocation = ko.observable(parseFloat(allocation));
-        this.remainder = this.readAllocation();
-        this.notes = ko.observable(notes);
-        this.parentCollection = parentCollection;
+function assetClass (name, allocation, notes, parentCollection) {
+    this.name = ko.observable(name);
+    this.allocation = ko.observable(parseFloat(allocation));
+    this.notes = ko.observable(notes);
+    this.parentCollection = parentCollection;
 
-        this.allocation.subscribe(computePercentAllocated);
-        this.allocation.subscribe(computeAssetAllocation);
-    }
+    this.allocation.subscribe(computePercentAllocated);
+    this.allocation.subscribe(computeAssetAllocation);
 
-    remove() {
+    this.remove = function() {
         this.parentCollection.remove(this);
     }
 
-    readAllocation() {
+    this.readAllocation = function() {
         return this.allocation() ? parseFloat(this.allocation()) : 0;
     }
 
-    resetRemainder() {
+    this.resetRemainder = function() {
         this.remainder = this.readAllocation() / 100 * viewModel.totalAccountBalance();
     }
 
-    getIndex() {
+    this.getIndex = function() {
         return this.parentCollection.indexOf(this);
     }
 
-    moveUp() {
+    this.moveUp = function() {
         moveElementUp(this.parentCollection, this.getIndex());
     }
-    moveDown(){
+    this.moveDown = function(){
         moveElementDown(this.parentCollection, this.getIndex());
     }
-
-    toJSON() {
-        var noCircularReference = ko.toJS(this);
-        delete noCircularReference.parentCollection;
-        return noCircularReference;
-    }
+    
+    this.remainder = this.readAllocation();
 }
 
-class account {
-    constructor(name, balance, notes, parentCollection) {
-        this.name = ko.observable(name);
-        this.balance = ko.observable(parseFloat(balance));
-        this.remainder = this.balance();
-        this.notes = ko.observable(notes);
-        this.parentCollection = parentCollection;
+function account (name, balance, notes, parentCollection) {
+    this.name = ko.observable(name);
+    this.balance = ko.observable(parseFloat(balance));
+    this.remainder = this.balance();
+    this.notes = ko.observable(notes);
+    this.parentCollection = parentCollection;
 
-        this.balance.subscribe(computeTotalAccountBalance);
-        this.balance.subscribe(computeAssetAllocation);
-    }
+    this.balance.subscribe(computeTotalAccountBalance);
+    this.balance.subscribe(computeAssetAllocation);
 
-    remove() {
+    this.remove = function() {
         this.parentCollection.remove(this);
     }
 
-    readBalance() {
+    this.readBalance = function() {
         return this.balance() ? parseFloat(this.balance()) : 0;
     }
 
-    resetRemainder() {
+    this.resetRemainder = function() {
         this.remainder = this.readBalance();
     }
 
 
-    getIndex() {
+    this.getIndex = function() {
         return this.parentCollection.indexOf(this);
     }
 
-    moveUp() {
+    this.moveUp = function() {
         moveElementUp(this.parentCollection, this.getIndex());
     }
-    moveDown(){
+    this.moveDown = function(){
         moveElementDown(this.parentCollection, this.getIndex());
-    }
-
-    toJSON() {
-        var noCircularReference = ko.toJS(this);
-        delete noCircularReference.parentCollection;
-        return noCircularReference;
     }
 }
 
