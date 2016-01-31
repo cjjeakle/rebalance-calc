@@ -7,57 +7,57 @@ Example data
 */
 
 // todo: revise
-var exampleData = `
-{
-  "assetClassesInefficient": [
-    {
-      "name": "US Bond",
-      "allocation": 20,
-      "notes": "BND, FBIDX, ..."
-    }
-  ],
-  "assetClassesCredit": [
-    {
-      "name": "ex-US Stock",
-      "allocation": 24,
-      "notes": "VXUS, FSGUX, ..."
-    }
-  ],
-  "assetClassesEfficient": [
-    {
-      "name": "US Stock",
-      "allocation": 56,
-      "notes": "VTI, FSTMX, ..."
-    }
-  ],
-  "accountsTaxable": [
-    {
-      "name": "Brokerage acct",
-      "balance": 2000,
-      "notes": "No special tax treatment"
-    }
-  ],
-  "accountsDeferred": [
-    {
-      "name": "401 (k)",
-      "balance": 12000,
-      "notes": "Tax deferred"
-    }
-  ],
-  "accountsFree": [
-    {
-      "name": "HSA",
-      "balance": 4000,
-      "notes": "No taxes on healthcare"
-    },
-    {
-      "name": "Roth IRA",
-      "balance": 7000,
-      "notes": "No taxes on growth"
-    }
-  ]
-}
-`
+var exampleData = '\
+{\
+  "assetClassesInefficient": [\
+    {\
+      "name": "US Bond",\
+      "allocation": 20,\
+      "notes": "BND, FBIDX, ..."\
+    }\
+  ],\
+  "assetClassesCredit": [\
+    {\
+      "name": "ex-US Stock",\
+      "allocation": 24,\
+      "notes": "VXUS, FSGUX, ..."\
+    }\
+  ],\
+  "assetClassesEfficient": [\
+    {\
+      "name": "US Stock",\
+      "allocation": 56,\
+      "notes": "VTI, FSTMX, ..."\
+    }\
+  ],\
+  "accountsTaxable": [\
+    {\
+      "name": "Brokerage acct",\
+      "balance": 2000,\
+      "notes": "No special tax treatment"\
+    }\
+  ],\
+  "accountsDeferred": [\
+    {\
+      "name": "401 (k)",\
+      "balance": 12000,\
+      "notes": "Tax deferred"\
+    }\
+  ],\
+  "accountsFree": [\
+    {\
+      "name": "HSA",\
+      "balance": 4000,\
+      "notes": "No taxes on healthcare"\
+    },\
+    {\
+      "name": "Roth IRA",\
+      "balance": 7000,\
+      "notes": "No taxes on growth"\
+    }\
+  ]\
+}\
+'
 
 
 /*
@@ -204,7 +204,7 @@ function assetClass (name, allocation, notes, parentCollection) {
     this.moveDown = function(){
         moveElementDown(this.parentCollection, this.getIndex());
     }
-    
+
     this.remainder = this.readAllocation();
 }
 
