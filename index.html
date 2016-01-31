@@ -37,6 +37,12 @@
           See the bogleheads wiki for info on <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement">tax efficiency</a>, 
           and for <a href="https://www.bogleheads.org/wiki/Video:Bogleheads%C2%AE_investment_philosophy">general investing suggestions</a>.
         </p>
+        <p>
+          For help classifying assets, 
+          <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>. 
+          For help classifying accounts, see the first bullet in the list  
+          <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#General_strategy">here</a>.
+        </p>
         <ol>
           <h6 class="no-margin">How it works:</h6>
           <li>The total value of all accounts is determined, and is partitioned among the asset classes by percentage of the portfolio.</li>
@@ -70,7 +76,7 @@
           <p>
             Tax inefficient assets (eg: bonds)
             <br/>
-            (primairly earn via non-qualified dividends):
+            (Assets which primairly earn via non-qualified dividends):
           </p>
           <div data-bind="template: { name: 'asset-class-template', foreach: assetClassesInefficient }"></div>
           <button data-bind="click: newInefficientAssetClass">+</button>
@@ -78,9 +84,11 @@
           <br/>
 
           <p>
-            Foreign assets
+            Foreign and tax-exempt assets
             <br/>
-            (eligible for foreign tax credits):
+            (Assets eligible for a US tax credit on foreign tax, 
+            <br/>
+            or those which are entirely tax-exempt):
           </p>
           <div data-bind="template: { name: 'asset-class-template', foreach: assetClassesCredit }"></div>
           <button data-bind="click: newCreditAssetClass">+</button>
@@ -90,7 +98,7 @@
           <p>
             All other assets, with highest expected growth at the top
             <br/>
-            (generally earn via qualified dividends and/or capital gains):
+            (Assets which generally earn via qualified dividends and/or capital gains):
           </p>
           <div data-bind="template: { name: 'asset-class-template', foreach: assetClassesEfficient }"></div>
           <button data-bind="click: newEfficientAssetClass">+</button>
