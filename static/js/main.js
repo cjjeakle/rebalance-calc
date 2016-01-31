@@ -9,43 +9,51 @@ Example data
 // todo: revise
 var exampleData = `
 {
-  "assetClasses": [
+  "assetClassesInefficient": [
     {
       "name": "US Bond",
-      "allocation": "20",
+      "allocation": 20,
       "notes": "BND, FBIDX, ..."
-    },
-    {
-      "name": "US Stock",
-      "allocation": "56",
-      "notes": "VTI, FSTMX, ..."
-    },
+    }
+  ],
+  "assetClassesCredit": [
     {
       "name": "ex-US Stock",
-      "allocation": "24",
+      "allocation": 24,
       "notes": "VXUS, FSGUX, ..."
     }
   ],
-  "accounts": [
+  "assetClassesEfficient": [
+    {
+      "name": "US Stock",
+      "allocation": 56,
+      "notes": "VTI, FSTMX, ..."
+    }
+  ],
+  "accountsTaxable": [
+    {
+      "name": "Brokerage acct",
+      "balance": 2000,
+      "notes": "No special tax treatment"
+    }
+  ],
+  "accountsDeferred": [
     {
       "name": "401 (k)",
-      "balance": "12000",
+      "balance": 12000,
       "notes": "Tax deferred"
-    },
+    }
+  ],
+  "accountsFree": [
     {
       "name": "HSA",
-      "balance": "4000",
+      "balance": 4000,
       "notes": "No taxes on healthcare"
     },
     {
       "name": "Roth IRA",
-      "balance": "7000",
+      "balance": 7000,
       "notes": "No taxes on growth"
-    },
-    {
-      "name": "Taxable brokerage acct",
-      "balance": "2000",
-      "notes": null
     }
   ]
 }
@@ -155,7 +163,7 @@ function moveElementDown(observableArray, index) {
 }
 
 function arrayOfNulls(length) {
-    return new Array(length).map(function() {})
+    return new Array(length).map(function() { return null; });
 }
 
 
@@ -357,97 +365,108 @@ function computeAssetAllocation() {
 
     var allocationMatrix = createAllocationMatrix(accountCount(), assetCount());
 
-    leastTaxEfficientPass(allocationMatrix);
-    mostTaxEfficientPass(allocationMatrix);
-    remainderPass(allocationMatrix);
+    var defaultAssetOffset = 1;
+    var inefficientAssetOffset = defaultAssetOffset;
+    var creditAssetOffset = inefficientAssetOffset + viewModel.assetClassesInefficient().length;
+    var efficientAssetOffset = creditAssetOffset + viewModel.assetClassesCredit().length;
 
+    var defaultAccountOffset = 0;
+    var taxableAccountOffset = defaultAccountOffset;
+    var deferredAccountOffset = taxableAccountOffset + viewModel.accountsTaxable().length;
+    var freeAccountOffset = deferredAccountOffset + viewModel.accountsDeferred().length;
+
+    // Assign least tax efficient assets to:
+    // Tax deferred -> tax free -> taxable
+    allocateAssets(viewModel.assetClassesInefficient(),
+        viewModel.accountsDeferred(), 
+        inefficientAssetOffset, 
+        deferredAccountOffset, 
+        allocationMatrix);
+    allocateAssets(viewModel.assetClassesInefficient(),
+        viewModel.accountsFree(), 
+        inefficientAssetOffset, 
+        freeAccountOffset, 
+        allocationMatrix);
+    allocateAssets(viewModel.assetClassesInefficient(),
+        viewModel.accountsTaxable(), 
+        inefficientAssetOffset, 
+        taxableAccountOffset, 
+        allocationMatrix);
+
+    // Assign the most tax efficient assets (eligible for foreign tax credit) to:
+    // Taxable -> wait for remainder pass
+    allocateAssets(viewModel.assetClassesCredit(),
+        viewModel.accountsTaxable(),
+        creditAssetOffset,
+        taxableAccountOffset,
+        allocationMatrix);
+
+    // Assign the highest expected growth assets to:
+    // tax free -> wait for remainder pass
+    allocateAssets(viewModel.assetClassesEfficient(), 
+        viewModel.accountsFree(),
+        efficientAssetOffset,
+        freeAccountOffset,
+        allocationMatrix);
+
+    // Assign the remaining assets anywhere
+    allocateAssets(allAssetsView(),
+        allAccountsView(),
+        defaultAssetOffset,
+        defaultAccountOffset,
+        allocationMatrix);
+
+    // Apply the calculated allocation matrix to the view model
     viewModel.computedAllocation(allocationMatrix);
 }
 
 function createAllocationMatrix(numAccounts, numAssetClasses) {
     var matrix = arrayOfNulls(numAccounts);
     for(var i = 0; i < matrix.length; i++) {
-        matrix[i] = (arrayOfNulls(accountVectorDataIndex(numAssetClasses)));
+        matrix[i] = arrayOfNulls(numAssetClasses + 1);
         matrix[i][0] = allAccountsView()[i].name;
     }
 
     return matrix;
 }
 
-// Add 1 to account vector when accessing data.
-// This is to account for the title entry.
-function accountVectorDataIndex(index) {
-    return index + 1;
-}
+function allocateAssets(assets, accounts, assetDataOffset, accountDataOffset, allocationMatrix) {
+    var assetIndex = 0;
+    var accountIndex = 0;
 
-// Assign least tax efficient assets to:
-// Tax deferred -> tax free -> taxable
-function leastTaxEfficientPass(allocationMatrix) {
-//todo
-}
+    while (assetIndex < assets.length && accountIndex < accounts.length) {
+        var currentAsset = assets[assetIndex];
+        var currentAccount = accounts[accountIndex];
 
-// Assign the most tax efficient assets to:
-// Taxable -> tax deferred -> tax free
-function mostTaxEfficientPass(allocationMatrix) {
-//todo
-}
+        if (currentAsset.remainder < 0) {
+            assetIndex++;
+            continue;
+        }
+        if (currentAccount.remainder < 0) {
+            accountIndex++;
+            continue;
+        }
 
-// Assign the remaining assets (assuming they are sorted by potential for growth desc):
-// Tax free -> tax deferred -> taxable
-function remainderPass(allocationMatrix) {
-    //todo
-    var allAssets = allAssetsView();
-    var allAccounts = allAccountsView();
-
-    for (;0;) {
-        if(currentAccount.remainder < currentAsset.remainder) {
+        if (currentAccount.remainder < currentAsset.remainder) {
             currentAsset.remainder -= currentAccount.remainder;
 
             var allocationInfo = accountAllocationDescription(currentAccount.remainder, currentAccount.readBalance());
-            allocationMatrix[currentAccountIndex][accountVectorDataIndex(currentAssetIndex)] = allocationInfo;
+            allocationMatrix[accountIndex + accountDataOffset][assetIndex + assetDataOffset] = allocationInfo;
 
-            denoteAccountFullyAllocated(allocationMatrix[currentAccountIndex], currentAssetIndex);
-
-            currentAccountIndex++;
-            if(currentAccountIndex  == viewModel.accounts().length) {
-                break;
-            }
-
-            currentAccount = viewModel.accounts()[currentAccountIndex];
-            currentAccount.resetRemainder();
+            // Mark the account as depleted
+            currentAccount.remainder = -1;
+            denoteAccountFullyAllocated(allocationMatrix, accountIndex + accountDataOffset);
         } else {
             currentAccount.remainder -= currentAsset.remainder;
 
             var allocationInfo = accountAllocationDescription(currentAsset.remainder, currentAccount.readBalance());
-            allocationMatrix[currentAccountIndex][accountVectorDataIndex(currentAssetIndex)] = allocationInfo;
+            allocationMatrix[accountIndex + accountDataOffset][assetIndex + assetDataOffset] = allocationInfo;
 
-            denoteAssetFullyAllocated(allocationMatrix, currentAssetIndex);
-
-            currentAssetIndex++;
-            if (currentAssetIndex == viewModel.assetClasses().length) {
-                break;
-            }
-
-            currentAsset = viewModel.assetClasses()[currentAssetIndex];
-            currentAsset.resetRemainder();
+            // Mark the asset as depleted
+            currentAsset.remainder = -1;
+            denoteAssetFullyAllocated(allocationMatrix, assetIndex + assetDataOffset)
         }
     }
-}
-
-function denoteAccountFullyAllocated(accountVector) {
-    for(var i = 0; i < accountVector.length; i++) {
-        if(!accountVector[i]) {
-            accountVector[i] = accountAllocationDescription(0, 0);
-        }
-    }
-}
-
-function denoteAssetFullyAllocated(allocationMatrix, assetIndex) {
-    allocationMatrix.forEach(function(accountVector) {
-        if(!accountVector[accountVectorDataIndex(assetIndex)]) {
-            accountVector[accountVectorDataIndex(assetIndex)] = (accountAllocationDescription(0, 0));
-        }
-    });
 }
 
 function accountAllocationDescription(amountAllocated, accountBalance) {
@@ -456,6 +475,22 @@ function accountAllocationDescription(amountAllocated, accountBalance) {
         + ' (' 
         + (accountBalance != 0 ? (amountAllocated / accountBalance * 100).toFixed(2) : 0) 
         + '%)';
+}
+
+function denoteAccountFullyAllocated(allocationMatrix, accountDataIndex) {
+    for (var i = 0; i < allocationMatrix[accountDataIndex].length; i++) {
+        if(!allocationMatrix[accountDataIndex][i]) {
+            allocationMatrix[accountDataIndex][i] = accountAllocationDescription(0, 0);
+        }
+    }
+}
+
+function denoteAssetFullyAllocated(allocationMatrix, assetDataIndex) {
+    for (var i = 0; i < allocationMatrix.length; i++) {
+        if(!allocationMatrix[i][assetDataIndex]) {
+            allocationMatrix[i][assetDataIndex] = accountAllocationDescription(0, 0);
+        }
+    }
 }
 
 
