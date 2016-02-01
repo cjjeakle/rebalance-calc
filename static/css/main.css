@@ -2,6 +2,13 @@ h6 {
 	font-weight: bold;
 }
 
+hr {
+	height: 1px;
+	border: 0 none;
+	color: rgb(240, 240, 240);
+	background-color: rgb(240, 240, 240);
+}
+
 .center {
 	text-align: center;
 }
