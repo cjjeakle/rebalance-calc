@@ -66,10 +66,13 @@
           </div>
         </div>
 
+        <br/>
+        <hr class="bold"/>
+        <br/>
         <!-- User inputs for asset classes and accounts -->
 
         <div class="row center">
-          <h5 class="no-margin">Asset Classes:</h5>
+          <h5 class="no-margin">Desired Asset Allocation:</h5>
           <span>Total: <span data-bind="text: percentAllocated"></span>%</span>
           <br/>
           <br/>
@@ -105,10 +108,11 @@
         </div>
 
         <br/>
+        <hr class="bold"/>
         <br/>
 
         <div class="row center">
-          <h5 class="no-margin">Accounts:</h5>
+          <h5 class="no-margin">Available Accounts:</h5>
           <span>Total: $<span data-bind="text: totalAccountBalance"></span></span>
           <br/>
           <br/>
@@ -134,7 +138,9 @@
           <div data-bind="template: { name: 'account-template', foreach: accountsFree }"></div>
           <button data-bind="click: newFreeAccount">+</button>
         </div>
+
         <br/>
+        <hr class="bold"/>
         <br/>
 
         <!-- The output table -->
