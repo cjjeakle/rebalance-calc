@@ -6,7 +6,6 @@ Example data
 ------------
 */
 
-// todo: revise
 var exampleData = '\
 {\
   "assetClassesInefficient": [\
@@ -350,7 +349,7 @@ function computeAssetAllocation() {
 
     var allocationMatrix = createAllocationMatrix(accountCount(), assetCount());
 
-    var defaultAssetOffset = 1;
+    var defaultAssetOffset = 1; // Shift to account for the account name column
     var inefficientAssetOffset = defaultAssetOffset;
     var creditAssetOffset = inefficientAssetOffset + viewModel.assetClassesInefficient().length;
     var efficientAssetOffset = creditAssetOffset + viewModel.assetClassesCredit().length;
