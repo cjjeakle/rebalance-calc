@@ -77,7 +77,7 @@
           <br/>
           <br/>
           <p>
-            Tax inefficient assets (eg: bonds)
+            <strong>Tax inefficient assets</strong>
             <br/>
             (Assets which primairly earn via non-qualified dividends):
           </p>
@@ -87,7 +87,7 @@
           <br/>
 
           <p>
-            Foreign and tax-exempt assets
+            <strong>Foreign and tax-exempt assets</strong>
             <br/>
             (Assets eligible for a US tax credit on foreign tax, 
             <br/>
@@ -99,7 +99,9 @@
           <br/>
 
           <p>
-            All other assets, with highest expected growth at the top
+            <strong>All other assets</strong>,
+            <br/>
+            with highest expected growth at the top
             <br/>
             (Assets which generally earn via qualified dividends and/or capital gains):
           </p>
@@ -117,7 +119,7 @@
           <br/>
           <br/>
           <p>
-            Taxable accounts:
+            <strong>Taxable accounts:</strong>
           </p>
           <div data-bind="template: { name: 'account-template', foreach: accountsTaxable }"></div>
           <button data-bind="click: newTaxableAccount">+</button>
@@ -125,7 +127,7 @@
           <br/>
 
           <p>
-            Tax deferred accounts:
+            <strong>Tax deferred accounts:</strong>
           </p>
           <div data-bind="template: { name: 'account-template', foreach: accountsDeferred }"></div>
           <button data-bind="click: newDeferredAccount">+</button>
@@ -133,7 +135,7 @@
           <br/>
 
           <p>
-            Tax free accounts:
+            <strong>Tax free accounts:</strong>
           </p>
           <div data-bind="template: { name: 'account-template', foreach: accountsFree }"></div>
           <button data-bind="click: newFreeAccount">+</button>
