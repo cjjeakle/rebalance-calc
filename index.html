@@ -62,15 +62,16 @@
           <div class="six columns center" href="javascript:loadState(exampleData)">
             <a href="javascript:applyJSONToUrl(exampleData)">Click here to load some example data.</a>
             <br/>
+            <br/>
           </div>
 
           <div class="six columns center" href="javascript:loadState(exampleData)">
             <a href="javascript:clearCurrentStateAndUrl()">Click here to clear all data.</a>
             <br/>
+            <br/>
           </div>
         </div>
 
-        <br/>
         <hr/>
         <br/>
         <!-- User inputs for asset classes and accounts -->
@@ -198,35 +199,31 @@
   <!-- Knockout templates: -->
 
   <script type="text/html" id="asset-class-template">
-    <div class="user-input-row row">
-      <div class="user-input-container center">
-        <div class="eight columns">
-          <input type="text" placeholder="Asset Class" data-bind="value: name"></input>
-          <input type="number" min="0" max="100" placeholder="% of Portfolio" data-bind="value: allocation"></input>
-          <input type="text" placeholder="Notes" data-bind="value: notes"></input>
-        </div>
-        <div class="four columns">
-          <button data-bind="click: moveUp">▲</button>
-          <button data-bind="click: moveDown">▼</button>
-          <button data-bind="click: remove">x</button>
-        </div>
+    <div class="user-input-row row center">
+      <div class="eight columns">
+        <input type="text" placeholder="Asset Class" data-bind="value: name"></input>
+        <input type="number" min="0" max="100" placeholder="% of Portfolio" data-bind="value: allocation"></input>
+        <input type="text" placeholder="Notes" data-bind="value: notes"></input>
+      </div>
+      <div class="four columns">
+        <button data-bind="click: moveUp">▲</button>
+        <button data-bind="click: moveDown">▼</button>
+        <button data-bind="click: remove">x</button>
       </div>
     </div>
   </script>
 
   <script type="text/html" id="account-template">
-    <div class="user-input-row row">
-      <div class="user-input-container center">
-        <div class="eight columns">
-          <input type="text" placeholder="Account Name" data-bind="value: name"></input>
-          <input type="number" min="0" step="0.01" placeholder="Account Balance" data-bind="value: balance"></input>
-          <input type="text" placeholder="Notes" data-bind="value: notes"></input>
-        </div>
-        <div class="four columns">
-          <button data-bind="click: moveUp">▲</button>
-          <button data-bind="click: moveDown">▼</button>
-          <button data-bind="click: remove">x</button>
-        </div>
+    <div class="user-input-row row center">
+      <div class="eight columns">
+        <input type="text" placeholder="Account Name" data-bind="value: name"></input>
+        <input type="number" min="0" step="0.01" placeholder="Account Balance" data-bind="value: balance"></input>
+        <input type="text" placeholder="Notes" data-bind="value: notes"></input>
+      </div>
+      <div class="four columns">
+        <button data-bind="click: moveUp">▲</button>
+        <button data-bind="click: moveDown">▼</button>
+        <button data-bind="click: remove">x</button>
       </div>
     </div>
   </script>

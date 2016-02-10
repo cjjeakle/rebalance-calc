@@ -18,11 +18,8 @@ hr {
 }
 
 .user-input-row {
+	padding-top: 1.25rem;
 	border-top: thin solid lightgray;
-}
-
-.user-input-row .user-input-container {
-	margin-top: 1.5rem;
 }
 
 input[type="text"],
