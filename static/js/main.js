@@ -118,6 +118,10 @@ function loadFromCurrentUrl() {
     }
 }
 
+function applyJSONToUrl(portfolioJSON) {
+    window.location.hash = encodeURI(portfolioJSON);
+}
+
 function clearCurrentStateAndUrl() {
     clearState();
     window.location.hash = '';

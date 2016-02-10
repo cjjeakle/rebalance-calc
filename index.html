@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Portfolio Rebalancing Calculator</title>
-    <meta name="description" content="A tool to help with setting an initial asset allocation and rebalancing one's portfolio.">
+    <meta name="description" content="A tool to help with distributing assets in a new portfolio, and with rebalancing an existing portfolio.">
 
     <!-- Stylesheet and script libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" />
@@ -31,7 +31,7 @@
         </div>
         <br/>
         <p>
-          This tool is meant to help with rebalancing accounts, and with building a tax efficient portfolio (in the U.S.). Rebalancing keeps one's asset allocation (and exposure to risk) in a comfortable range, and works best when all investment accounts are treated as part of a single portfolio.
+          This tool is meant to help with re-balancing assets, and with building a tax efficient portfolio (in the U.S.). Periodically re-balancing keeps one's asset allocation (and exposure to risk) in a comfortable range, and works best when all investment accounts are treated as part of a single portfolio. 
         </p>
         <p>
           See the bogleheads wiki for info on <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement">tax efficiency</a>, 
@@ -52,16 +52,20 @@
           <li>Any remaining asset value is distributed among the remaining accounts with available balances.</li>
           <li>The result of this is displayed below in a table.</li>
         </ol>
+
+        <br/>
+        <hr/>
+        <br/>
+        <!-- Data load and clear links -->
+
         <div class = "row">
           <div class="six columns center" href="javascript:loadState(exampleData)">
-            <a href="javascript:loadState(exampleData)">Click here to load some example data.</a>
-            <br/>
+            <a href="javascript:applyJSONToUrl(exampleData)">Click here to load some example data.</a>
             <br/>
           </div>
 
           <div class="six columns center" href="javascript:loadState(exampleData)">
             <a href="javascript:clearCurrentStateAndUrl()">Click here to clear all data.</a>
-            <br/>
             <br/>
           </div>
         </div>
@@ -79,7 +83,7 @@
           <p>
             <strong>Tax inefficient assets</strong>
             <br/>
-            (Assets which primairly earn via non-qualified dividends):
+            (Assets which primarily earn via non-qualified dividends):
           </p>
           <div data-bind="template: { name: 'asset-class-template', foreach: assetClassesInefficient }"></div>
           <button data-bind="click: newInefficientAssetClass">+</button>
@@ -195,7 +199,7 @@
 
   <script type="text/html" id="asset-class-template">
     <div class="user-input-row row">
-      <div class="center">
+      <div class="user-input-container center">
         <div class="eight columns">
           <input type="text" placeholder="Asset Class" data-bind="value: name"></input>
           <input type="number" min="0" max="100" placeholder="% of Portfolio" data-bind="value: allocation"></input>
@@ -212,7 +216,7 @@
 
   <script type="text/html" id="account-template">
     <div class="user-input-row row">
-      <div class="center">
+      <div class="user-input-container center">
         <div class="eight columns">
           <input type="text" placeholder="Account Name" data-bind="value: name"></input>
           <input type="number" min="0" step="0.01" placeholder="Account Balance" data-bind="value: balance"></input>
