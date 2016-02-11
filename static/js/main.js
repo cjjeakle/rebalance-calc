@@ -124,7 +124,7 @@ function applyJSONToUrl(portfolioJSON) {
 
 function clearCurrentStateAndUrl() {
     clearState();
-    history.replaceState({}, 'Empty State', '/');
+    history.pushState({}, 'Empty State', '/');
 }
 
 function stripExtraViewModelData(key, value) {
