@@ -11,21 +11,21 @@ var exampleData = '\
   "assetClassesInefficient": [\
     {\
       "name": "US Bond",\
-      "allocation": 20,\
+      "allocation": 35,\
       "notes": "BND, FBIDX, ..."\
     }\
   ],\
   "assetClassesCredit": [\
     {\
       "name": "ex-US Stock",\
-      "allocation": 20,\
+      "allocation": 16.25,\
       "notes": "VXUS, FSGUX, ..."\
     }\
   ],\
   "assetClassesEfficient": [\
     {\
       "name": "US Stock",\
-      "allocation": 60,\
+      "allocation": 48.75,\
       "notes": "VTI, FSTMX, ..."\
     }\
   ],\
