@@ -138,7 +138,7 @@ function loadState(portfolioJSON) {
     viewModel.accountsFree(data);
     
     attachAddAndRemoveSubscriptions();
-    invokeAddOrRemoveEventSubscribers();
+    invokeAddAndRemoveEventSubscribers();
 }
 
 function loadFromCurrentUrl() {
@@ -388,7 +388,7 @@ function attachAddAndRemoveSubscriptions() {
     addAndRemoveSubscriptions.push(viewModel.accountsFree.subscribe(globalCalculations));
 }
 
-function invokeAddOrRemoveEventSubscribers() {
+function invokeAddAndRemoveEventSubscribers() {
     computePercentAllocated();
     computeTotalAccountBalance();
     globalCalculations();
