@@ -18,14 +18,14 @@ var exampleData = '\
   "assetClassesCredit": [\
     {\
       "name": "ex-US Stock",\
-      "allocation": 24,\
+      "allocation": 20,\
       "notes": "VXUS, FSGUX, ..."\
     }\
   ],\
   "assetClassesEfficient": [\
     {\
       "name": "US Stock",\
-      "allocation": 56,\
+      "allocation": 60,\
       "notes": "VTI, FSTMX, ..."\
     }\
   ],\
