@@ -17,6 +17,10 @@ hr {
 	margin: 0;
 }
 
+.hidden {
+	display: none;
+}
+
 .user-input-row {
 	padding-top: 1.25rem;
 	border-top: thin solid lightgray;

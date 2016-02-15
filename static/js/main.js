@@ -1,10 +1,11 @@
-"use strict"
+'use strict'
 
 
 /*
 Example data
 ------------
 */
+
 
 var exampleData = '\
 {\
@@ -71,7 +72,7 @@ var viewModel = new AppViewModel();
 // A global array tracking valid subscriptions to the addition and removal of accounts.
 var addAndRemoveSubscriptions = [];
 
-const emptyStateJson = '{}';
+var emptyStateJson = '{}';
 
 function getStateAsUrlHash() {
     if (assetCount() > 0 || accountCount() > 0) {
@@ -89,9 +90,9 @@ function pushStateToUrl() {
 }
 
 function saveState() {
-    $('#save-complete-prompt').hide("easeOutQuart");
-    $('#save-link').attr("href", window.location.href);
-    $('#save-complete-prompt').show("easeOutQuart");
+    $('#save-complete-prompt').hide('easeOutQuart');
+    $('#save-link').attr('href', window.location.href);
+    $('#save-complete-prompt').show('easeOutQuart');
 }
 
 function loadState(portfolioJSON) {

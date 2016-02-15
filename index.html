@@ -43,8 +43,8 @@
           For help classifying accounts, see the first bullet in the list  
           <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#General_strategy">here</a>.
         </p>
-        <ol>
-          <h6 class="no-margin">How it works:</h6>
+        <a href="javascript:$('#how-it-works').toggle('easeOutQuart')"><h6>How it works ></h6></a>
+        <ol id="how-it-works" class="hidden">
           <li>The total value of all accounts is determined, and is partitioned among the asset classes by percentage of the portfolio.</li>
           <li>'Tax inefficient assets' are assigned to tax deferred accounts, then to tax free accounts, and finally taxable accounts.</li>
           <li>'Foreign and tax-exempt assets' are assigned to taxable accounts, and any remaining allocation is postponed to the final step.</li>
@@ -52,8 +52,13 @@
           <li>Any remaining asset value is distributed among the remaining accounts with available balances.</li>
           <li>The result of this is displayed below in a table.</li>
         </ol>
+        <a href="javascript:$('#hints').toggle('easeOutQuart')"><h6>Helpful hints ></h6></a>
+        <ol id="hints" class="hidden">
+          <li>You can use the back and forward buttons as undo and redo.</li>
+          <li>To save your work, just bookmark this page in a state you'd like to preserve.</li>
+          <li>None of your input leaves this page, all calculations are done in-browser.</li>
+        </ol>
 
-        <br/>
         <hr/>
         <br/>
         <!-- Data load and clear links -->
@@ -176,7 +181,7 @@
         <div class="row center">
           <button id="save" class="button-primary" onClick="saveState();">save</button>
           <div id="save-complete-prompt" style="display:none;">
-            Simply bookmark this page! Your work automatically updates the URL as you go. 
+            Simply bookmark this page when ready! The URL automatically contains your changes. 
             <br/>
             <a id="save-link" href="">As a shortcut, you can bookmark or share this link.</a>
           </div>
@@ -230,6 +235,7 @@
 
   <!-- Placed after all markup so knockout can bind successfully -->
   <script src="static/js/main.js"></script>
+  <script src="static/js/ui.js"></script>
 
   <!-- Google Analytics -->
   <script>
