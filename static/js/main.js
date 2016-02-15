@@ -65,6 +65,12 @@ Utility functions
 */
 
 
+// The singleton instance of the view model.
+var viewModel = new AppViewModel();
+
+// A global array tracking valid subscriptions to the addition and removal of accounts.
+var addAndRemoveSubscriptions = [];
+
 function clearState() {
     viewModel.assetClassesInefficient([]);
     viewModel.assetClassesCredit([]);
@@ -126,11 +132,13 @@ function loadState(portfolioJSON) {
     viewModel.accountsFree(data);
 }
 
-function loadFromCurrentUrl() {
+function attemptLoadFromCurrentUrl() {
+    detachAddAndRemoveSubscriptions();
     clearState();
     if(window.location.hash) {
         loadState(decodeURI(window.location.hash.substring(1)));
     }
+    attachAddAndRemoveSubscriptions();
 }
 
 function applyJSONToUrl(portfolioJSON) {
@@ -351,6 +359,37 @@ function resetRemainderTracking() {
     allAccountsView().forEach(function(element) { element.resetRemainder(); });
 }
 
+// Subscribes relevant functions to the addition and removal of assets and accounts
+// (to update calculated values).
+// Immediately invokes each subscribed function once.
+function attachAddAndRemoveSubscriptions() {
+    addAndRemoveSubscriptions.push(viewModel.assetClassesInefficient.subscribe(computePercentAllocated));
+    addAndRemoveSubscriptions.push(viewModel.assetClassesEfficient.subscribe(computePercentAllocated));
+    addAndRemoveSubscriptions.push(viewModel.assetClassesCredit.subscribe(computePercentAllocated));
+    addAndRemoveSubscriptions.push(viewModel.accountsTaxable.subscribe(computeTotalAccountBalance));
+    addAndRemoveSubscriptions.push(viewModel.accountsDeferred.subscribe(computeTotalAccountBalance));
+    addAndRemoveSubscriptions.push(viewModel.accountsFree.subscribe(computeTotalAccountBalance));
+
+    addAndRemoveSubscriptions.push(viewModel.assetClassesInefficient.subscribe(computeAssetAllocation));
+    addAndRemoveSubscriptions.push(viewModel.assetClassesEfficient.subscribe(computeAssetAllocation));
+    addAndRemoveSubscriptions.push(viewModel.assetClassesCredit.subscribe(computeAssetAllocation));
+    addAndRemoveSubscriptions.push(viewModel.accountsTaxable.subscribe(computeAssetAllocation));
+    addAndRemoveSubscriptions.push(viewModel.accountsDeferred.subscribe(computeAssetAllocation));
+    addAndRemoveSubscriptions.push(viewModel.accountsFree.subscribe(computeAssetAllocation));
+
+    computePercentAllocated();
+    computeTotalAccountBalance();
+    computeAssetAllocation();
+}
+
+// Removes all asset and account add/remove subscriptions.
+function detachAddAndRemoveSubscriptions() {
+    addAndRemoveSubscriptions.forEach(function(subscription) {
+        subscription.dispose();
+    });
+    addAndRemoveSubscriptions = [];
+}
+
 
 /*
 The asset allocation calculator
@@ -498,25 +537,12 @@ function denoteAssetFullyAllocated(allocationMatrix, assetDataIndex) {
 
 
 /*
-Subscribe to the addition and removal of assets and accounts
-(to update calculated values)
-------------------------------------------------------------
+Initialize view model and subscriptions
+-------------------------
 */
 
 
-viewModel.assetClassesInefficient.subscribe(computePercentAllocated);
-viewModel.assetClassesEfficient.subscribe(computePercentAllocated);
-viewModel.assetClassesCredit.subscribe(computePercentAllocated);
-viewModel.accountsTaxable.subscribe(computeTotalAccountBalance);
-viewModel.accountsDeferred.subscribe(computeTotalAccountBalance);
-viewModel.accountsFree.subscribe(computeTotalAccountBalance);
-
-viewModel.assetClassesInefficient.subscribe(computeAssetAllocation);
-viewModel.assetClassesEfficient.subscribe(computeAssetAllocation);
-viewModel.assetClassesCredit.subscribe(computeAssetAllocation);
-viewModel.accountsTaxable.subscribe(computeAssetAllocation);
-viewModel.accountsDeferred.subscribe(computeAssetAllocation);
-viewModel.accountsFree.subscribe(computeAssetAllocation);
+attemptLoadFromCurrentUrl();
 
 
 /*
@@ -528,8 +554,8 @@ Apply bindings to the DOM
 // Activates knockout.js
 ko.applyBindings(viewModel);
 
-// Restore any saved state and watch for changes to the desired state
-loadFromCurrentUrl();
+// Watch for changes to the current URL state (back/forward buttons pressed, etc), 
+// and apply the data encoded in the URL.
 $(window).bind("hashchange",function(event) {
-    loadFromCurrentUrl();
+    attemptLoadFromCurrentUrl();
 });
