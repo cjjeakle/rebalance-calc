@@ -71,15 +71,6 @@ var viewModel = new AppViewModel();
 // A global array tracking valid subscriptions to the addition and removal of accounts.
 var addAndRemoveSubscriptions = [];
 
-function clearState() {
-    viewModel.assetClassesInefficient([]);
-    viewModel.assetClassesCredit([]);
-    viewModel.assetClassesEfficient([]);
-    viewModel.accountsTaxable([]);
-    viewModel.accountsDeferred([]);
-    viewModel.accountsFree([]);
-}
-
 function getStateAsUrl() {
     return window.location.pathname + "#" + encodeURI(ko.toJSON(viewModel, stripExtraViewModelData));
 }
@@ -95,49 +86,52 @@ function loadState(portfolioJSON) {
 
     // Assets
     var data = [];
-    portfolioData.assetClassesInefficient.forEach(function(assetClass) {
+    (portfolioData.assetClassesInefficient || []).forEach(function(assetClass) {
         data.push(createInefficientAssetClass(assetClass.name, assetClass.allocation, assetClass.notes));
     });
     viewModel.assetClassesInefficient(data);
 
     data = [];
-    portfolioData.assetClassesCredit.forEach(function(assetClass) {
+    (portfolioData.assetClassesCredit || []).forEach(function(assetClass) {
         data.push(createCreditAssetClass(assetClass.name, assetClass.allocation, assetClass.notes));
     });
     viewModel.assetClassesCredit(data);
 
     data = [];
-    portfolioData.assetClassesEfficient.forEach(function(assetClass) {
+    (portfolioData.assetClassesEfficient || []).forEach(function(assetClass) {
         data.push(createEfficientAssetClass(assetClass.name, assetClass.allocation, assetClass.notes));
     });
     viewModel.assetClassesEfficient(data);
 
     // Accounts
     data = [];
-    portfolioData.accountsTaxable.forEach(function(account) {
+    (portfolioData.accountsTaxable || []).forEach(function(account) {
         data.push(createTaxableAccount(account.name, account.balance, account.notes));
     });
     viewModel.accountsTaxable(data);
 
     data = [];
-    portfolioData.accountsDeferred.forEach(function(account) {
+    (portfolioData.accountsDeferred || []).forEach(function(account) {
         data.push(createDeferredAccount(account.name, account.balance, account.notes));
     });
     viewModel.accountsDeferred(data);
 
     data = [];
-    portfolioData.accountsFree.forEach(function(account) {
+    (portfolioData.accountsFree || []).forEach(function(account) {
         data.push(createFreeAccount(account.name, account.balance, account.notes));
     });
     viewModel.accountsFree(data);
 }
 
-function attemptLoadFromCurrentUrl() {
+function loadFromCurrentUrl() {
     detachAddAndRemoveSubscriptions();
-    clearState();
+
+    var stateJSON = '{}';
     if(window.location.hash) {
-        loadState(decodeURI(window.location.hash.substring(1)));
+        stateJSON = decodeURI(window.location.hash.substring(1));
     }
+    loadState(stateJSON);
+
     attachAddAndRemoveSubscriptions();
 }
 
@@ -146,8 +140,8 @@ function applyJSONToUrl(portfolioJSON) {
 }
 
 function clearCurrentStateAndUrl() {
-    clearState();
     history.pushState({}, 'Empty State', '/');
+    loadFromCurrentUrl();
 }
 
 function stripExtraViewModelData(key, value) {
@@ -540,7 +534,7 @@ Initialize view model and subscriptions
 */
 
 
-attemptLoadFromCurrentUrl();
+loadFromCurrentUrl();
 
 
 /*
@@ -555,5 +549,5 @@ ko.applyBindings(viewModel);
 // Watch for changes to the current URL state (back/forward buttons pressed, etc), 
 // and apply the data encoded in the URL.
 $(window).bind("hashchange",function(event) {
-    attemptLoadFromCurrentUrl();
+    loadFromCurrentUrl();
 });
