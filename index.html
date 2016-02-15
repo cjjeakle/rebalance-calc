@@ -60,13 +60,13 @@
 
         <div class = "row">
           <div class="six columns center" href="javascript:loadState(exampleData)">
-            <a href="javascript:applyJSONToUrl(exampleData)">Click here to load some example data.</a>
+            <a href="javascript:loadState(exampleData)">Click here to load some example data.</a>
             <br/>
             <br/>
           </div>
 
           <div class="six columns center" href="javascript:loadState(exampleData)">
-            <a href="javascript:clearCurrentStateAndUrl()">Click here to clear all data.</a>
+            <a href="javascript:loadState(emptyStateJson)">Click here to clear all data.</a>
             <br/>
             <br/>
           </div>
@@ -176,9 +176,9 @@
         <div class="row center">
           <button id="save" class="button-primary" onClick="saveState();">save</button>
           <div id="save-complete-prompt" style="display:none;">
-            Click this link and bookmark the resulting page: 
+            Simply bookmark the current page! All your work is saved in the URL as you go. 
             <br/>
-            <a id="save-link" href="">This link contains the saved data.</a>
+            <a id="save-link" href="">As a shortcut, you can bookmark or share this link.</a>
           </div>
         </div>
       </div>

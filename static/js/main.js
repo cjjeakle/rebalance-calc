@@ -71,17 +71,32 @@ var viewModel = new AppViewModel();
 // A global array tracking valid subscriptions to the addition and removal of accounts.
 var addAndRemoveSubscriptions = [];
 
-function getStateAsUrl() {
-    return window.location.pathname + "#" + encodeURI(ko.toJSON(viewModel, stripExtraViewModelData));
+const emptyStateJson = '{}';
+
+function getStateAsUrlHash() {
+    if (assetCount() > 0 || accountCount() > 0) {
+        return '#' + encodeURI(ko.toJSON(viewModel, stripExtraViewModelData));
+    } else {
+        return '';
+    }
+}
+
+function pushStateToUrl() {
+    var stateHash = getStateAsUrlHash();
+    if (window.location.hash != stateHash) {
+        history.pushState({}, '', '/' + stateHash);
+    }
 }
 
 function saveState() {
     $('#save-complete-prompt').hide("easeOutQuart");
-    $('#save-link').attr("href", getStateAsUrl());
+    $('#save-link').attr("href", window.location.href);
     $('#save-complete-prompt').show("easeOutQuart");
 }
 
 function loadState(portfolioJSON) {
+    detachAddAndRemoveSubscriptions();
+
     var portfolioData = JSON.parse(portfolioJSON);
 
     // Assets
@@ -121,28 +136,17 @@ function loadState(portfolioJSON) {
         data.push(createFreeAccount(account.name, account.balance, account.notes));
     });
     viewModel.accountsFree(data);
+    
+    attachAddAndRemoveSubscriptions();
+    invokeAddOrRemoveEventSubscribers();
 }
 
 function loadFromCurrentUrl() {
-    detachAddAndRemoveSubscriptions();
-
-    var stateJSON = '{}';
+    var stateJSON = emptyStateJson;
     if(window.location.hash) {
         stateJSON = decodeURI(window.location.hash.substring(1));
     }
     loadState(stateJSON);
-
-    attachAddAndRemoveSubscriptions();
-}
-
-function applyJSONToUrl(portfolioJSON) {
-    window.location.hash = encodeURI(portfolioJSON);
-    loadFromCurrentUrl(); // Work around for IE (after the first hash changed event invoked via this function, no event fires)
-}
-
-function clearCurrentStateAndUrl() {
-    history.pushState({}, 'Empty State', '/');
-    loadFromCurrentUrl();
 }
 
 function stripExtraViewModelData(key, value) {
@@ -201,7 +205,7 @@ function assetClass (name, allocation, notes, parentCollection) {
     this.parentCollection = parentCollection;
 
     this.allocation.subscribe(computePercentAllocated);
-    this.allocation.subscribe(computeAssetAllocation);
+    this.allocation.subscribe(globalCalculations);
 
     this.remove = function() {
         this.parentCollection.remove(this);
@@ -237,7 +241,7 @@ function account (name, balance, notes, parentCollection) {
     this.parentCollection = parentCollection;
 
     this.balance.subscribe(computeTotalAccountBalance);
-    this.balance.subscribe(computeAssetAllocation);
+    this.balance.subscribe(globalCalculations);
 
     this.remove = function() {
         this.parentCollection.remove(this);
@@ -333,6 +337,18 @@ function accountCount() {
     return viewModel.accountsTaxable().length + viewModel.accountsDeferred().length + viewModel.accountsFree().length;
 }
 
+function resetRemainderTracking() {
+    allAssetsView().forEach(function(element) { element.resetRemainder(); });
+    allAccountsView().forEach(function(element) { element.resetRemainder(); });
+}
+
+
+/*
+Computation invoking functions, and change subscription code
+-------------------------------
+*/
+
+
 function computePercentAllocated() {
     viewModel.percentAllocated(0);
     allAssetsView().forEach(function(assetClass){
@@ -347,9 +363,10 @@ function computeTotalAccountBalance() {
     });
 }
 
-function resetRemainderTracking() {
-    allAssetsView().forEach(function(element) { element.resetRemainder(); });
-    allAccountsView().forEach(function(element) { element.resetRemainder(); });
+// Calculations to be run after every change
+function globalCalculations() {
+    pushStateToUrl();
+    computeAssetAllocation();
 }
 
 // Subscribes relevant functions to the addition and removal of assets and accounts
@@ -363,16 +380,18 @@ function attachAddAndRemoveSubscriptions() {
     addAndRemoveSubscriptions.push(viewModel.accountsDeferred.subscribe(computeTotalAccountBalance));
     addAndRemoveSubscriptions.push(viewModel.accountsFree.subscribe(computeTotalAccountBalance));
 
-    addAndRemoveSubscriptions.push(viewModel.assetClassesInefficient.subscribe(computeAssetAllocation));
-    addAndRemoveSubscriptions.push(viewModel.assetClassesEfficient.subscribe(computeAssetAllocation));
-    addAndRemoveSubscriptions.push(viewModel.assetClassesCredit.subscribe(computeAssetAllocation));
-    addAndRemoveSubscriptions.push(viewModel.accountsTaxable.subscribe(computeAssetAllocation));
-    addAndRemoveSubscriptions.push(viewModel.accountsDeferred.subscribe(computeAssetAllocation));
-    addAndRemoveSubscriptions.push(viewModel.accountsFree.subscribe(computeAssetAllocation));
+    addAndRemoveSubscriptions.push(viewModel.assetClassesInefficient.subscribe(globalCalculations));
+    addAndRemoveSubscriptions.push(viewModel.assetClassesEfficient.subscribe(globalCalculations));
+    addAndRemoveSubscriptions.push(viewModel.assetClassesCredit.subscribe(globalCalculations));
+    addAndRemoveSubscriptions.push(viewModel.accountsTaxable.subscribe(globalCalculations));
+    addAndRemoveSubscriptions.push(viewModel.accountsDeferred.subscribe(globalCalculations));
+    addAndRemoveSubscriptions.push(viewModel.accountsFree.subscribe(globalCalculations));
+}
 
+function invokeAddOrRemoveEventSubscribers() {
     computePercentAllocated();
     computeTotalAccountBalance();
-    computeAssetAllocation();
+    globalCalculations();
 }
 
 // Removes all asset and account add/remove subscriptions.
@@ -549,6 +568,6 @@ ko.applyBindings(viewModel);
 
 // Watch for changes to the current URL state (back/forward buttons pressed, etc), 
 // and apply the data encoded in the URL.
-$(window).bind("hashchange",function(event) {
+window.onpopstate = function(event) {
     loadFromCurrentUrl();
-});
+};
