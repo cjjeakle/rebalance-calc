@@ -298,8 +298,6 @@ function AppViewModel() {
     this.computedAllocation = ko.observableArray([]);
 }
 
-var viewModel = new AppViewModel();
-
 function createInefficientAssetClass(name, allocation, notes) {
     return new assetClass(name, allocation, notes, viewModel.assetClassesInefficient);
 }
