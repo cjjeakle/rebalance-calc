@@ -137,6 +137,7 @@ function loadFromCurrentUrl() {
 
 function applyJSONToUrl(portfolioJSON) {
     window.location.hash = encodeURI(portfolioJSON);
+    loadFromCurrentUrl(); // Work around for IE (after the first hash changed event invoked via this function, no event fires)
 }
 
 function clearCurrentStateAndUrl() {
