@@ -87,28 +87,43 @@ function saveState() {
 function loadState(portfolioJSON) {
     var portfolioData = JSON.parse(portfolioJSON);
 
-    clearState();
-
+    // Assets
+    var data = [];
     portfolioData.assetClassesInefficient.forEach(function(assetClass) {
-        addInefficientAssetClass(assetClass.name, assetClass.allocation, assetClass.notes);
+        data.push(createInefficientAssetClass(assetClass.name, assetClass.allocation, assetClass.notes));
     });
+    viewModel.assetClassesInefficient(data);
+
+    data = [];
     portfolioData.assetClassesCredit.forEach(function(assetClass) {
-        addCreditAssetClass(assetClass.name, assetClass.allocation, assetClass.notes);
+        data.push(createCreditAssetClass(assetClass.name, assetClass.allocation, assetClass.notes));
     });
+    viewModel.assetClassesCredit(data);
+
+    data = [];
     portfolioData.assetClassesEfficient.forEach(function(assetClass) {
-        addEfficientAssetClass(assetClass.name, assetClass.allocation, assetClass.notes);
+        data.push(createEfficientAssetClass(assetClass.name, assetClass.allocation, assetClass.notes));
     });
+    viewModel.assetClassesEfficient(data);
 
-
+    // Accounts
+    data = [];
     portfolioData.accountsTaxable.forEach(function(account) {
-        addTaxableAccount(account.name, account.balance, account.notes);
+        data.push(createTaxableAccount(account.name, account.balance, account.notes));
     });
+    viewModel.accountsTaxable(data);
+
+    data = [];
     portfolioData.accountsDeferred.forEach(function(account) {
-        addDeferredAccount(account.name, account.balance, account.notes);
+        data.push(createDeferredAccount(account.name, account.balance, account.notes));
     });
+    viewModel.accountsDeferred(data);
+
+    data = [];
     portfolioData.accountsFree.forEach(function(account) {
-        addFreeAccount(account.name, account.balance, account.notes);
+        data.push(createFreeAccount(account.name, account.balance, account.notes));
     });
+    viewModel.accountsFree(data);
 }
 
 function loadFromCurrentUrl() {
@@ -261,12 +276,12 @@ function AppViewModel() {
     this.accountsDeferred = ko.observableArray([]);
     this.accountsFree = ko.observableArray([]);
 
-    this.newInefficientAssetClass = function() { addInefficientAssetClass(null, null, null); };
-    this.newCreditAssetClass = function() { addCreditAssetClass(null, null, null); };
-    this.newEfficientAssetClass = function() { addEfficientAssetClass(null, null, null); };
-    this.newTaxableAccount = function() { addTaxableAccount(null, null, null); };
-    this.newDeferredAccount = function() { addDeferredAccount(null, null, null); };
-    this.newFreeAccount = function() { addFreeAccount(null, null, null); };
+    this.newInefficientAssetClass = function() { viewModel.assetClassesInefficient.push(createInefficientAssetClass(null, null, null)); };
+    this.newCreditAssetClass = function() { viewModel.assetClassesCredit.push(createCreditAssetClass(null, null, null)); };
+    this.newEfficientAssetClass = function() { viewModel.assetClassesEfficient.push(createEfficientAssetClass(null, null, null)); };
+    this.newTaxableAccount = function() { viewModel.accountsTaxable.push(createTaxableAccount(null, null, null)); };
+    this.newDeferredAccount = function() { viewModel.accountsDeferred.push(createDeferredAccount(null, null, null)); };
+    this.newFreeAccount = function() { viewModel.accountsFree.push(createFreeAccount(null, null, null)); };
     
     this.percentAllocated = ko.observable(0);
     this.totalAccountBalance = ko.observable(0);
@@ -277,28 +292,28 @@ function AppViewModel() {
 
 var viewModel = new AppViewModel();
 
-function addInefficientAssetClass(name, allocation, notes) {
-    viewModel.assetClassesInefficient.push(new assetClass(name, allocation, notes, viewModel.assetClassesInefficient));
+function createInefficientAssetClass(name, allocation, notes) {
+    return new assetClass(name, allocation, notes, viewModel.assetClassesInefficient);
 }
 
-function addCreditAssetClass(name, allocation, notes) {
-    viewModel.assetClassesCredit.push(new assetClass(name, allocation, notes, viewModel.assetClassesCredit));
+function createCreditAssetClass(name, allocation, notes) {
+    return new assetClass(name, allocation, notes, viewModel.assetClassesCredit);
 }
 
-function addEfficientAssetClass(name, allocation, notes) {
-    viewModel.assetClassesEfficient.push(new assetClass(name, allocation, notes, viewModel.assetClassesEfficient));
+function createEfficientAssetClass(name, allocation, notes) {
+    return new assetClass(name, allocation, notes, viewModel.assetClassesEfficient);
 }
 
-function addTaxableAccount(name, balance, notes) {
-    viewModel.accountsTaxable.push(new account(name, balance, notes, viewModel.accountsTaxable));
+function createTaxableAccount(name, balance, notes) {
+    return new account(name, balance, notes, viewModel.accountsTaxable);
 }
 
-function addDeferredAccount(name, balance, notes) {
-    viewModel.accountsDeferred.push(new account(name, balance, notes, viewModel.accountsDeferred));
+function createDeferredAccount(name, balance, notes) {
+    return new account(name, balance, notes, viewModel.accountsDeferred);
 }
 
-function addFreeAccount(name, balance, notes) {
-    viewModel.accountsFree.push(new account(name, balance, notes, viewModel.accountsFree));
+function createFreeAccount(name, balance, notes) {
+    return new account(name, balance, notes, viewModel.accountsFree);
 }
 
 function allAssetsView() {
