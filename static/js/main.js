@@ -205,6 +205,8 @@ function assetClass (name, allocation, notes, parentCollection) {
     this.notes = ko.observable(notes);
     this.parentCollection = parentCollection;
 
+    this.name.subscribe(pushStateToUrl);
+    this.notes.subscribe(pushStateToUrl);
     this.allocation.subscribe(computePercentAllocated);
     this.allocation.subscribe(globalCalculations);
 
@@ -241,6 +243,8 @@ function account (name, balance, notes, parentCollection) {
     this.notes = ko.observable(notes);
     this.parentCollection = parentCollection;
 
+    this.name.subscribe(pushStateToUrl);
+    this.notes.subscribe(pushStateToUrl);
     this.balance.subscribe(computeTotalAccountBalance);
     this.balance.subscribe(globalCalculations);
 
