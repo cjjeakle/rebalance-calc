@@ -7,7 +7,7 @@ RebalanceCalc is a simple web app built using knockoutjs, skeleton, and jQuery.
 
 ## Cool features:
 
-* This site is entirely client-side, so one can [download](https://github.com/cjjeakle/rebalance-calc/archive/master.zip) the source zip from github and run rebalance calc entirely offline (even saving/loading via URL works!)
+* This site is entirely client-side, so one can [download](https://github.com/cjjeakle/rebalance-calc/archive/gh-pages.zip) the source zip from github and run rebalance calc entirely offline (even saving/loading via URL works!)
 * The site automatically persists every change to the URL, making it easy to undo, redo, save, share, and restore your work
 
 ## License:
