@@ -87,12 +87,21 @@ function pushStateToUrl() {
     if (window.location.hash != stateHash) {
         history.pushState({}, '', '/' + stateHash);
     }
+    updateSaveLink();
 }
 
-function saveState() {
-    $('#save-complete-prompt').hide('easeOutQuart');
+function updateSaveLink() {
     $('#save-link').attr('href', window.location.href);
-    $('#save-complete-prompt').show('easeOutQuart');
+}
+
+function toggleUrlLink() {
+    $('#save-complete-prompt').toggle('easeInOutElastic', function() {
+        if ($('#save-complete-prompt').is(":visible")) {
+            $('#save-btn').text('hide link');
+        } else {
+            $('#save-btn').text('save');
+        }
+    });
 }
 
 function loadState(portfolioJSON) {
