@@ -7,14 +7,11 @@
     <title>Portfolio Rebalancing Calculator</title>
     <meta name="description" content="A tool to help with distributing assets in a new portfolio, and with rebalancing an existing portfolio.">
 
-    <!-- Stylesheet and script libraries -->
+    <!-- Stylesheet libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
-
-    <!-- Hand-rolled stylesheets and scripts -->
+    <!-- Hand-rolled stylesheets -->
     <link rel="stylesheet" href="static/css/main.css" />
   </head>
   <body>
@@ -233,9 +230,13 @@
     </div>
   </script>
 
-  <!-- Placed after all markup so knockout can bind successfully -->
-  <script src="static/js/main.js"></script>
-  <script src="static/js/ui.js"></script>
+  <!-- Javascript libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+
+  <!-- The App's Javascript -->
+  <script async src="static/js/ui.js"></script>
+  <script async defer src="static/js/main.js"></script>
 
   <!-- Google Analytics -->
   <script>
