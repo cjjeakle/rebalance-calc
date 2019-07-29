@@ -1,11 +1,12 @@
-import {  } from "../actions/types";
-import { Action } from "redux";
+import * as ActionTypes from "../actions/types";
 
 const initialState = {
 }
 
-export default function(state = initialState, action: Action) {
-    switch (action.type) {
+export default function accountsReducer(
+    state = initialState,
+    action
+) {
         default:
             return state;
     }

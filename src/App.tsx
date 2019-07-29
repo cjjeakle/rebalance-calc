@@ -1,23 +1,31 @@
 import React from "react";
 import ReactDom from "react-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { connect } from "react-redux";
 
-import rootReducer from 
+import { AppState } from "./store";
 
-let store = createStore(() => [], null, applyMiddleware());
+import AssetAllocation from "./components/AssetAllocation";
+import AvailableAccounts from "./components/AvailableAccounts";
+import SuggestedAllocation from "./components/SuggestedAllocation";
 
-class App extends React.Component {
+interface IAppProps {
+
+}
+
+class App extends React.Component<IAppProps> {
   render() {
     return (
-      <>
+      <AssetAllocation />
+      <AvailableAccounts />
+      <SuggestedAllocation />
     );
   }
 }
 
-ReactDom.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("main")
-);
+const mapStateToProps = (state: AppState): IAppProps => ({
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(App);
