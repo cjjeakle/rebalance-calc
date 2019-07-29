@@ -1,0 +1,41 @@
+{
+  "name": "rebalance-calc",
+  "version": "2.0.0",
+  "description": "A tool to help with rebalancing one's investment portfolio",
+  "main": "src/index.html",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjjeakle/rebalance-calc.git"
+  },
+  "keywords": [
+    "Portfolio",
+    "Rebalance",
+    "Calculator",
+    "Investing",
+    "Tax",
+    "Optimization"
+  ],
+  "author": "Chris Jeakle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cjjeakle/rebalance-calc/issues"
+  },
+  "homepage": "https://www.rebalancecalc.com",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.5",
+    "@types/react-redux": "^7.1.1",
+    "parcel-bundler": "^1.12.3",
+    "typescript": "^3.5.3"
+  }
+}
