@@ -1,3 +1,7 @@
+export interface ISchemaVersion {
+    schemaVersion: string;
+}
+
 export interface IAssetClass {
     name: string;
     allocation: number;
@@ -10,15 +14,13 @@ export interface IAssetsState {
     assetsRegular: IAssetClass[];
 }
 
-export interface IAccount {
-    name: string;
-    balance: number;
-    notes: string;
-}
-
 export const ADD_TAX_INEFFICIENT_ASSET = "ADD_TAX_INEFFICIENT_ASSET";
 export const ADD_TAX_ADVANTAGED_ASSET = "ADD_TAX_ADVANTAGED_ASSET";
 export const ADD_REGULAR_ASSET = "ADD_REGULAR_ASSET";
+
+export const REMOVE_TAX_INEFFICIENT_ASSET = "REMOVE_TAX_INEFFICIENT_ASSET";
+export const REMOVE_TAX_ADVANTAGED_ASSET = "REMOVE_TAX_ADVANTAGED_ASSET";
+export const REMOVE_REGULAR_ASSET = "REMOVE_REGULAR_ASSET";
 
 export interface IAddTaxInefficientAsset {
     type: typeof ADD_TAX_INEFFICIENT_ASSET;
@@ -41,8 +43,11 @@ export type AssetActionTypes = IAddTaxInefficientAsset | IAddTaxAdvantagedAsset 
 
 
 
+export interface IAccount {
+    name: string;
+    balance: number;
+    notes: string;
+}
 
-export const REMOVE_TAX_INEFFICIENT_ASSET = "REMOVE_TAX_INEFFICIENT_ASSET";
-export const REMOVE_TAX_ADVANTAGED_ASSET = "REMOVE_TAX_ADVANTAGED_ASSET";
-export const REMOVE_REGULAR_ASSET = "REMOVE_REGULAR_ASSET";
-
+export interface IAccountState {
+}

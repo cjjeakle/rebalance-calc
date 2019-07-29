@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDom from "react-dom";
 import { connect } from "react-redux";
 
 import { AppState } from "./store";
@@ -9,15 +8,16 @@ import AvailableAccounts from "./components/AvailableAccounts";
 import SuggestedAllocation from "./components/SuggestedAllocation";
 
 interface IAppProps {
-
 }
 
 class App extends React.Component<IAppProps> {
   render() {
     return (
-      <AssetAllocation />
-      <AvailableAccounts />
-      <SuggestedAllocation />
+      <div>
+        <AssetAllocation />
+        <AvailableAccounts />
+        <SuggestedAllocation />
+      </div>
     );
   }
 }

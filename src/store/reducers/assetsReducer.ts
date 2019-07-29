@@ -1,4 +1,4 @@
-import * as ActionTypes from "../actions/types";
+import * as ActionTypes from "../types";
 
 const initialState: ActionTypes.IAssetsState = {
     assetsInefficient: [],
@@ -21,7 +21,7 @@ export default function assetsReducer(
                 ...state,
                 assetsAdvantaged: [...state.assetsAdvantaged, action.payload]
             }
-        case: ActionTypes.ADD_REGULAR_ASSET:
+        case ActionTypes.ADD_REGULAR_ASSET:
             return {
                 ...state,
                 assetsRegular: [...state.assetsRegular, action.payload]
