@@ -1,13 +1,13 @@
-import * as ActionTypes from "../types";
+import * as ActionTypes from "../ActionTypes";
 
 const initialState = {
 }
 
 export default function accountsReducer(
-    state = initialState,
-    action
+  state = initialState,
+  action
 ) {
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }

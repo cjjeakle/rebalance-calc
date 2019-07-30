@@ -1,22 +1,32 @@
-import * as ActionTypes from "./types";
+import * as ActionTypes from "../types/assetTypes";
 
-export function addTaxInefficientAsset (assetClass: ActionTypes.IAssetClass): ActionTypes.IAddTaxInefficientAsset {
+export function addAsset (taxCategory: ActionTypes.AssetTaxTreatment, asset: ActionTypes.IAsset): ActionTypes.IAddAsset {
   return {
-    type: ActionTypes.ADD_TAX_INEFFICIENT_ASSET,
-    payload: assetClass
+    type: ActionTypes.ADD_ASSET,
+    payload: {
+      taxCategory,
+      asset
+    }
   };
 }
 
-export function addTaxAdvantagedAsset (assetClass: ActionTypes.IAssetClass): ActionTypes.IAddTaxAdvantagedAsset {
+export function moveAsset (taxCategory: ActionTypes.AssetTaxTreatment, prevIndex: number, newIndex: number): ActionTypes.IMoveAsset {
   return {
-    type: ActionTypes.ADD_TAX_ADVANTAGED_ASSET,
-    payload: assetClass
-  };
+    type: ActionTypes.MOVE_ASSET,
+    payload: {
+      taxCategory,
+      prevIndex,
+      newIndex
+    }
+  }
 }
 
-export function addRegularAsset (assetClass: ActionTypes.IAssetClass): ActionTypes.IAddRegularAsset {
+export function removeAsset (taxCategory: ActionTypes.AssetTaxTreatment, index: number): ActionTypes.IRemoveAsset {
   return {
-    type: ActionTypes.ADD_REGULAR_ASSET,
-    payload: assetClass
-  };
+    type: ActionTypes.REMOVE_ASSET,
+    payload: {
+      taxCategory,
+      index
+    }
+  }
 }

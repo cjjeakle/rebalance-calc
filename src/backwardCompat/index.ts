@@ -1,40 +1,56 @@
-import * as StoreTypes from "../store/types";
+import { ISchemaVersion } from "../store/types/versionTypes";
+import { IAssetsState } from "../store/types/assetTypes";
+import { IAccountState } from "../store/types/accountTypes";
 
 interface IAssetV1 {
-    name: string;
-    allocation: number;
-    notes: string;
+  name: string;
+  allocation: number;
+  notes: string;
 }
 
 interface IAccountV1 {
-    name: string;
-    balance: number;
-    notes: string;
+  name: string;
+  balance: number;
+  notes: string;
 }
 
 interface IStateV1 {
-    // Schema Version wasn't defined in the initial release
-    schemaVersion: null;
+  // Schema Version wasn't defined in the initial release
+  schemaVersion: null;
 
-    // Asset Classes
-    assetClassesInefficient: IAssetV1[];
-    assetClassesCredit: IAssetV1[];
-    assetClassesEfficient: IAssetV1[];
+  // Asset Classes
+  assetClassesInefficient: IAssetV1[];
+  assetClassesCredit: IAssetV1[];
+  assetClassesEfficient: IAssetV1[];
 
-    // Account Types
-    accountsTaxable: IAccountV1[];
-    accountsDeferred: IAccountV1[];
-    accountsFree: IAccountV1[];
+  // Account Types
+  accountsTaxable: IAccountV1[];
+  accountsDeferred: IAccountV1[];
+  accountsFree: IAccountV1[];
 }
 
-type IPrevSchema = IStateV1;
-type ICurSchema = StoreTypes.ISchemaVersion & StoreTypes.IAssetsState & StoreTypes.IAccountState;
+type ICurSchema = ISchemaVersion & IAssetsState & IAccountState;
+type IValidSchema = IStateV1 | ICurSchema;
 
-export function mapV1ToCur(stateV1: IPrevSchema): ICurSchema {
-    return {
-        schemaVersion: "2",
-        assetsInefficient: stateV1.assetClassesInefficient,
-        assetsAdvantaged: stateV1.assetClassesCredit,
-        assetsRegular: stateV1.assetClassesEfficient
-    }
+export function loadStateFromSave(state: IValidSchema): ICurSchema {
+  switch (state.schemaVersion) {
+    case null:
+      return mapV1ToCur(<IStateV1>state);
+    case "2":
+      return <ICurSchema>state;
+    default:
+      throw "Invalid save data!";
+  }
+}
+
+export function mapV1ToCur(stateV1: IStateV1): ICurSchema {
+  return {
+    schemaVersion: "2",
+    assetsRegular: stateV1.assetClassesEfficient,
+    assetsAdvantaged: stateV1.assetClassesCredit,
+    assetsInefficient: stateV1.assetClassesInefficient,
+    accountsRegular: stateV1.accountsTaxable,
+    accountsDeferred: stateV1.accountsDeferred,
+    accountsExempt: stateV1.accountsFree,
+  };
 }
