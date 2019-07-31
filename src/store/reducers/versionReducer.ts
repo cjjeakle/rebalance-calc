@@ -1,8 +1,6 @@
-import { ISchemaVersion } from "../types/versionTypes";
+import { CurrentSchemaVersion } from "../types/versionTypes";
 
-const initialState: ISchemaVersion = {
-  schemaVersion: "2"
-};
+const initialState: CurrentSchemaVersion = "2"
 
 export default function versionReducer(): typeof initialState {
   return initialState;

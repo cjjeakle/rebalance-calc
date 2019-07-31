@@ -6,9 +6,9 @@ import assetsReducer from "./reducers/assetsReducer";
 import accountsReducer from "./reducers/accountsReducer";
 
 const rootReducer = combineReducers({
-  versionReducer,
-  assetsReducer,
-  accountsReducer
+  version: versionReducer,
+  assets: assetsReducer,
+  accounts: accountsReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

@@ -1,6 +1,4 @@
-import { ISchemaVersion } from "../store/types/versionTypes";
-import { IAssetsState } from "../store/types/assetTypes";
-import { IAccountState } from "../store/types/accountTypes";
+import { AppState } from "../store";
 
 interface IAssetV1 {
   name: string;
@@ -16,7 +14,7 @@ interface IAccountV1 {
 
 interface IStateV1 {
   // Schema Version wasn't defined in the initial release
-  schemaVersion: null;
+  version: null;
 
   // Asset Classes
   assetClassesInefficient: IAssetV1[];
@@ -29,28 +27,31 @@ interface IStateV1 {
   accountsFree: IAccountV1[];
 }
 
-type ICurSchema = ISchemaVersion & IAssetsState & IAccountState;
-type IValidSchema = IStateV1 | ICurSchema;
+type IValidSchema = IStateV1 | AppState;
 
-export function loadStateFromSave(state: IValidSchema): ICurSchema {
-  switch (state.schemaVersion) {
+export function loadStateFromSave(state: IValidSchema): AppState {
+  switch (state.version) {
     case null:
       return mapV1ToCur(<IStateV1>state);
     case "2":
-      return <ICurSchema>state;
+      return <AppState>state;
     default:
       throw "Invalid save data!";
   }
 }
 
-export function mapV1ToCur(stateV1: IStateV1): ICurSchema {
+export function mapV1ToCur(stateV1: IStateV1): AppState {
   return {
-    schemaVersion: "2",
-    assetsRegular: stateV1.assetClassesEfficient,
-    assetsAdvantaged: stateV1.assetClassesCredit,
-    assetsInefficient: stateV1.assetClassesInefficient,
-    accountsRegular: stateV1.accountsTaxable,
-    accountsDeferred: stateV1.accountsDeferred,
-    accountsExempt: stateV1.accountsFree,
+    version: "2",
+    assets: {
+      regular: stateV1.assetClassesEfficient,
+      advantaged: stateV1.assetClassesCredit,
+      inefficient: stateV1.assetClassesInefficient
+    },
+    accounts: {
+      regular: stateV1.accountsTaxable,
+      taxDeferred: stateV1.accountsDeferred,
+      taxExempt: stateV1.accountsFree
+    }
   };
 }

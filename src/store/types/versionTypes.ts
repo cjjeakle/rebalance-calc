@@ -1,3 +1,1 @@
-export interface ISchemaVersion {
-  schemaVersion: "2";
-}
+export type CurrentSchemaVersion = "2"
