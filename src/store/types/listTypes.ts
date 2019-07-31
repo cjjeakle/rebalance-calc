@@ -6,7 +6,7 @@ export const MOVE_IN_LIST = "MOVE_IN_LIST";
 export const REMOVE_FROM_LIST = "REMOVE_FROM_LIST";
 
 /* Action Interfaces: */
-export interface IAddToList<T, ID> {
+export interface IAddToList<ID, T> {
   type: typeof ADD_TO_LIST;
   listId: ID;
   payload: T;
@@ -26,4 +26,4 @@ export interface IRemoveFromList<ID> {
 }
 
 /* Supported Actions: */
-export type ListActionTypes<T, ID> = IAddToList<T, ID> | IMoveInList<ID> | IRemoveFromList<ID>;
+export type ListActionTypes<ID, T> = IAddToList<ID, T> | IMoveInList<ID> | IRemoveFromList<ID>;

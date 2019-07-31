@@ -1,57 +1,52 @@
 import { AppState } from "../store";
 
-interface IAssetV1 {
+interface IAssetSaveSchema {
   name: string;
   allocation: number;
   notes: string;
 }
 
-interface IAccountV1 {
+interface IAccountSaveSchema {
   name: string;
   balance: number;
   notes: string;
 }
 
-interface IStateV1 {
-  // Schema Version wasn't defined in the initial release
-  version: null;
-
+interface ISaveSchema {
   // Asset Classes
-  assetClassesInefficient: IAssetV1[];
-  assetClassesCredit: IAssetV1[];
-  assetClassesEfficient: IAssetV1[];
+  assetClassesInefficient: IAssetSaveSchema[];
+  assetClassesCredit: IAssetSaveSchema[];
+  assetClassesEfficient: IAssetSaveSchema[];
 
   // Account Types
-  accountsTaxable: IAccountV1[];
-  accountsDeferred: IAccountV1[];
-  accountsFree: IAccountV1[];
+  accountsTaxable: IAccountSaveSchema[];
+  accountsDeferred: IAccountSaveSchema[];
+  accountsFree: IAccountSaveSchema[];
 }
 
-type IValidSchema = IStateV1 | AppState;
 
-export function loadStateFromSave(state: IValidSchema): AppState {
-  switch (state.version) {
-    case null:
-      return mapV1ToCur(<IStateV1>state);
-    case "2":
-      return <AppState>state;
-    default:
-      throw "Invalid save data!";
-  }
-}
-
-export function mapV1ToCur(stateV1: IStateV1): AppState {
+export function mapSaveToState(save: ISaveSchema): AppState {
   return {
-    version: "2",
     assets: {
-      regular: stateV1.assetClassesEfficient,
-      advantaged: stateV1.assetClassesCredit,
-      inefficient: stateV1.assetClassesInefficient
+      regular: save.assetClassesEfficient,
+      advantaged: save.assetClassesCredit,
+      inefficient: save.assetClassesInefficient
     },
     accounts: {
-      regular: stateV1.accountsTaxable,
-      taxDeferred: stateV1.accountsDeferred,
-      taxExempt: stateV1.accountsFree
+      regular: save.accountsTaxable,
+      taxDeferred: save.accountsDeferred,
+      taxExempt: save.accountsFree
     }
+  };
+}
+
+export function mapStateToSave(state: AppState): ISaveSchema {
+  return {
+    assetClassesEfficient: state.assets.regular,
+    assetClassesCredit: state.assets.advantaged,
+    assetClassesInefficient: state.assets.inefficient,
+    accountsTaxable: state.accounts.regular,
+    accountsDeferred: state.accounts.taxDeferred,
+    accountsFree: state.accounts.taxExempt
   };
 }

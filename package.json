@@ -5,6 +5,8 @@
   "main": "src/index.html",
   "scripts": {
     "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +28,7 @@
   },
   "homepage": "https://www.rebalancecalc.com",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",

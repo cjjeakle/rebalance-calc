@@ -1,11 +1,10 @@
 import * as ActionTypes from "../types/listTypes";
-import * as AccountTypes from "../../core_types/accountTypes";
-import * as AssetTypes from "../../core_types/assetTypes";
+import * as AccountTypes from "../types/accountTypes";
+import * as AssetTypes from "../types/assetTypes";
 
-export type SupportedPayload = AccountTypes.IAccount | AssetTypes.IAsset;
-export type SupportedListIDs = AccountTypes.AccountListTypes | AssetTypes.AssetListTypes;
-
-export function addData<T, ID>(listId: ID, payload: T): ActionTypes.IAddToList<T, ID> {
+export function addData(listId: AssetTypes.AssetListNames, payload: AssetTypes.IAsset): ActionTypes.IAddToList<AssetTypes.AssetListNames, AssetTypes.IAsset>
+export function addData(listId: AccountTypes.AccountListNames, payload: AccountTypes.IAccount): ActionTypes.IAddToList<AccountTypes.AccountListNames, AccountTypes.IAccount>
+export function addData(listId: string, payload: any): ActionTypes.IAddToList<string, any> {
   return {
     type: ActionTypes.ADD_TO_LIST,
     listId,
@@ -13,7 +12,9 @@ export function addData<T, ID>(listId: ID, payload: T): ActionTypes.IAddToList<T
   };
 }
 
-export function moveAccount<ID> (listId: ID, prevIndex: number, newIndex: number): ActionTypes.IMoveInList<ID> {
+export function moveAccount(listId: AssetTypes.AssetListNames, prevIndex: number, newIndex: number): ActionTypes.IMoveInList<AssetTypes.AssetListNames>
+export function moveAccount(listId: AccountTypes.AccountListNames, prevIndex: number, newIndex: number): ActionTypes.IMoveInList<AccountTypes.AccountListNames>
+export function moveAccount(listId: string, prevIndex: number, newIndex: number): ActionTypes.IMoveInList<string> {
   return {
     type: ActionTypes.MOVE_IN_LIST,
     listId,
@@ -22,7 +23,9 @@ export function moveAccount<ID> (listId: ID, prevIndex: number, newIndex: number
   }
 }
 
-export function removeAccount<ID> (listId: ID, index: number): ActionTypes.IRemoveFromList<ID> {
+export function removeAccount(listId: AssetTypes.AssetListNames, index: number): ActionTypes.IRemoveFromList<AssetTypes.AssetListNames>
+export function removeAccount(listId: AccountTypes.AccountListNames, index: number): ActionTypes.IRemoveFromList<AccountTypes.AccountListNames>
+export function removeAccount(listId: string, index: number): ActionTypes.IRemoveFromList<string> {
   return {
     type: ActionTypes.REMOVE_FROM_LIST,
     listId,
