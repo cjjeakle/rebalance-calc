@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDom, { render } from "react-dom";
+import * as React from "react";
+import * as ReactDom from "react-dom";
 import { Provider } from "react-redux";
 
 import configureStore from "./store";
