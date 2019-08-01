@@ -2,22 +2,29 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import { AppState } from "../store";
+import AssetsReducer from "../store/reducers/assetsReducer"
+import { IAsset } from "../store/types/assetTypes"
 
-interface IComponentProps {
-}
+export type IAssetAllocationProps = ReturnType<typeof AssetsReducer>;
 
-class App extends React.Component<IComponentProps> {
+class AssetAllocation extends React.Component<IAssetAllocationProps, AppState> {
+  constructor(props: IAssetAllocationProps) {
+    super(props);
+  }
   render() {
     return (
-      <div>HELLO WORLD!</div>
+      <div>
+        
+      </div>
     );
   }
 }
 
-const mapStateToProps = (state: AppState): IComponentProps => ({
-});
+const mapStateToProps = (state: AppState): IAssetAllocationProps => {
+  return state.assets;
+};
 
 export default connect(
   mapStateToProps,
   {}
-)(App);
+)(AssetAllocation);

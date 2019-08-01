@@ -6,7 +6,7 @@ import { AppState } from "../store";
 interface IComponentProps {
 }
 
-class App extends React.Component<IComponentProps> {
+class AvailableAccounts extends React.Component<IComponentProps> {
   render() {
     return (
       <div></div>
@@ -20,4 +20,4 @@ const mapStateToProps = (state: AppState): IComponentProps => ({
 export default connect(
   mapStateToProps,
   {}
-)(App);
+)(AvailableAccounts);

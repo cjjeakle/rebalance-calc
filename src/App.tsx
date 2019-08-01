@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { AppState } from "./store";
 
+import About from "./components/About";
 import AssetAllocation from "./components/AssetAllocation";
 import AvailableAccounts from "./components/AvailableAccounts";
 import SuggestedAllocation from "./components/SuggestedAllocation";
@@ -13,7 +14,8 @@ interface IAppProps {
 class App extends React.Component<IAppProps> {
   render() {
     return (
-      <div>
+      <div className="container">
+        <About />
         <AssetAllocation />
         <AvailableAccounts />
         <SuggestedAllocation />
