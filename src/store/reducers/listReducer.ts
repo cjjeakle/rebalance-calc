@@ -7,12 +7,14 @@ export function listReducer<ID, T>(
   action: ActionTypes.ListActionTypes<ID, T>
 ): ActionTypes.ListState<T> {
   switch (action.type) {
-    case ActionTypes.ADD_TO_LIST:
+    case ActionTypes.ADD_ELEMENT:
       return [...state, action.payload];
-    case ActionTypes.MOVE_IN_LIST:
+    case ActionTypes.UPDATE_ELEMENT:
+        return [...state.slice(0, action.index), action.payload, ...state.slice(action.index + 1)];
+    case ActionTypes.MOVE_ELEMENT:
       let newState = [...state.slice(0, action.prevIndex), ...state.slice(action.prevIndex + 1)]
       return newState.splice(action.newIndex, 0, state[action.prevIndex]);
-    case ActionTypes.REMOVE_FROM_LIST:
+    case ActionTypes.REMOVE_ELEMENT:
       return [...state.slice(0, action.index), ...state.slice(action.index + 1)];
     default:
       return state;

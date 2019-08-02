@@ -4,10 +4,13 @@ import { AppState } from "../store";
 import * as UiActionCreators from "../store/actions/uiActiuons";
 
 interface IAboutProps {
-  toggleHowItWorksVisible: typeof UiActionCreators.toggleHowItWorksVisible;
-  toggleTipsAndTricksVisible: typeof UiActionCreators.toggleTipsAndTricksVisible;
+  /* State */
   howItWorksVisible: boolean;
   tipsAndTricksVisible: boolean;
+
+  /* Actions */
+  toggleHowItWorksVisible: typeof UiActionCreators.toggleHowItWorksVisible;
+  toggleTipsAndTricksVisible: typeof UiActionCreators.toggleTipsAndTricksVisible;
 }
 
 class About extends React.Component<IAboutProps> {
