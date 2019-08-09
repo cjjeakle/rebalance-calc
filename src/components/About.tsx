@@ -33,30 +33,24 @@ class About extends React.Component<IAboutProps> {
               See the bogleheads wiki for info on <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement">tax efficiency</a>, 
               and for <a href="https://www.bogleheads.org/wiki/Video:Bogleheads%C2%AE_investment_philosophy">general investing suggestions</a>.
             </p>
-            <p>
-              For help classifying assets, <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>. 
-              For help classifying accounts, see the first bullet in the list <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#General_strategy">here</a>.
-            </p>
           </div>
         </div>
         <hr />
-        <br />
         <div className="row justify-content-center">
           <div className="col-auto">
             <button 
               onClick={this.props.toggleHowItWorksVisible} 
-              className={"btn btn-outline-info " + (this.props.howItWorksVisible ? " active" : "")} >
+              className={"btn btn-outline-info btn-sm" + (this.props.howItWorksVisible ? " active" : "")} >
               How It Works ▼
             </button>
           </div>
           <div className="col-auto">
             <button onClick={this.props.toggleTipsAndTricksVisible} 
-            className={"btn btn-outline-info " + (this.props.tipsAndTricksVisible ? " active" : "")} >
+            className={"btn btn-outline-info btn-sm" + (this.props.tipsAndTricksVisible ? " active" : "")} >
               Tips and Tricks ▼
             </button>
           </div>
         </div>
-        <br />
         <div className="row">
           <div className="col">
             {this.props.howItWorksVisible && <HowItWorks />}
@@ -72,14 +66,19 @@ class About extends React.Component<IAboutProps> {
 class HowItWorks extends React.Component {
   render() {
     return (
-      <ol>
-        <li>The total value of all accounts is determined, and is partitioned among the asset classes by percentage of the portfolio.</li>
-        <li>'Tax inefficient assets' are assigned to tax deferred accounts, then to tax free accounts, and finally taxable accounts.</li>
-        <li>'Foreign and tax-exempt assets' are assigned to taxable accounts, and any remaining allocation is postponed to the final step.</li>
-        <li>'Regular assets' are assigned to tax free accounts, any remaining allocation is postponed to the final step, as well.</li>
-        <li>Any remaining asset value is distributed among the remaining accounts with available balances.</li>
-        <li>The result of this is displayed below in a table.</li>
-      </ol>
+      <div className="row justify-content-center">
+        <div className="col-8">
+          <br />
+          <ol>
+            <li>The total value of all accounts is determined, and is partitioned among the asset classes by percentage of the portfolio.</li>
+            <li>'Tax inefficient assets' are assigned to tax deferred accounts, then to tax free accounts, and finally taxable accounts.</li>
+            <li>'Foreign and tax-exempt assets' are assigned to taxable accounts, and any remaining allocation is postponed to the final step.</li>
+            <li>'Regular assets' are assigned to tax free accounts, any remaining allocation is postponed to the final step, as well.</li>
+            <li>Any remaining asset value is distributed among the remaining accounts with available balances.</li>
+            <li>The result of this is displayed below in a table.</li>
+          </ol>
+        </div>
+      </div>
     );
   }
 }
@@ -87,15 +86,20 @@ class HowItWorks extends React.Component {
 class UsabilityHints extends React.Component {
   render() {
     return (
-      <ol>
-        <li>
-          To save your work, just bookmark this page.
-          <ul>
-            <li>All your changes are automatically updated in the private hash or "fragment identifier" (#) portion of the URL.</li>
-          </ul>
-        </li>
-        <li>None of your input leaves this page, all calculations are done in-browser.</li>
-      </ol>
+      <div className="row justify-content-center">
+        <div className="col-8">
+          <br />
+          <ol>
+            <li>
+              To save your work, just bookmark this page.
+              <ul>
+                <li>All your changes are automatically updated in the private hash or "fragment identifier" (#) portion of the URL.</li>
+              </ul>
+            </li>
+            <li>None of your input leaves this page, all calculations are done in-browser.</li>
+          </ol>
+        </div>
+      </div>
     );
   }
 }

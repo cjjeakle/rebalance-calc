@@ -13,8 +13,12 @@ class AssetAllocation extends React.Component<IAssetAllocationProps, AppState> {
 
   render() {
     return (
-      <div>
-        
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            For help classifying assets, <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>.
+          </div>
+        </div>
       </div>
     );
   }
