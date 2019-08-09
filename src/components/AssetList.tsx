@@ -2,13 +2,13 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { ListState } from "../store/types/listTypes";
 import * as listActions from "../store/actions/listActons";
-import { IAccount } from "../store/types/accountTypes";
+import { IAsset } from "../store/types/assetTypes";
 
 export interface IAssetTypeListProps {
   /* State */
   title: string;
   info: string;
-  elements: ListState<IAccount>;
+  elements: ListState<IAsset>;
 
   /* Actions */
   addData: typeof listActions.addElement;

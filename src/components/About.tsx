@@ -34,10 +34,8 @@ class About extends React.Component<IAboutProps> {
               and for <a href="https://www.bogleheads.org/wiki/Video:Bogleheads%C2%AE_investment_philosophy">general investing suggestions</a>.
             </p>
             <p>
-              For help classifying assets, 
-              <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>. 
-              For help classifying accounts, see the first bullet in the list  
-              <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#General_strategy">here</a>.
+              For help classifying assets, <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>. 
+              For help classifying accounts, see the first bullet in the list <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#General_strategy">here</a>.
             </p>
           </div>
         </div>
@@ -90,7 +88,12 @@ class UsabilityHints extends React.Component {
   render() {
     return (
       <ol>
-        <li>To save your work, just bookmark this page. All your changes are automatically updated in the private "#" (fragment identifier) portion of the URL.</li>
+        <li>
+          To save your work, just bookmark this page.
+          <ul>
+            <li>All your changes are automatically updated in the private hash or "fragment identifier" (#) portion of the URL.</li>
+          </ul>
+        </li>
         <li>None of your input leaves this page, all calculations are done in-browser.</li>
       </ol>
     );

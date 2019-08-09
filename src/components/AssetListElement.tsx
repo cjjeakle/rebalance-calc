@@ -5,10 +5,10 @@ import { IAsset, AssetListNames } from "../store/types/assetTypes";
 
 export interface IAssetListElementProps {
   /* State */
-  list: AssetListNames;
+  listName: AssetListNames;
   index: number;
   asset: IAsset;
-``
+
   /* Actions */
   updateAsset: typeof ListActions.updateElement;
 }
@@ -26,7 +26,7 @@ export class AssetListElement extends React.Component<IAssetListElementProps> {
               onChange={
                 (e: React.ChangeEvent) => { 
                   this.props.updateAsset(
-                    this.props.list, 
+                    this.props.listName, 
                     this.props.index, 
                     { 
                       ...this.props.asset, 
@@ -45,11 +45,11 @@ export class AssetListElement extends React.Component<IAssetListElementProps> {
               onChange={
                 (e: React.ChangeEvent) => { 
                   this.props.updateAsset(
-                    this.props.list, 
+                    this.props.listName, 
                     this.props.index, 
                     { 
                       ...this.props.asset, 
-                      allocation: e.target.nodeValue 
+                      allocation: Number.parseFloat(e.target.nodeValue) 
                     }
                   );
                 }
@@ -62,7 +62,7 @@ export class AssetListElement extends React.Component<IAssetListElementProps> {
               onChange={
                 (e: React.ChangeEvent) => { 
                   this.props.updateAsset(
-                    this.props.list, 
+                    this.props.listName, 
                     this.props.index, 
                     { 
                       ...this.props.asset, 
