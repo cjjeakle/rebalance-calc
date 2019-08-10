@@ -67,7 +67,7 @@ class HowItWorks extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
-        <div className="col-8">
+        <div className="col-md-10">
           <br />
           <ol>
             <li>The total value of all accounts is determined, and is partitioned among the asset classes by percentage of the portfolio.</li>
@@ -87,7 +87,7 @@ class UsabilityHints extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
-        <div className="col-8">
+        <div className="col-md-10">
           <br />
           <ol>
             <li>
