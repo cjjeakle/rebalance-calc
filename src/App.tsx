@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { AppState } from "./store";
 
 import About from "./components/About";
-import AssetAllocation from "./components/AssetAllocation";
-import AvailableAccounts from "./components/AvailableAccounts";
+import AssetAllocation from "./components/assets/AssetAllocation";
+import AvailableAccounts from "./components/accounts/AccountsAvailable";
 import SuggestedAllocation from "./components/SuggestedAllocation";
 
 interface IAppProps {

@@ -1,8 +1,6 @@
-import { Action } from "redux";
-
 export type AssetListNames = "assetsRegular" | "assetsInefficient" | "assetsAdvantaged";
 
-export interface IAsset extends Action {
+export interface IAsset {
   name: string;
   allocation: number;
   notes: string;

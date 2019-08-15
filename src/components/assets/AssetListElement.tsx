@@ -1,7 +1,11 @@
 import * as React from "react";
+import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import * as ListActions from "../store/actions/listActons";
-import { IAsset, AssetListNames } from "../store/types/assetTypes";
+
+import { ListState } from "../../store/types/listTypes";
+import * as ListActions from "../../store/actions/listActions";
+import { IAsset, AssetListNames } from "../../store/types/assetTypes";
+import { Info } from "../Info";
 
 export interface IAssetListElementProps {
   /* State */
@@ -13,7 +17,7 @@ export interface IAssetListElementProps {
   updateAsset: typeof ListActions.updateElement;
 }
 
-export class AssetListElement extends React.Component<IAssetListElementProps> {
+class AssetListElement extends React.Component<IAssetListElementProps> {
   render() {
     return (
       <div className="container">
@@ -79,8 +83,8 @@ export class AssetListElement extends React.Component<IAssetListElementProps> {
   }
 }
 
-const dispatchToProps = {
-  updateAsset: ListActions.updateElement
-}
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  updateAsset: (listName: AssetListNames, index: number, payload: IAsset) => dispatch(ListActions.updateElement(listName, index, payload))
+});
 
-export default connect(()=>{}, dispatchToProps)(AssetListElement);
+export default connect(null, mapDispatchToProps)(AssetListElement);
