@@ -21,10 +21,6 @@ export interface IAssetTypeListProps {
 }
 
 class AssetList extends React.Component<IAssetTypeListProps> {
-  constructor(props: IAssetTypeListProps) {
-    super(props);
-  }
-
   render() {
     const emptyAsset: IAsset = {
       name: "",

@@ -28,7 +28,7 @@ export function createNamedListReducer(listId: AccountTypes.AccountListNames): L
 export function createNamedListReducer(listId: string): ListReducerT<string, any> {
   return (state: ActionTypes.ListState<any>, action: ActionTypes.ListActionTypes<string, any>) => {
     const isInitializationCall = (state === undefined);
-    if (action.listId === listId && !isInitializationCall) {
+    if (action.listId !== listId && !isInitializationCall) {
       return state;
     }
 
