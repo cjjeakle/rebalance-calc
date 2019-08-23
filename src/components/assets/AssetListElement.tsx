@@ -19,7 +19,7 @@ export interface IAssetListElementProps {
 class AssetListElement extends React.Component<IAssetListElementProps> {
   render() {
     return (
-      <div className="container-fluid form-group" style={{borderStyle: "dotted none dotted none", borderColor: "lightblue"}}>
+      <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightblue"}}>
         <div className="row justify-content-center">
           <div className="col-xs-6 col-md-6">
             <input 
