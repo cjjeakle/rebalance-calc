@@ -19,9 +19,9 @@ export interface IAssetListElementProps {
 class AssetListElement extends React.Component<IAssetListElementProps> {
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container-fluid form-group" style={{borderStyle: "dotted none dotted none", borderColor: "lightblue"}}>
         <div className="row justify-content-center">
-          <div className="form-group col-sm-6">
+          <div className="col-xs-6 col-md-6">
             <input 
               type="text" 
               className="form-control" 
@@ -42,7 +42,7 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
             >
             </input>
           </div>
-          <div className="form-group col-sm-4">
+          <div className="col-xs-4 col-md-4">
             <div className="input-group">
               <input 
                 type="number" 
@@ -71,7 +71,7 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
               </div>
             </div>
           </div>
-          <div className="form-group col-sm-2">
+          <div className="col-xs-2 col-md-2" style={{textAlign: "center"}}>
             <button 
               className="btn btn-outline-primary"
               onClick={() => this.props.updateAsset(
@@ -88,8 +88,8 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
           </div>
         </div>
         {this.props.asset.showDetails &&
-          <div className="form-row">
-            <div className="form-group col-8">
+          <div className="row justify-content-center mt-2 mb-2">
+            <div className="col-auto">
               <input 
                 type="text" 
                 className="form-control" 
@@ -110,7 +110,7 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
               >
               </input>
             </div>
-            <div className="form-group col-2 offset-1">
+            <div className="col-auto">
               <button 
                 className="btn btn-outline-danger"
                 onClick={() => this.props.removeAsset(this.props.listName, this.props.index)}
