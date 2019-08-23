@@ -4,4 +4,5 @@ export interface IAsset {
   name: string;
   allocation: number;
   notes: string;
+  showDetails: boolean;
 }

@@ -15,13 +15,12 @@ class AssetAllocation extends React.Component<IAssetAllocationProps, AppState> {
   render() {
     return (
       <div className="container-fluid">
-        <div className="row">
+        <div className="row mb-2">
           <div className="col">
-            <h2>Desired Asset Allocation:</h2>
-            For help classifying assets, <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>.
+            <h4>Desired Asset Allocation:</h4>
+            <div className="alert alert-info alert-sm">For help classifying assets, <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>.</div>
           </div>
         </div>
-        <br/>
         <div className="row">
           <div className="col-xl">
             <AssetList 

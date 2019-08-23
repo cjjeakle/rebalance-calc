@@ -1,6 +1,7 @@
 import * as ActionTypes from "../types/uiTypes";
 
 const initialState: ActionTypes.IUIState = {
+  aboutVisible: false,
   howItWorksVisible: false,
   tipsAndTricksVisible: false
 }
@@ -10,16 +11,19 @@ export default function uiReducer(
   action: ActionTypes.UiActionTypes
 ): ActionTypes.IUIState {
   switch (action.type) {
+    case ActionTypes.TOGGLE_ABOUT_VISIBLE:
+      return {
+        ...initialState,
+        aboutVisible: !state.aboutVisible
+      }
     case ActionTypes.TOGGLE_HOW_IT_WORKS_VISIBLE:
       return {
-        ...state,
-        howItWorksVisible: !state.howItWorksVisible,
-        tipsAndTricksVisible: false
+        ...initialState,
+        howItWorksVisible: !state.howItWorksVisible
       };
     case ActionTypes.TOGGLE_TIPS_AND_TRICKS_VISIBLE:
       return {
-        ...state,
-        howItWorksVisible: false,
+        ...initialState,
         tipsAndTricksVisible: !state.tipsAndTricksVisible
       };
     default:

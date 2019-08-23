@@ -25,7 +25,8 @@ class AssetList extends React.Component<IAssetTypeListProps> {
     const emptyAsset: IAsset = {
       name: "",
       allocation: "" as any,
-      notes: ""
+      notes: "",
+      showDetails: false
     }
 
     const listItems = this.props.elements.map((element: IAsset, index: number) => {
@@ -39,10 +40,10 @@ class AssetList extends React.Component<IAssetTypeListProps> {
     });
 
     return (
-      <div className="container-fluid">
+      <div className="container-fluid mb-1 border-left border-right border-primary rounded">
         <div className="row">
           <div className="col">
-            <h4>{this.props.title} <Info id={this.props.listName} title={this.props.title} detail={this.props.info}></Info></h4>
+            <h5>{this.props.title} <Info id={this.props.listName} title={this.props.title} detail={this.props.info}></Info></h5>
           </div>
         </div>
         {listItems}
@@ -50,7 +51,7 @@ class AssetList extends React.Component<IAssetTypeListProps> {
           <div className="col-auto">
             <Bootstrap.Button 
               variant="outline-primary" 
-              className="btn" 
+              className="btn-sm" 
               onClick={()=>{this.props.addElement(this.props.listName, emptyAsset)}}
             >
               +

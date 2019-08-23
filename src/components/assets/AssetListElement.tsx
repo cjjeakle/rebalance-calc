@@ -20,8 +20,8 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
   render() {
     return (
       <div className="container-fluid">
-        <div className="form-row">
-          <div className="form-group col-6">
+        <div className="row justify-content-center">
+          <div className="form-group col-sm-6">
             <input 
               type="text" 
               className="form-control" 
@@ -38,10 +38,11 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
                     }
                   );
                 }
-              }>
+              }
+            >
             </input>
           </div>
-          <div className="form-group col-4">
+          <div className="form-group col-sm-4">
             <div className="input-group">
               <input 
                 type="number" 
@@ -62,46 +63,63 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
                       }
                     );
                   }
-                }>
+                }
+              >
               </input>
               <div className="input-group-append">
                 <span className="input-group-text" id="allocation">%</span>
               </div>
             </div>
           </div>
-          <div className="form-group col-auto">
-            . . . 
-          </div>
-        </div>
-        <div className="form-row justify-content-center">
-          <div className="form-group col-8">
-            <input 
-              type="text" 
-              className="form-control" 
-              placeholder="Notes" 
-              value={this.props.asset.notes}
-              onChange={
-                (e: React.ChangeEvent<HTMLInputElement>) => { 
-                  this.props.updateAsset(
-                    this.props.listName, 
-                    this.props.index, 
-                    { 
-                      ...this.props.asset, 
-                      notes: e.target.value 
-                    }
-                  );
-                }
-              }>
-            </input>
-          </div>
-          <div className="form-group col-auto">
+          <div className="form-group col-sm-2">
             <button 
-              className="btn btn-outline-danger"
-              onClick={() => this.props.removeAsset(this.props.listName, this.props.index)}>
-              X
-            </button>
+              className="btn btn-outline-primary"
+              onClick={() => this.props.updateAsset(
+                this.props.listName, 
+                this.props.index, 
+                { 
+                  ...this.props.asset, 
+                  showDetails: !this.props.asset.showDetails
+                }
+              )}
+            >
+              {this.props.asset.showDetails ? "▲" : "▼"}
+            </button> 
           </div>
         </div>
+        {this.props.asset.showDetails &&
+          <div className="form-row">
+            <div className="form-group col-8">
+              <input 
+                type="text" 
+                className="form-control" 
+                placeholder="Notes" 
+                value={this.props.asset.notes}
+                onChange={
+                  (e: React.ChangeEvent<HTMLInputElement>) => { 
+                    this.props.updateAsset(
+                      this.props.listName, 
+                      this.props.index, 
+                      { 
+                        ...this.props.asset, 
+                        notes: e.target.value 
+                      }
+                    );
+                  }
+                }
+              >
+              </input>
+            </div>
+            <div className="form-group col-2 offset-1">
+              <button 
+                className="btn btn-outline-danger"
+                onClick={() => this.props.removeAsset(this.props.listName, this.props.index)}
+              >
+                X
+              </button>
+            </div>
+          </div>
+        }
       </div>
     );
   }

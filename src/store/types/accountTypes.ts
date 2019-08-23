@@ -4,4 +4,5 @@ export interface IAccount {
   name: string;
   balance: number;
   notes: string;
+  showDetails: boolean;
 }
