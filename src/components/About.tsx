@@ -16,7 +16,7 @@ interface IAboutProps {
 class About extends React.Component<IAboutProps> {
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col">
             <h1>Rebalance Calc</h1>

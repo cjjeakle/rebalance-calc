@@ -23,9 +23,9 @@ export function updateElement(listId: string, index: number, payload: any): Acti
   };
 }
 
-export function moveAccount(listId: AssetTypes.AssetListNames, prevIndex: number, newIndex: number): ActionTypes.IMoveElement<AssetTypes.AssetListNames>
-export function moveAccount(listId: AccountTypes.AccountListNames, prevIndex: number, newIndex: number): ActionTypes.IMoveElement<AccountTypes.AccountListNames>
-export function moveAccount(listId: string, prevIndex: number, newIndex: number): ActionTypes.IMoveElement<string> {
+export function moveElement(listId: AssetTypes.AssetListNames, prevIndex: number, newIndex: number): ActionTypes.IMoveElement<AssetTypes.AssetListNames>
+export function moveElement(listId: AccountTypes.AccountListNames, prevIndex: number, newIndex: number): ActionTypes.IMoveElement<AccountTypes.AccountListNames>
+export function moveElement(listId: string, prevIndex: number, newIndex: number): ActionTypes.IMoveElement<string> {
   return {
     type: ActionTypes.MOVE_ELEMENT,
     listId,
@@ -34,9 +34,9 @@ export function moveAccount(listId: string, prevIndex: number, newIndex: number)
   }
 }
 
-export function removeAccount(listId: AssetTypes.AssetListNames, index: number): ActionTypes.IRemoveElement<AssetTypes.AssetListNames>
-export function removeAccount(listId: AccountTypes.AccountListNames, index: number): ActionTypes.IRemoveElement<AccountTypes.AccountListNames>
-export function removeAccount(listId: string, index: number): ActionTypes.IRemoveElement<string> {
+export function removeElement(listId: AssetTypes.AssetListNames, index: number): ActionTypes.IRemoveElement<AssetTypes.AssetListNames>
+export function removeElement(listId: AccountTypes.AccountListNames, index: number): ActionTypes.IRemoveElement<AccountTypes.AccountListNames>
+export function removeElement(listId: string, index: number): ActionTypes.IRemoveElement<string> {
   return {
     type: ActionTypes.REMOVE_ELEMENT,
     listId,

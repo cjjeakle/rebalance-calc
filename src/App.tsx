@@ -14,7 +14,7 @@ interface IAppProps {
 class App extends React.Component<IAppProps> {
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid">
         <About />
         <AssetAllocation />
         <AvailableAccounts />

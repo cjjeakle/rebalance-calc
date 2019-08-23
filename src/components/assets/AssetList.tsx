@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import * as bootstrap from "react-bootstrap";
+import * as Bootstrap from "react-bootstrap";
 
 import { ListState } from "../../store/types/listTypes";
 import * as ListActions from "../../store/actions/listActions";
@@ -24,35 +24,37 @@ class AssetList extends React.Component<IAssetTypeListProps> {
   render() {
     const emptyAsset: IAsset = {
       name: "",
-      allocation: 0,
+      allocation: "" as any,
       notes: ""
     }
 
     const listItems = this.props.elements.map((element: IAsset, index: number) => {
-      <div className="row">
-        <div className="col">
-          <AssetListElement listName={this.props.listName} index={index} asset={element} />
+      return (
+        <div className="row" key={index}>
+          <div className="col">
+            <AssetListElement listName={this.props.listName} index={index} asset={element} />
+          </div>
         </div>
-      </div>
+      );
     });
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col">
             <h4>{this.props.title} <Info id={this.props.listName} title={this.props.title} detail={this.props.info}></Info></h4>
           </div>
         </div>
         {listItems}
-        <div className="row">
-          <div className="col">
-            <bootstrap.Button 
+        <div className="row justify-content-center">
+          <div className="col-auto">
+            <Bootstrap.Button 
               variant="outline-primary" 
-              className="btn-sm" 
+              className="btn" 
               onClick={()=>{this.props.addElement(this.props.listName, emptyAsset)}}
             >
               +
-            </bootstrap.Button>
+            </Bootstrap.Button>
           </div>
         </div>
       </div>

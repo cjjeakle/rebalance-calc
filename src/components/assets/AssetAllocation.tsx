@@ -14,15 +14,16 @@ class AssetAllocation extends React.Component<IAssetAllocationProps, AppState> {
 
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col">
             <h2>Desired Asset Allocation:</h2>
             For help classifying assets, <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>.
           </div>
         </div>
+        <br/>
         <div className="row">
-          <div className="col">
+          <div className="col-xl">
             <AssetList 
               title="Tax Inefficient Assets" 
               info="Assets which primarily earn via non-qualified dividends. Examples include non-municipal bonds and REITs." 
@@ -30,15 +31,15 @@ class AssetAllocation extends React.Component<IAssetAllocationProps, AppState> {
               elements={this.props.inefficient} 
             />
           </div>
-          <div className="col">
+          <div className="col-xl">
             <AssetList 
-              title="Foreign and Tax-exempt Assets" 
+              title="Tax Advantaged Assets" 
               info="Assets eligible for a US tax credit on foreign tax, or those which are entirely tax-exempt. Examples include ex-us stock funds and municipal bonds." 
               listName="assetsAdvantaged" 
               elements={this.props.advantaged} 
             />
           </div>
-          <div className="col">
+          <div className="col-xl">
             <AssetList 
               title="All Other Assets" 
               info="Assets with no special tax considerations go here. Examples include US stock index funds and individual stocks that issue qualified dividends or no dividends. For optimal results, place the assets you expect to increase in price most toward the top of this list." 

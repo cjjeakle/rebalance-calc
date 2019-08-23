@@ -13,7 +13,7 @@ class AssetAllocation extends React.Component<IAvailableAccountsProps, AppState>
 
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col">
             <h2>Account Balances:</h2>
