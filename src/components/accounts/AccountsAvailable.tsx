@@ -26,7 +26,7 @@ class AssetAllocation extends React.Component<IAvailableAccountsProps, AppState>
 }
 
 const mapStateToProps = (state: AppState): IAvailableAccountsProps => {
-  return state.accounts;
+  return state.present.accounts;
 };
 
 export default connect(

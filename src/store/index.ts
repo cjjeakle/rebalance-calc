@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, Middleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import undoable, { distinctState }  from "redux-undo";
 
 import uiReducer from "./reducers/uiReducer"
 import assetsReducer from "./reducers/assetsReducer";
@@ -11,14 +12,18 @@ const rootReducer = combineReducers({
   accounts: accountsReducer
 });
 
-export type AppState = ReturnType<typeof rootReducer>;
+const undoableRootReducer = undoable(rootReducer, {
+  filter: distinctState()
+});
+
+export type AppState = ReturnType<typeof undoableRootReducer>;
 
 export default function configureStore() {
   const middleware: Middleware[] = [];
   const middlewareEnhancer = applyMiddleware(...middleware);
 
   const store = createStore(
-    rootReducer,
+    undoableRootReducer,
     composeWithDevTools(middlewareEnhancer)
   );
 

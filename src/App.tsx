@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { AppState } from "./store";
 
 import About from "./components/About";
+import ControlPanel from "./components/ControlPanel";
 import AssetAllocation from "./components/assets/AssetAllocation";
 import AvailableAccounts from "./components/accounts/AccountsAvailable";
 import SuggestedAllocation from "./components/SuggestedAllocation";
@@ -16,6 +17,7 @@ class App extends React.Component<IAppProps> {
     return (
       <div className="container-fluid">
         <About />
+        <ControlPanel />
         <AssetAllocation />
         <AvailableAccounts />
         <SuggestedAllocation />

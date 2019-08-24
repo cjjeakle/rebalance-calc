@@ -127,11 +127,11 @@ class UsabilityHints extends React.Component {
 }
 
 function mapStateToProps(state: AppState) {
-  return state.uiState;
+  return state.present.uiState;
 }
 
 const dispatchToProps = {
-  toggleAboutVisible: UiActionCreators.toggleAboutVisible;
+  toggleAboutVisible: UiActionCreators.toggleAboutVisible,
   toggleHowItWorksVisible: UiActionCreators.toggleHowItWorksVisible,
   toggleTipsAndTricksVisible: UiActionCreators.toggleTipsAndTricksVisible
 };
