@@ -21,7 +21,7 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
     return (
       <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightblue"}}>
         <div className="row justify-content-center">
-          <div className="col-xs-6 col-md-6">
+          <div className="col-xs-6 col-md-6 px-1">
             <input 
               type="text" 
               className="form-control" 
@@ -42,7 +42,7 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
             >
             </input>
           </div>
-          <div className="col-xs-4 col-md-4">
+          <div className="col-xs-4 col-md-4 px-1">
             <div className="input-group">
               <input 
                 type="number" 
@@ -71,7 +71,7 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
               </div>
             </div>
           </div>
-          <div className="col-xs-2 col-md-2" style={{textAlign: "center"}}>
+          <div className="col-xs-2 col-md-2 px-1" style={{textAlign: "center"}}>
             <button 
               className="btn btn-outline-primary"
               onClick={() => this.props.updateAsset(
