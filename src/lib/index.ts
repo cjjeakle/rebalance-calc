@@ -26,7 +26,7 @@ interface ISaveSchema {
 
 
 export function mapSaveToState(save: ISaveSchema): AppState {
-  return {
+  const listState = {
     assets: {
       regular: save.assetClassesEfficient,
       advantaged: save.assetClassesCredit,
@@ -38,15 +38,27 @@ export function mapSaveToState(save: ISaveSchema): AppState {
       taxExempt: save.accountsFree
     }
   };
+  return {
+    uiState: {
+      aboutVisible: false,
+      howItWorksVisible: false,
+      tipsAndTricksVisible: false
+    },
+    lists: {
+      past: [],
+      present: listState,
+      future: []
+    }
+  }
 }
 
 export function mapStateToSave(state: AppState): ISaveSchema {
   return {
-    assetClassesEfficient: state.assets.regular,
-    assetClassesCredit: state.assets.advantaged,
-    assetClassesInefficient: state.assets.inefficient,
-    accountsTaxable: state.accounts.regular,
-    accountsDeferred: state.accounts.taxDeferred,
-    accountsFree: state.accounts.taxExempt
+    assetClassesEfficient: state.lists.present.assets.regular,
+    assetClassesCredit: state.lists.present.assets.advantaged,
+    assetClassesInefficient: state.lists.present.assets.inefficient,
+    accountsTaxable: state.lists.present.accounts.regular,
+    accountsDeferred: state.lists.present.accounts.taxDeferred,
+    accountsFree: state.lists.present.accounts.taxExempt
   };
 }

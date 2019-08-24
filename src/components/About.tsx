@@ -127,7 +127,7 @@ class UsabilityHints extends React.Component {
 }
 
 function mapStateToProps(state: AppState) {
-  return state.present.uiState;
+  return state.uiState;
 }
 
 const dispatchToProps = {

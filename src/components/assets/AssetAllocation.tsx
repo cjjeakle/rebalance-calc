@@ -53,7 +53,7 @@ class AssetAllocation extends React.Component<IAssetAllocationProps, AppState> {
 }
 
 const mapStateToProps = (state: AppState): IAssetAllocationProps => {
-  return state.present.assets;
+  return state.lists.present.assets;
 };
 
 export default connect(

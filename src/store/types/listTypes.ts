@@ -37,3 +37,7 @@ export interface IRemoveElement<ID> extends Action {
 
 /* Supported Actions: */
 export type ListActionTypes<ID, T> = IAddElement<ID, T> | IUpdateElement<ID, T> | IMoveElement<ID> | IRemoveElement<ID>;
+
+export function ListActionFilter (action: ListActionTypes<string, void>) {
+  return [ADD_ELEMENT, UPDATE_ELEMENT, MOVE_ELEMENT, REMOVE_ELEMENT].includes(action.type);
+}
