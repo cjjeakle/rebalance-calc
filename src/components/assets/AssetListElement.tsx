@@ -3,17 +3,26 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import * as ListActions from "../../store/actions/listActions";
+import * as AssetActions from "../../store/actions/assetActions";
 import { IAsset, AssetListNames } from "../../store/types/assetTypes";
 
 export interface IAssetListElementProps {
   /* State */
   listName: AssetListNames;
-  index: number;
+  listIndex: number;
+  assetIndex: IAsset;
   asset: IAsset;
 
-  /* Actions */
-  updateAsset: typeof ListActions.updateElement;
-  removeAsset: typeof ListActions.removeElement;
+  /* Container Actions */
+  moveInList: typeof ListActions.moveElement;
+  removeFromList: typeof ListActions.removeElement;
+
+  /* Element-Level Actions*/
+  updateName: typeof AssetActions.updateAssetName;
+  updateAllocation: typeof AssetActions.updateAssetAllocation;
+  updateNotes: typeof AssetActions.updateAssetNotes;
+  toggleDetails: typeof AssetActions.toggleAssetDetails;
+  delete: typeof AssetActions.deleteAsset;
 }
 
 class AssetListElement extends React.Component<IAssetListElementProps> {
@@ -29,14 +38,7 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
               value={this.props.asset.name} 
               onChange={
                 (e: React.ChangeEvent<HTMLInputElement>) => { 
-                  this.props.updateAsset(
-                    this.props.listName, 
-                    this.props.index, 
-                    { 
-                      ...this.props.asset, 
-                      name: e.target.value 
-                    }
-                  );
+                  this.props.updateName(this.props.assetIndex, e.target.value);
                 }
               }
             >
@@ -124,6 +126,8 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
     );
   }
 }
+
+function mapStateToProps(state: )
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   updateAsset: (listName: AssetListNames, index: number, payload: IAsset) => dispatch(ListActions.updateElement(listName, index, payload)),

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { AppState } from "../store";
-import * as UiActionCreators from "../store/actions/uiActiuons";
+import * as UiActionCreators from "../store/actions/uiActions";
 
 interface IAboutProps {
   /* State */
@@ -127,7 +127,7 @@ class UsabilityHints extends React.Component {
 }
 
 function mapStateToProps(state: AppState) {
-  return state.uiState;
+  return state.present.uiState;
 }
 
 const dispatchToProps = {

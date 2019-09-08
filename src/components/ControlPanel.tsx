@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { ActionCreators as UndoActionCreators } from 'redux-undo'
+import { ActionCreators as UndoActionCreators } from "redux-undo";
 import { AppState } from "../store";
 
 interface IControlPanelProps {
@@ -46,8 +46,8 @@ class ControlPanel extends React.Component<IControlPanelProps> {
 
 function mapStateToProps(state: AppState) {
   return {
-    undoAvailable: state.lists.past.length > 0,
-    redoAvailable: state.lists.future.length > 0
+    undoAvailable: state.past.length > 0,
+    redoAvailable: state.future.length > 0
   }
 }
 

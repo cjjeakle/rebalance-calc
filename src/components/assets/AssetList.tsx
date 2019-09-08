@@ -22,13 +22,6 @@ export interface IAssetTypeListProps {
 
 class AssetList extends React.Component<IAssetTypeListProps> {
   render() {
-    const emptyAsset: IAsset = {
-      name: "",
-      allocation: "" as any,
-      notes: "",
-      showDetails: false
-    }
-
     const listItems = this.props.elements.map((element: IAsset, index: number) => {
       return (
         <div className="row" key={index}>

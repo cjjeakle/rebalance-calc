@@ -1,28 +1,20 @@
 import { createStore, combineReducers, applyMiddleware, Middleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import undoable, { distinctState }  from "redux-undo";
-
-import { ListActionFilter } from "./types/listTypes";
+import { undoable } from "redux-undo";
 
 import uiReducer from "./reducers/uiReducer"
 import assetsReducer from "./reducers/assetsReducer";
 import accountsReducer from "./reducers/accountsReducer";
 
-const listReducer = combineReducers({
-  assets: assetsReducer,
-  accounts: accountsReducer
-});
-
-const undoableListReducer = undoable(listReducer, {
-  filter: ListActionFilter
-});
-
 const rootReducer = combineReducers({
-  uiState: uiReducer,
-  lists: undoableListReducer
+    uiState: uiReducer,
+    assets: assetsReducer,
+    accounts: accountsReducer
 });
 
-export type AppState = ReturnType<typeof rootReducer>;
+const undoableRootReducer = undoable(rootReducer);
+
+export type AppState = ReturnType<typeof undoableRootReducer>;
 
 export default function configureStore() {
   const middleware: Middleware[] = [];

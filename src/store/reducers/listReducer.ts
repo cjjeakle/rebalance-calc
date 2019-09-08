@@ -1,32 +1,26 @@
 import * as ActionTypes from "../types/listTypes";
-import * as AccountTypes from "../types/accountTypes";
-import * as AssetTypes from "../types/assetTypes";
 
-export function listReducer<ID, T>(
-  state: ActionTypes.ListState<T> = [],
-  action: ActionTypes.ListActionTypes<ID, T>
-): ActionTypes.ListState<T> {
+export function listReducer<ID>(
+  state: ActionTypes.ListStateT = [],
+  action: ActionTypes.ActionTypes<ID>
+): ActionTypes.ListStateT {
   switch (action.type) {
     case ActionTypes.ADD_ELEMENT:
-      return [...state, action.payload];
-    case ActionTypes.UPDATE_ELEMENT:
-        return [...state.slice(0, action.index), action.payload, ...state.slice(action.index + 1)];
+      return [...state, action.elementId];
     case ActionTypes.MOVE_ELEMENT:
-      let newState = [...state.slice(0, action.prevIndex), ...state.slice(action.prevIndex + 1)]
-      return newState.splice(action.newIndex, 0, state[action.prevIndex]);
+      let newState = state.filter(element => element !== action.elementId);
+      return newState.splice(action.newIndex, 0, action.elementId);
     case ActionTypes.REMOVE_ELEMENT:
-      return [...state.slice(0, action.index), ...state.slice(action.index + 1)];
+      return state.filter(element => element !== action.elementId);
     default:
       return state;
   }
 }
 
-export type ListReducerT<ID, T> = (state: ActionTypes.ListState<T>, action: ActionTypes.ListActionTypes<ID, T>) => ActionTypes.ListState<T>
+export type ListReducerT<ID> = (state: ActionTypes.ListStateT, action: ActionTypes.ActionTypes<ID>) => ActionTypes.ListStateT
 
-export function createNamedListReducer(listId: AssetTypes.AssetListNames): ListReducerT<AssetTypes.AssetListNames, AssetTypes.IAsset>
-export function createNamedListReducer(listId: AccountTypes.AccountListNames): ListReducerT<AccountTypes.AccountListNames, AccountTypes.IAccount>
-export function createNamedListReducer(listId: string): ListReducerT<string, any> {
-  return (state: ActionTypes.ListState<any>, action: ActionTypes.ListActionTypes<string, any>) => {
+export function createNamedListReducer<T extends string>(listId: T): ListReducerT<T> {
+  return (state: ActionTypes.ListStateT, action: ActionTypes.ActionTypes<T>) => {
     const isInitializationCall = (state === undefined);
     if (action.listId !== listId && !isInitializationCall) {
       return state;

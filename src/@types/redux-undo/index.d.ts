@@ -1,19 +1,15 @@
-declare module 'redux-undo' {
-  export default function undoable<T, A> (reducer: (state: T, action: {}) => T, config: IUndoableConfig): undoableReducer<T>;
+declare module "redux-undo" {
+  export function undoable<TState, TAction> (
+    reducer: (state: TState, action: {}) => TState
+  ): undoableReducer<TState>;
 
-  export type undoableReducer<T> = (state: undoableState<T>, action: {}) => undoableState<T>; 
+  export type undoableReducer<TState> = (state: undoableState<TState>, action: {}) => undoableState<TState>; 
 
-  export interface undoableState<T> {
-    past: T[];
-    present: T;
-    future: T[];
+  export interface undoableState<TState> {
+    past: TState[];
+    present: TState;
+    future: TState[];
   }
-
-  export interface IUndoableConfig<A> {
-    filter: (action: A) => boolean;
-  }
-
-  export function distinctState(): (state: any) => boolean;
 
   export class ActionCreators {
     public undo: () => { type: string };
