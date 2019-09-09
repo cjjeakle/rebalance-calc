@@ -33,8 +33,8 @@ function assetsReducer(
 }
 
 export default combineReducers({
-  assets: assetsReducer,
-  regularList: createNamedListReducer<AssetTypes.AssetListNames>("assetsRegular"),
-  inefficientList: createNamedListReducer<AssetTypes.AssetListNames>("assetsInefficient"),
-  advantagedList: createNamedListReducer<AssetTypes.AssetListNames>("assetsAdvantaged")
+  allAssets: assetsReducer,
+  regular: createNamedListReducer<AssetTypes.AssetListNames>("assetsRegular"),
+  inefficient: createNamedListReducer<AssetTypes.AssetListNames>("assetsInefficient"),
+  advantaged: createNamedListReducer<AssetTypes.AssetListNames>("assetsAdvantaged")
 });

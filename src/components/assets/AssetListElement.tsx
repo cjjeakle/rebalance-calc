@@ -2,31 +2,31 @@ import * as React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
+import { AppState } from "../../store";
 import * as ListActions from "../../store/actions/listActions";
 import * as AssetActions from "../../store/actions/assetActions";
-import { IAsset, AssetListNames } from "../../store/types/assetTypes";
+import { AssetListNames, IAssetsState } from "../../store/types/assetTypes";
 
 export interface IAssetListElementProps {
   /* State */
-  listName: AssetListNames;
-  listIndex: number;
-  assetIndex: IAsset;
-  asset: IAsset;
+  listId: AssetListNames;
+  assetId: string;
+  assets: IAssetsState;
 
   /* Container Actions */
   moveInList: typeof ListActions.moveElement;
-  removeFromList: typeof ListActions.removeElement;
+  removeFromList: () => void;
 
   /* Element-Level Actions*/
   updateName: typeof AssetActions.updateAssetName;
   updateAllocation: typeof AssetActions.updateAssetAllocation;
   updateNotes: typeof AssetActions.updateAssetNotes;
   toggleDetails: typeof AssetActions.toggleAssetDetails;
-  delete: typeof AssetActions.deleteAsset;
 }
 
 class AssetListElement extends React.Component<IAssetListElementProps> {
   render() {
+    const asset = this.props.assets[this.props.assetId];
     return (
       <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightblue"}}>
         <div className="row justify-content-center">
@@ -35,10 +35,10 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
               type="text" 
               className="form-control" 
               placeholder="Asset Class Name" 
-              value={this.props.asset.name} 
+              value={asset.name} 
               onChange={
                 (e: React.ChangeEvent<HTMLInputElement>) => { 
-                  this.props.updateName(this.props.assetIndex, e.target.value);
+                  this.props.updateName(this.props.assetId, e.target.value);
                 }
               }
             >
@@ -53,17 +53,10 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
                 min="0" 
                 max="100" 
                 placeholder="Allocation" 
-                value={this.props.asset.allocation} 
+                value={asset.allocation} 
                 onChange={
                   (e: React.ChangeEvent<HTMLInputElement>) => { 
-                    this.props.updateAsset(
-                      this.props.listName, 
-                      this.props.index, 
-                      { 
-                        ...this.props.asset, 
-                        allocation: e.target.valueAsNumber
-                      }
-                    );
+                    this.props.updateAllocation(this.props.assetId, e.target.valueAsNumber);
                   }
                 }
               >
@@ -76,37 +69,23 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
           <div className="col-xs-2 col-md-2 px-1" style={{textAlign: "center"}}>
             <button 
               className="btn btn-outline-primary"
-              onClick={() => this.props.updateAsset(
-                this.props.listName, 
-                this.props.index, 
-                { 
-                  ...this.props.asset, 
-                  showDetails: !this.props.asset.showDetails
-                }
-              )}
+              onClick={() => this.props.toggleDetails(this.props.assetId)}
             >
-              {this.props.asset.showDetails ? "▲" : "▼"}
+              {asset.showDetails ? "▲" : "▼"}
             </button> 
           </div>
         </div>
-        {this.props.asset.showDetails &&
+        {asset.showDetails &&
           <div className="row justify-content-center mt-2 mb-2">
             <div className="col-auto">
               <input 
                 type="text" 
                 className="form-control" 
                 placeholder="Notes" 
-                value={this.props.asset.notes}
+                value={asset.notes}
                 onChange={
                   (e: React.ChangeEvent<HTMLInputElement>) => { 
-                    this.props.updateAsset(
-                      this.props.listName, 
-                      this.props.index, 
-                      { 
-                        ...this.props.asset, 
-                        notes: e.target.value 
-                      }
-                    );
+                    this.props.updateNotes(this.props.assetId, e.target.value);
                   }
                 }
               >
@@ -115,7 +94,7 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
             <div className="col-auto">
               <button 
                 className="btn btn-outline-danger"
-                onClick={() => this.props.removeAsset(this.props.listName, this.props.index)}
+                onClick={() => this.props.removeFromList()}
               >
                 X
               </button>
@@ -127,11 +106,13 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
   }
 }
 
-function mapStateToProps(state: )
+const mapStateToProps = (state: AppState) => ({assets: state.present.assets.allAssets });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  updateAsset: (listName: AssetListNames, index: number, payload: IAsset) => dispatch(ListActions.updateElement(listName, index, payload)),
-  removeAsset: (listName: AssetListNames, index: number) => dispatch(ListActions.removeElement(listName, index)),
+  updateName: (id: string, name: string) => dispatch(AssetActions.updateAssetName(id, name)),
+  updateAllocation: (id: string, allocation: number) => dispatch(AssetActions.updateAssetAllocation(id, allocation)),
+  updateNotes: (id: string, notes: string) => dispatch(AssetActions.updateAssetNotes(id, notes)),
+  toggleDetails: (id: string) => dispatch(AssetActions.toggleAssetDetails(id)),
 });
 
-export default connect(null, mapDispatchToProps)(AssetListElement);
+export default connect(mapStateToProps, mapDispatchToProps)(AssetListElement);

@@ -33,7 +33,7 @@ function accountsReducer(
 }
 
 export default combineReducers({
-  accounts: accountsReducer,
+  allAccounts: accountsReducer,
   regular: createNamedListReducer<AccountTypes.AccountListNames>("accountRegular"),
   taxDeferred: createNamedListReducer<AccountTypes.AccountListNames>("accountTaxDeferred"),
   taxExempt: createNamedListReducer<AccountTypes.AccountListNames>("accountTaxExempt")

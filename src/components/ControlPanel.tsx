@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { ActionCreators as UndoActionCreators } from "redux-undo";
+import * as ReduxUndo from "redux-undo";
 import { AppState } from "../store";
 
 interface IControlPanelProps {
@@ -52,8 +52,8 @@ function mapStateToProps(state: AppState) {
 }
 
 const dispatchToProps = {
-  undo: UndoActionCreators.undo,
-  redo: UndoActionCreators.redo
+  undo: ReduxUndo.ActionCreators.undo,
+  redo: ReduxUndo.ActionCreators.redo
 };
 
 export default connect(mapStateToProps, dispatchToProps)(ControlPanel);

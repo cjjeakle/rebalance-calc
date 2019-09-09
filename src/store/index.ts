@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, Middleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { undoable } from "redux-undo";
+import undoable from "redux-undo";
 
 import uiReducer from "./reducers/uiReducer"
 import assetsReducer from "./reducers/assetsReducer";
@@ -21,7 +21,7 @@ export default function configureStore() {
   const middlewareEnhancer = applyMiddleware(...middleware);
 
   const store = createStore(
-    rootReducer,
+    undoableRootReducer,
     composeWithDevTools(middlewareEnhancer)
   );
 

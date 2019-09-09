@@ -26,7 +26,7 @@ class AssetAllocation extends React.Component<IAssetAllocationProps, AppState> {
             <AssetList 
               title="Tax Inefficient Assets" 
               info="Assets which primarily earn via non-qualified dividends. Examples include non-municipal bonds and REITs." 
-              listName="assetsInefficient" 
+              listId="assetsInefficient" 
               elements={this.props.inefficient} 
             />
           </div>
@@ -34,7 +34,7 @@ class AssetAllocation extends React.Component<IAssetAllocationProps, AppState> {
             <AssetList 
               title="Tax Advantaged Assets" 
               info="Assets eligible for a US tax credit on foreign tax, or those which are entirely tax-exempt. Examples include ex-us stock funds and municipal bonds." 
-              listName="assetsAdvantaged" 
+              listId="assetsAdvantaged" 
               elements={this.props.advantaged} 
             />
           </div>
@@ -42,7 +42,7 @@ class AssetAllocation extends React.Component<IAssetAllocationProps, AppState> {
             <AssetList 
               title="All Other Assets" 
               info="Assets with no special tax considerations go here. Examples include US stock index funds and individual stocks that issue qualified dividends or no dividends. For optimal results, place the assets you expect to increase in price most toward the top of this list." 
-              listName="assetsRegular" 
+              listId="assetsRegular" 
               elements={this.props.regular} 
             />
           </div>
@@ -53,7 +53,7 @@ class AssetAllocation extends React.Component<IAssetAllocationProps, AppState> {
 }
 
 const mapStateToProps = (state: AppState): IAssetAllocationProps => {
-  return state.lists.present.assets;
+  return state.present.assets;
 };
 
 export default connect(
