@@ -1,10 +1,8 @@
-import { combineReducers } from "redux";
 import uuid from "uuid";
 
 import * as AccountTypes from "../types/accountTypes";
-import { createNamedListReducer} from "./listReducer";
 
-function accountsReducer(
+export default function accountsReducer(
   state: AccountTypes.IAccountsState = {},
   action: AccountTypes.ActionTypes
 ): AccountTypes.IAccountsState {
@@ -32,9 +30,3 @@ function accountsReducer(
   }
 }
 
-export default combineReducers({
-  allAccounts: accountsReducer,
-  regular: createNamedListReducer<AccountTypes.AccountListNames>("accountRegular"),
-  taxDeferred: createNamedListReducer<AccountTypes.AccountListNames>("accountTaxDeferred"),
-  taxExempt: createNamedListReducer<AccountTypes.AccountListNames>("accountTaxExempt")
-});

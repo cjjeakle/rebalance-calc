@@ -1,39 +1,54 @@
-import * as ActionTypes from "../types/assetTypes";
+import * as AssetTypes from "../types/assetTypes";
 
-export function addAsset(id: string): ActionTypes.IAddAsset {
+export function addAsset(): AssetTypes.IAddAsset {
   return {
-    type: ActionTypes.ADD_ASSET,
-    id
+    type: AssetTypes.ADD_ASSET
   };
 }
 
-export function updateAssetName(id: string, name: string): ActionTypes.IUpdateAssetName {
+export function updateAssetName(id: string, name: string): AssetTypes.IUpdateAssetName {
   return {
-    type: ActionTypes.UPDATE_ASSET_NAME,
+    type: AssetTypes.UPDATE_ASSET_NAME,
     id,
     name
+  };
+}
+
+export function updateAssetTaxEfficiency(id: string, taxTreatment: AssetTypes.TaxTreatmentT): AssetTypes.IUpdateAssetTaxEfficiency {
+  return {
+    type: AssetTypes.UPDATE_ASSET_TAX_TREATMENT,
+    id,
+    taxTreatment
   }
 }
 
-export function updateAssetAllocation(id: string, allocation: number): ActionTypes.IUpdateAssetAllocation {
+export function updateAssetAllocation(id: string, allocation: number): AssetTypes.IUpdateAssetAllocation {
   return {
-    type: ActionTypes.UPDATE_ASSET_ALLOCATION,
+    type: AssetTypes.UPDATE_ASSET_ALLOCATION,
     id,
     allocation
   }
 }
 
-export function updateAssetNotes(id: string, notes: string): ActionTypes.IUpdateAssetNotes {
+export function updateAssetNotes(id: string, notes: string): AssetTypes.IUpdateAssetNotes {
   return {
-    type: ActionTypes.UPDATE_ASSET_NOTES,
+    type: AssetTypes.UPDATE_ASSET_NOTES,
     id,
     notes
   }
 }
 
-export function toggleAssetDetails(id: string): ActionTypes.IToggleAssetDetails {
+export function moveAsset(id: string, movedBeforeId): AssetTypes.IMoveAsset {
   return {
-    type: ActionTypes.TOGGLE_ASSET_DETAILS,
+    type: AssetTypes.MOVE_ASSET,
+    id,
+    movedBeforeId
+  }
+}
+
+export function removeAsset(id: string): AssetTypes.IRemoveAsset {
+  return {
+    type: AssetTypes.REMOVE_ASSET,
     id
   }
 }

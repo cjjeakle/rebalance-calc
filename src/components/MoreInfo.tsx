@@ -19,7 +19,6 @@ class MoreInfo extends React.Component<IMoreInfoProps> {
   render() {
     return (
       <div className="container-fluid">
-        <hr />
         <div className="row justify-content-center">
           <div className="col-auto">
             <button 

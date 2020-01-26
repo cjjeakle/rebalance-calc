@@ -1,40 +1,53 @@
-import { combineReducers } from "redux";
 import uuid from "uuid";
 
 import * as AssetTypes from "../types/assetTypes";
-import { createNamedListReducer} from "./listReducer";
 
-function assetsReducer(
-  state: AssetTypes.IAssetsState = {},
+export default function assetsReducer(
+  state: AssetTypes.AssetStateT = [],
   action: AssetTypes.ActionTypes
-): AssetTypes.IAssetsState {
+): AssetTypes.AssetStateT {
   switch (action.type) {
     case AssetTypes.ADD_ASSET:
-      return {
+      return [
         ...state,
-        [uuid.v4()]: {
+        {
+          id: uuid.v4(),
           name: "",
-          allocation: "" as any,
+          taxTreatment: null,
+          allocation: 0,
           notes: "",
-          showDetails: false
         }
-      };
+      ];
     case AssetTypes.UPDATE_ASSET_NAME:
-      return {...state, [action.id]: { ...state[action.id], name: action.name } };
+      return state.map(asset =>
+        asset.id === action.id ? { ...asset, name: action.name } : asset
+      );
+    case AssetTypes.UPDATE_ASSET_TAX_TREATMENT:
+      return state.map(asset =>
+        asset.id === action.id ? { ...asset, taxTreatment: action.taxTreatment } : asset
+      );
     case AssetTypes.UPDATE_ASSET_ALLOCATION:
-      return {...state, [action.id]: { ...state[action.id], allocation: action.allocation } };
+      return state.map(asset =>
+        asset.id === action.id ? { ...asset, allocation: action.allocation } : asset
+      );
     case AssetTypes.UPDATE_ASSET_NOTES:
-      return {...state, [action.id]: { ...state[action.id], notes: action.notes } };
-    case AssetTypes.TOGGLE_ASSET_DETAILS:
-      return {...state, [action.id]: { ...state[action.id], showDetails: !state[action.id].showDetails } };
+      return state.map(asset =>
+        asset.id === action.id ? { ...asset, notes: action.notes } : asset
+      );
+    case AssetTypes.MOVE_ASSET:
+      let newState = [...state];
+      let movedFromIndex = state.findIndex(asset => asset.id === action.id);
+      let movedBeforeIndex = state.findIndex(asset => asset.id === action.movedBeforeId);
+      newState.splice(movedFromIndex, 1); // Remove
+      if (movedBeforeIndex === -1) {
+        newState.push(state[movedFromIndex]); // Append to end
+      } else {
+        newState.splice(movedBeforeIndex, 0, state[movedFromIndex]); // Move to specified index, push that element out 1
+      }
+      return newState;
+    case AssetTypes.REMOVE_ASSET:
+      return state.filter(asset => asset.id !== action.id);
     default:
       return state;
   }
 }
-
-export default combineReducers({
-  allAssets: assetsReducer,
-  regular: createNamedListReducer<AssetTypes.AssetListNames>("assetsRegular"),
-  inefficient: createNamedListReducer<AssetTypes.AssetListNames>("assetsInefficient"),
-  advantaged: createNamedListReducer<AssetTypes.AssetListNames>("assetsAdvantaged")
-});

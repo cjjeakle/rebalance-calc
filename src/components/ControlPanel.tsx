@@ -38,7 +38,7 @@ class ControlPanel extends React.Component<IControlPanelProps> {
             </button>
           </div>
         </div>
-        <hr />
+        <br />
       </div>
     );
   }

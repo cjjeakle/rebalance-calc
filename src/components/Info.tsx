@@ -4,7 +4,7 @@ import * as Bootstrap from "react-bootstrap";
 export interface IInfoProps {
   id: string;
   title: string;
-  detail: string;
+  detail: string | JSX.Element;
 }
 
 export class Info extends React.Component<IInfoProps> {
@@ -12,6 +12,7 @@ export class Info extends React.Component<IInfoProps> {
     return (
       <Bootstrap.OverlayTrigger 
         trigger="hover"
+        placement="auto"
         overlay={
         <Bootstrap.Popover id={this.props.id}>
           <Bootstrap.Popover.Title>{this.props.title}</Bootstrap.Popover.Title>

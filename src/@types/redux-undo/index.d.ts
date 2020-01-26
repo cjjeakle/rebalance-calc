@@ -1,17 +1,5 @@
 declare module "redux-undo" {
-  export default function undoable<TState, TAction> (
-    reducer: (state: TState, action: {}) => TState
-  ): undoableReducer<TState>;
-
-  export type undoableReducer<TState> = (state: undoableState<TState>, action: {}) => undoableState<TState>;
-
-  export interface undoableState<TState> {
-    past: TState[];
-    present: TState;
-    future: TState[];
-  }
-
-  export const ActionCreators: IActionCreators;
+  /* Actions */
 
   export interface IActionCreators {
     undo: () => { type: string };
@@ -21,4 +9,20 @@ declare module "redux-undo" {
     jump: (index: number) => { type: string, index: number };
     clearHistory: () => { type: string };
   }
+
+  export const ActionCreators: IActionCreators;
+
+  /* State Management */
+
+  export interface undoableState<TState> {
+    past: TState[];
+    present: TState;
+    future: TState[];
+  }
+
+  export type undoableReducer<TState> = (state: undoableState<TState>, action: {}) => undoableState<TState>;
+
+  export default function undoable<TState, TAction> (
+    reducer: (state: TState, action: {}) => TState
+  ): undoableReducer<TState>;
 }

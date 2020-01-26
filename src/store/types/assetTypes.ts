@@ -1,36 +1,42 @@
 import { Action } from "redux";
 
 /* State: */
-export type AssetListNames = "assetsRegular" | "assetsInefficient" | "assetsAdvantaged";
+export type TaxTreatmentT = "regular" | "inefficient" | "advantaged";
 
 export interface IAsset {
+  id: string;
   name: string;
+  taxTreatment: TaxTreatmentT;
   allocation: number;
   notes: string;
-  showDetails: boolean;
 }
 
-export interface IAssetsState {
-  [id: string]: IAsset;
-}
+export type AssetStateT = IAsset[];
 
 /* Actions: */
 export const ADD_ASSET = "ADD_ASSET";
 export const UPDATE_ASSET_NAME = "UPDATE_ASSET_NAME";
+export const UPDATE_ASSET_TAX_TREATMENT = "UPDATE_ASSET_TAX_TREATMENT";
 export const UPDATE_ASSET_ALLOCATION = "UPDATE_ASSET_ALLOCATION";
 export const UPDATE_ASSET_NOTES = "UPDATE_ASSET_NOTES";
-export const TOGGLE_ASSET_DETAILS = "TOGGLE_ASSET_DETAILS";
+export const MOVE_ASSET = "MOVE_ASSET";
+export const REMOVE_ASSET = "REMOVE_ASSET";
 
 /* Action Interfaces: */
 export interface IAddAsset extends Action {
   type: typeof ADD_ASSET;
-  id: string;
 }
 
 export interface IUpdateAssetName extends Action {
   type: typeof UPDATE_ASSET_NAME;
   id: string;
   name: string;
+}
+
+export interface IUpdateAssetTaxEfficiency extends Action {
+  type: typeof UPDATE_ASSET_TAX_TREATMENT;
+  id: string;
+  taxTreatment: TaxTreatmentT;
 }
 
 export interface IUpdateAssetAllocation extends Action {
@@ -45,8 +51,14 @@ export interface IUpdateAssetNotes extends Action {
   notes: string;
 }
 
-export interface IToggleAssetDetails extends Action {
-  type: typeof TOGGLE_ASSET_DETAILS;
+export interface IMoveAsset extends Action {
+  type: typeof MOVE_ASSET;
+  id: string;
+  movedBeforeId: string; // The asset ID this asset was moved in front of, null or empty if moved end of list
+}
+
+export interface IRemoveAsset extends Action {
+  type: typeof REMOVE_ASSET;
   id: string;
 }
 
@@ -54,6 +66,8 @@ export interface IToggleAssetDetails extends Action {
 export type ActionTypes =
   IAddAsset
   | IUpdateAssetName
+  | IUpdateAssetTaxEfficiency
   | IUpdateAssetAllocation
   | IUpdateAssetNotes
-  | IToggleAssetDetails;
+  | IMoveAsset
+  | IRemoveAsset;

@@ -2,8 +2,7 @@ import * as React from "react";
 
 import ControlPanel from "./components/ControlPanel";
 import MoreInfo from "./components/MoreInfo";
-import AssetAllocation from "./components/assets/AssetAllocation";
-import AvailableAccounts from "./components/accounts/AccountsAvailable";
+import AssetList from "./components/assets/AssetList";
 import SuggestedAllocation from "./components/SuggestedAllocation";
 
 class App extends React.Component<{}> {
@@ -18,8 +17,7 @@ class App extends React.Component<{}> {
         </div>
         <ControlPanel />
         <MoreInfo />
-        <AssetAllocation />
-        <AvailableAccounts />
+        <AssetList />
         <SuggestedAllocation />
       </div>
     );

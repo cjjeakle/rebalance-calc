@@ -2,38 +2,29 @@ import * as React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import * as Bootstrap from "react-bootstrap";
-import uuid from "uuid";
 
-import * as ListActions from "../../store/actions/listActions";
-import { ListStateT } from "../../store/types/listTypes";
-import { AssetListNames } from "../../store/types/assetTypes";
-import { Info } from "../Info";
+import { IAsset, AssetStateT } from "../../store/types/assetTypes";
+import * as AssetActions from "../../store/actions/assetActions";
 import AssetListElement from "./AssetListElement";
+import { AppState } from "../../store";
 
 export interface IAssetTypeListProps {
   /* State */
-  title: string;
-  info: string;
-  listId: AssetListNames;
-  elements: ListStateT;
+  assets: AssetStateT;
 
   /* Actions */
-  addElement: (listId: AssetListNames) => void;
-  moveElement: typeof ListActions.moveElement;
-  removeElement: typeof ListActions.removeElement;
+  addAsset: typeof AssetActions.addAsset;
+  moveAsset: typeof AssetActions.moveAsset;
 }
 
 class AssetList extends React.Component<IAssetTypeListProps> {
   render() {
-    const listItems = this.props.elements.map((assetId: string) => {
+    const listItems = this.props.assets.map((asset: IAsset) => {
       return (
-        <div className="row" key={assetId}>
+        <div className="row" key={asset.id}>
           <div className="col">
-            <AssetListElement 
-              listId={this.props.listId} 
-              assetId={assetId} 
-              moveInList={this.props.moveElement} 
-              removeFromList={ () => this.props.removeElement(this.props.listId, assetId) }
+            <AssetListElement
+              asset={asset}
             />
           </div>
         </div>
@@ -44,7 +35,8 @@ class AssetList extends React.Component<IAssetTypeListProps> {
       <div className="container-fluid mb-1 border-left border-right border-primary rounded">
         <div className="row">
           <div className="col">
-            <h5>{this.props.title} <Info id={this.props.listId} title={this.props.title} detail={this.props.info}></Info></h5>
+            <h4>Desired Asset Allocation:</h4>
+            <div className="alert alert-info alert-sm">For help classifying assets, <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>.</div>
           </div>
         </div>
         {listItems}
@@ -53,7 +45,7 @@ class AssetList extends React.Component<IAssetTypeListProps> {
             <Bootstrap.Button 
               variant="outline-primary" 
               className="btn-sm" 
-              onClick={() => { this.props.addElement(this.props.listId) }}
+              onClick={ this.props.addAsset }
             >
               +
             </Bootstrap.Button>
@@ -64,10 +56,13 @@ class AssetList extends React.Component<IAssetTypeListProps> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addElement: (listId: AssetListNames) => dispatch(ListActions.addElement(listId, uuid.v4())),
-  moveElement: (listId: AssetListNames, elementId: string, newIndex: number) => dispatch(ListActions.moveElement(listId, elementId, newIndex)),
-  removeElement: (listId: AssetListNames, elementId: string) => dispatch(ListActions.removeElement(listId, elementId))
+const mapStateToProps = (state: AppState) => ({
+  assets: state.present.assets
 });
 
-export default connect(null, mapDispatchToProps)(AssetList);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  addAsset: () => dispatch(AssetActions.addAsset()),
+  moveAsset: (id: string, movedBeforeId: string) => dispatch(AssetActions.moveAsset(id, movedBeforeId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AssetList);
