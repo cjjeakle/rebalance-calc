@@ -8,11 +8,11 @@ import * as AssetActions from "../../store/actions/assetActions";
 
 import { Info } from "../Info";
 
-export interface IAssetListElementProps {
+export interface IAssetProps {
   /* State */
   asset: IAsset;
 
-  /* Element-Level Actions*/
+  /* Actions*/
   updateName: typeof AssetActions.updateAssetName;
   updateClass: typeof AssetActions.updateAssetTaxEfficiency;
   updateAllocation: typeof AssetActions.updateAssetAllocation;
@@ -20,7 +20,7 @@ export interface IAssetListElementProps {
   removeAsset: typeof AssetActions.removeAsset;
 }
 
-class AssetListElement extends React.Component<IAssetListElementProps> {
+class Asset extends React.Component<IAssetProps> {
   render() {
     let asset = this.props.asset;
     return (
@@ -154,4 +154,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   removeAsset: (id: string) => dispatch(AssetActions.removeAsset(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AssetListElement);
+export default connect(mapStateToProps, mapDispatchToProps)(Asset);
