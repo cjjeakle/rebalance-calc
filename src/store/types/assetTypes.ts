@@ -33,7 +33,7 @@ export interface IUpdateAssetName extends Action {
   name: string;
 }
 
-export interface IUpdateAssetTaxEfficiency extends Action {
+export interface IUpdateAssetTaxTreatment extends Action {
   type: typeof UPDATE_ASSET_TAX_TREATMENT;
   id: string;
   taxTreatment: AssetTaxTreatmentT;
@@ -66,7 +66,7 @@ export interface IRemoveAsset extends Action {
 export type ActionTypes =
   IAddAsset
   | IUpdateAssetName
-  | IUpdateAssetTaxEfficiency
+  | IUpdateAssetTaxTreatment
   | IUpdateAssetAllocation
   | IUpdateAssetNotes
   | IMoveAsset

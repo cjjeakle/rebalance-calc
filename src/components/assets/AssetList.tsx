@@ -3,10 +3,10 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import * as Bootstrap from "react-bootstrap";
 
+import { AppState } from "../../store";
 import { IAsset, AssetStateT } from "../../store/types/assetTypes";
 import * as AssetActions from "../../store/actions/assetActions";
 import Asset from "./Asset";
-import { AppState } from "../../store";
 
 export interface IAssetTypeListProps {
   /* State */

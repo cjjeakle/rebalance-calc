@@ -14,7 +14,7 @@ export interface IAssetProps {
 
   /* Actions*/
   updateName: typeof AssetActions.updateAssetName;
-  updateClass: typeof AssetActions.updateAssetTaxEfficiency;
+  updateTaxTreatment: typeof AssetActions.updateAssetTaxTreatment;
   updateAllocation: typeof AssetActions.updateAssetAllocation;
   updateNotes: typeof AssetActions.updateAssetNotes;
   removeAsset: typeof AssetActions.removeAsset;
@@ -58,7 +58,20 @@ class Asset extends React.Component<IAssetProps> {
               >
               </input>
               <div className="input-group-append">
-                <span className="input-group-text" id="allocation">%</span>
+                <span className="input-group-text" id="allocation">
+                  %&nbsp;&nbsp;
+                  <Info
+                    id={("allocation-info-" + asset.id)}
+                    title="Asset Allocation"
+                    detail={
+                      <div>
+                        <p>
+                          Use this field to specify what % of your whole portfolio you'd like to allocate to this asset.
+                        </p>
+                      </div>
+                    }>
+                  </Info>
+                </span>
               </div>
             </div>
           </div>
@@ -69,7 +82,7 @@ class Asset extends React.Component<IAssetProps> {
                 value={asset.taxTreatment}
                 onChange={
                   (e: React.ChangeEvent<HTMLSelectElement>) => {
-                    this.props.updateClass(asset.id, e.target.value as AssetTaxTreatmentT);
+                    this.props.updateTaxTreatment(asset.id, e.target.value as AssetTaxTreatmentT);
                   }
                 }
               >
@@ -79,7 +92,7 @@ class Asset extends React.Component<IAssetProps> {
                 <option value="regular">No special tax treatment</option>
               </select>
               <div className="input-group-append">
-                <span className="input-group-text" id="">
+                <span className="input-group-text">
                   <Info
                     id={("tax-info-" + asset.id)}
                     title="What to choose:"
@@ -148,7 +161,7 @@ const mapStateToProps = (state: AppState) => ({assets: state.present.assets });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   updateName: (id: string, name: string) => dispatch(AssetActions.updateAssetName(id, name)),
-  updateClass: (id: string, className: AssetTaxTreatmentT) => dispatch(AssetActions.updateAssetTaxEfficiency(id, className)),
+  updateTaxTreatment: (id: string, taxTreatment: AssetTaxTreatmentT) => dispatch(AssetActions.updateAssetTaxTreatment(id, taxTreatment)),
   updateAllocation: (id: string, allocation: number) => dispatch(AssetActions.updateAssetAllocation(id, allocation)),
   updateNotes: (id: string, notes: string) => dispatch(AssetActions.updateAssetNotes(id, notes)),
   removeAsset: (id: string) => dispatch(AssetActions.removeAsset(id))

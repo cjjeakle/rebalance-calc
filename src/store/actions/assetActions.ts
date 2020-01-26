@@ -14,7 +14,7 @@ export function updateAssetName(id: string, name: string): AssetTypes.IUpdateAss
   };
 }
 
-export function updateAssetTaxEfficiency(id: string, taxTreatment: AssetTypes.AssetTaxTreatmentT): AssetTypes.IUpdateAssetTaxEfficiency {
+export function updateAssetTaxTreatment(id: string, taxTreatment: AssetTypes.AssetTaxTreatmentT): AssetTypes.IUpdateAssetTaxTreatment {
   return {
     type: AssetTypes.UPDATE_ASSET_TAX_TREATMENT,
     id,
