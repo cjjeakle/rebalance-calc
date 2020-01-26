@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import { AppState } from "../../store";
-import { IAsset, TaxTreatmentT } from "../../store/types/assetTypes";
+import { IAsset, AssetTaxTreatmentT } from "../../store/types/assetTypes";
 import * as AssetActions from "../../store/actions/assetActions";
 
 import { Info } from "../Info";
@@ -69,7 +69,7 @@ class AssetListElement extends React.Component<IAssetListElementProps> {
                 value={asset.taxTreatment}
                 onChange={
                   (e: React.ChangeEvent<HTMLSelectElement>) => {
-                    this.props.updateClass(asset.id, e.target.value as TaxTreatmentT);
+                    this.props.updateClass(asset.id, e.target.value as AssetTaxTreatmentT);
                   }
                 }
               >
@@ -148,7 +148,7 @@ const mapStateToProps = (state: AppState) => ({assets: state.present.assets });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   updateName: (id: string, name: string) => dispatch(AssetActions.updateAssetName(id, name)),
-  updateClass: (id: string, className: TaxTreatmentT) => dispatch(AssetActions.updateAssetTaxEfficiency(id, className)),
+  updateClass: (id: string, className: AssetTaxTreatmentT) => dispatch(AssetActions.updateAssetTaxEfficiency(id, className)),
   updateAllocation: (id: string, allocation: number) => dispatch(AssetActions.updateAssetAllocation(id, allocation)),
   updateNotes: (id: string, notes: string) => dispatch(AssetActions.updateAssetNotes(id, notes)),
   removeAsset: (id: string) => dispatch(AssetActions.removeAsset(id))
