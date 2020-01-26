@@ -1,31 +1,25 @@
 import { Action } from "redux";
 
-export type AccountListNames = "accountRegular" | "accountTaxDeferred" | "accountTaxExempt"
+export type AccountTaxTreatmentT = "regular" | "deferred" | "exempt"
 
 export interface IAccount {
+  id: string;
   name: string;
-  balance: number;
-  notes: string;
-  showDetails: boolean;
-}
-
-export interface IAccountsState {
-  [id: string]: IAccount;
+  taxTreatment: AccountTaxTreatmentT;
 }
 
 export type AccountStateT = IAccount[];
 
 /* Actions: */
 export const ADD_ACCOUNT = "ADD_ACCOUNT";
+export const UPDATE_ACCOUNT_TAX_TREATMENT = "UPDATE_ACCOUNT_TAX_TREATMENT";
 export const UPDATE_ACCOUNT_NAME = "UPDATE_ACCOUNT_NAME";
-export const UPDATE_ACCOUNT_BALANCE = "UPDATE_ACCOUNT_BALANCE";
-export const UPDATE_ACCOUNT_NOTES = "UPDATE_ACCOUNT_NOTES";
-export const TOGGLE_ACCOUNT_DETAILS = "TOGGLE_ACCOUNT_DETAILS";
+export const REMOVE_ACCOUNT = "REMOVE_ACCOUNT";
+export const INIT_ACCOUNT_HOLDINGS = "";
 
 /* Action Interfaces: */
 export interface IAddAccount extends Action {
   type: typeof ADD_ACCOUNT;
-  id: string;
 }
 
 export interface IUpdateAccountName extends Action {
@@ -34,20 +28,14 @@ export interface IUpdateAccountName extends Action {
   name: string;
 }
 
-export interface IUpdateAccountBalance extends Action {
-  type: typeof UPDATE_ACCOUNT_BALANCE;
+export interface IUpdateAccountTaxTreatment extends Action {
+  type: typeof UPDATE_ACCOUNT_TAX_TREATMENT;
   id: string;
-  balance: number;
+  taxTreatment: AccountTaxTreatmentT;
 }
 
-export interface IUpdateAccountNotes extends Action {
-  type: typeof UPDATE_ACCOUNT_NOTES;
-  id: string;
-  notes: string;
-}
-
-export interface IToggleAccountDetails extends Action {
-  type: typeof TOGGLE_ACCOUNT_DETAILS;
+export interface IRemoveAccount extends Action {
+  type: typeof REMOVE_ACCOUNT;
   id: string;
 }
 
@@ -55,6 +43,5 @@ export interface IToggleAccountDetails extends Action {
 export type ActionTypes =
   IAddAccount
   | IUpdateAccountName
-  | IUpdateAccountBalance
-  | IUpdateAccountNotes
-  | IToggleAccountDetails;
+  | IUpdateAccountTaxTreatment
+  | IRemoveAccount;

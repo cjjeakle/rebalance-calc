@@ -15,7 +15,7 @@ export default function assetsReducer(
           name: "",
           taxTreatment: null,
           allocation: 0,
-          notes: "",
+          notes: ""
         }
       ];
     case AssetTypes.UPDATE_ASSET_NAME:

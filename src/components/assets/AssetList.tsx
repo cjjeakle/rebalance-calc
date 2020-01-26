@@ -5,7 +5,7 @@ import * as Bootstrap from "react-bootstrap";
 
 import { IAsset, AssetStateT } from "../../store/types/assetTypes";
 import * as AssetActions from "../../store/actions/assetActions";
-import AssetListElement from "./AssetListElement";
+import Asset from "./Asset";
 import { AppState } from "../../store";
 
 export interface IAssetTypeListProps {
@@ -23,7 +23,7 @@ class AssetList extends React.Component<IAssetTypeListProps> {
       return (
         <div className="row" key={asset.id}>
           <div className="col">
-            <AssetListElement
+            <Asset
               asset={asset}
             />
           </div>

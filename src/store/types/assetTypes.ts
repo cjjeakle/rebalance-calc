@@ -1,12 +1,12 @@
 import { Action } from "redux";
 
 /* State: */
-export type TaxTreatmentT = "regular" | "inefficient" | "advantaged";
+export type AssetTaxTreatmentT = "regular" | "inefficient" | "advantaged";
 
 export interface IAsset {
   id: string;
   name: string;
-  taxTreatment: TaxTreatmentT;
+  taxTreatment: AssetTaxTreatmentT;
   allocation: number;
   notes: string;
 }
@@ -36,7 +36,7 @@ export interface IUpdateAssetName extends Action {
 export interface IUpdateAssetTaxEfficiency extends Action {
   type: typeof UPDATE_ASSET_TAX_TREATMENT;
   id: string;
-  taxTreatment: TaxTreatmentT;
+  taxTreatment: AssetTaxTreatmentT;
 }
 
 export interface IUpdateAssetAllocation extends Action {

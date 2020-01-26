@@ -3,30 +3,28 @@ import uuid from "uuid";
 import * as AccountTypes from "../types/accountTypes";
 
 export default function accountsReducer(
-  state: AccountTypes.IAccountsState = {},
+  state: AccountTypes.AccountStateT = [],
   action: AccountTypes.ActionTypes
-): AccountTypes.IAccountsState {
+): AccountTypes.AccountStateT {
   switch (action.type) {
     case AccountTypes.ADD_ACCOUNT:
-      return {
+      return [
         ...state,
-        [uuid.v4()]: {
+        {
+          id: uuid.v4(),
           name: "",
-          balance: "" as any,
-          notes: "",
-          showDetails: false
+          taxTreatment: null
         }
-      };
+      ];
     case AccountTypes.UPDATE_ACCOUNT_NAME:
-      return {...state, [action.id]: { ...state[action.id], name: action.name } };
-    case AccountTypes.UPDATE_ACCOUNT_BALANCE:
-      return {...state, [action.id]: { ...state[action.id], balance: action.balance } };
-    case AccountTypes.UPDATE_ACCOUNT_NOTES:
-      return {...state, [action.id]: { ...state[action.id], notes: action.notes } };
-    case AccountTypes.TOGGLE_ACCOUNT_DETAILS:
-      return {...state, [action.id]: { ...state[action.id], showDetails: !state[action.id].showDetails } };
+      return state.map(account =>
+        account.id === account.id ? { ...account, name: account.name } : account
+      );
+    case AccountTypes.REMOVE_ACCOUNT:
+      return state.map(account =>
+        account.id === account.id ? { ...account, name: account.name } : account
+      );
     default:
       return state;
   }
 }
-

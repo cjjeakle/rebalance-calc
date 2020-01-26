@@ -1,39 +1,30 @@
-import * as ActionTypes from "../types/accountTypes";
+import * as AccountTypes from "../types/accountTypes";
 
-export function addAccount(id: string): ActionTypes.IAddAccount {
+export function addAccount(): AccountTypes.IAddAccount {
   return {
-    type: ActionTypes.ADD_ACCOUNT,
-    id
+    type: AccountTypes.ADD_ACCOUNT
   };
 }
 
-export function updateAccountName(id: string, name: string): ActionTypes.IUpdateAccountName {
+export function updateAccountName(id: string, name: string): AccountTypes.IUpdateAccountName {
   return {
-    type: ActionTypes.UPDATE_ACCOUNT_NAME,
+    type: AccountTypes.UPDATE_ACCOUNT_NAME,
     id,
     name
   }
 }
 
-export function updateAccountBalance(id: string, balance: number): ActionTypes.IUpdateAccountBalance {
+export function updateAccountTaxTreatment(id: string, taxTreatment: AccountTypes.AccountTaxTreatmentT): AccountTypes.IUpdateAccountTaxTreatment {
   return {
-    type: ActionTypes.UPDATE_ACCOUNT_BALANCE,
+    type: AccountTypes.UPDATE_ACCOUNT_TAX_TREATMENT,
     id,
-    balance
+    taxTreatment
   }
 }
 
-export function updateAccountNotes(id: string, notes: string): ActionTypes.IUpdateAccountNotes {
+export function removeAccount(id: string): AccountTypes.IRemoveAccount {
   return {
-    type: ActionTypes.UPDATE_ACCOUNT_NOTES,
-    id,
-    notes
-  }
-}
-
-export function toggleAccountDetails(id: string): ActionTypes.IToggleAccountDetails {
-  return {
-    type: ActionTypes.TOGGLE_ACCOUNT_DETAILS,
+    type: AccountTypes.REMOVE_ACCOUNT,
     id
-  }
+  };
 }
