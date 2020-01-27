@@ -6,7 +6,7 @@ import { AppState } from "../../store";
 import { IAsset, AssetTaxTreatmentT } from "../../store/types/assetTypes";
 import * as AssetActions from "../../store/actions/assetActions";
 
-import { Info } from "../Info";
+import Info from "../Info";
 
 export interface IAssetProps {
   /* State */

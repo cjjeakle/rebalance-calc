@@ -15,11 +15,13 @@ export default class AccountHolding extends React.Component<IAccountHoldingProps
   render() {
     return (
       <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightgrey"}}>
-        <div className="row justify-content-center">
-          <div className="col-md-2">
+        <div className="row">
+          <div className="col">
             <b>{this.props.assetName}</b>
           </div>
-          <div className="col-md-2">
+        </div>
+        <div className="row">
+          <div className="col">
             <div className="input-group">
               <input 
                 type="number" 
@@ -40,7 +42,9 @@ export default class AccountHolding extends React.Component<IAccountHoldingProps
               </div>
             </div>
           </div>
-          <div className="col-md">
+        </div>
+        <div className="row">
+          <div className="col">
             <input
               type="text" 
               className="form-control" 

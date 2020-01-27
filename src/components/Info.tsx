@@ -7,7 +7,7 @@ export interface IInfoProps {
   detail: string | JSX.Element;
 }
 
-export class Info extends React.Component<IInfoProps> {
+export default class Info extends React.Component<IInfoProps> {
   render() {
     return (
       <Bootstrap.OverlayTrigger 

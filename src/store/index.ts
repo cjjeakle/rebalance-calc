@@ -5,11 +5,13 @@ import undoable from "redux-undo";
 import uiReducer from "./reducers/uiReducer"
 import assetsReducer from "./reducers/assetsReducer";
 import accountsReducer from "./reducers/accountsReducer";
+import accountHoldingsReducer from "./reducers/accountHoldingsReducer";
 
 const rootReducer = combineReducers({
     uiState: uiReducer,
     assets: assetsReducer,
-    accounts: accountsReducer
+    accounts: accountsReducer,
+    holdings: accountHoldingsReducer
 });
 
 const undoableRootReducer = undoable(rootReducer);

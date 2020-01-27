@@ -1,11 +1,12 @@
 import { combineReducers } from "redux";
 
 import * as AccountHoldingTypes from "../types/accountHoldingTypes";
+import * as AccountTypes from "../types/accountTypes";
 import * as AssetTypes from "../types/assetTypes";
 
 function accountHoldingsReducer(
   state: AccountHoldingTypes.AccountHoldingsStateT = {},
-  action: AccountHoldingTypes.ActionTypes | AssetTypes.IRemoveAsset
+  action: AccountHoldingTypes.ActionTypes | AccountTypes.IRemoveAccount | AssetTypes.IRemoveAsset
 ): AccountHoldingTypes.AccountHoldingsStateT {
   switch (action.type) {
     case AccountHoldingTypes.UPDATE_ACCOUNT_HOLDING_BALANCE: {
@@ -34,16 +35,23 @@ function accountHoldingsReducer(
         }
       }
     }
+    case AccountTypes.REMOVE_ACCOUNT:
+      return Object.keys(state).reduce((accountHoldings, accountId) => {
+        if (accountId !== action.id) {
+            accountHoldings[accountId] = state[accountId];
+        }
+        return accountHoldings;
+      }, {});
     case AssetTypes.REMOVE_ASSET: {
       let cleanedState = {};
       for(let accountId in Object.keys(state)) {
         // Create a new object with the removed asset filtered out
         cleanedState[accountId] =
-          Object.keys(state[accountId]).reduce((accountHoldings, assetId) => {
+          Object.keys(state[accountId]).reduce((accountAssetHoldings, assetId) => {
             if (assetId !== action.id) {
-                accountHoldings[assetId] = state[accountId][assetId];
+                accountAssetHoldings[assetId] = state[accountId][assetId];
             }
-            return accountHoldings;
+            return accountAssetHoldings;
           }, {});
       }
       return cleanedState;
