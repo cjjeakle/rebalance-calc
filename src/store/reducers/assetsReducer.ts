@@ -13,8 +13,8 @@ export default function assetsReducer(
         {
           id: uuid.v4(),
           name: "",
-          taxTreatment: null,
-          allocation: 0,
+          taxTreatment: undefined,
+          allocation: undefined,
           notes: ""
         }
       ];

@@ -78,7 +78,7 @@ class Asset extends React.Component<IAssetProps> {
           <div className="col-md-3">
             <div className="input-group">
               <select 
-                className={("form-control" + (asset.taxTreatment as string === null ? " is-invalid" : ""))}
+                className={("form-control" + (asset.taxTreatment as string === undefined ? " is-invalid" : ""))}
                 value={asset.taxTreatment}
                 onChange={
                   (e: React.ChangeEvent<HTMLSelectElement>) => {

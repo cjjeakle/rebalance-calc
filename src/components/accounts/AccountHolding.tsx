@@ -27,7 +27,7 @@ export default class AccountHolding extends React.Component<IAccountHoldingProps
                 type="number" 
                 className="form-control"
                 id="balance"
-                min="0" 
+                min="0"
                 placeholder="Balance" 
                 value={this.props.balance} 
                 onChange={

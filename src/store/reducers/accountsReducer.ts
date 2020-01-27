@@ -13,7 +13,7 @@ export default function accountsReducer(
         {
           id: uuid.v4(),
           name: "",
-          taxTreatment: null
+          taxTreatment: undefined
         }
       ];
     case AccountTypes.UPDATE_ACCOUNT_NAME:

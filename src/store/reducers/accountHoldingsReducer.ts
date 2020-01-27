@@ -1,5 +1,3 @@
-import { combineReducers } from "redux";
-
 import * as AccountHoldingTypes from "../types/accountHoldingTypes";
 import * as AccountTypes from "../types/accountTypes";
 import * as AssetTypes from "../types/assetTypes";
@@ -45,16 +43,16 @@ export default function accountHoldingsReducer(
       }, {});
     case AssetTypes.REMOVE_ASSET: {
       let cleanedState = {};
-      for(let accountId in Object.keys(state)) {
+      Object.keys(state).forEach((accountId: string) => {
         // Create a new object with the removed asset filtered out
         cleanedState[accountId] =
-          Object.keys(state[accountId]).reduce((newAssetHoldingsState, assetId) => {
+          Object.keys(state[accountId]).reduce((newAssetHoldingsState: AccountHoldingTypes.IAccountHoldings, assetId: string) => {
             if (assetId !== action.id) {
                 newAssetHoldingsState[assetId] = state[accountId][assetId];
             }
             return newAssetHoldingsState;
           }, {});
-      }
+      })
       return cleanedState;
     }
     default:
@@ -73,7 +71,7 @@ function initHoldingIfPlaceholder(
   }
   if (!stateWithSpecifiedHolding[action.accountId][action.assetId]) {
     stateWithSpecifiedHolding[action.accountId][action.assetId] = {
-      balance: 0,
+      balance: undefined,
       notes: ""
     }
   }
