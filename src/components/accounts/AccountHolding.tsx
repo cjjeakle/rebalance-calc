@@ -17,7 +17,7 @@ export default class AccountHolding extends React.Component<IAccountHoldingProps
       <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightgrey"}}>
         <div className="row">
           <div className="col">
-            <b>{this.props.assetName}</b>
+            <b>{this.props.assetName}&nbsp;</b>
           </div>
         </div>
         <div className="row">

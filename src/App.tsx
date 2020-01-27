@@ -4,7 +4,7 @@ import ControlPanel from "./components/ControlPanel";
 import MoreInfo from "./components/MoreInfo";
 import AssetList from "./components/assets/AssetList";
 import AccountList from "./components/accounts/AccountList";
-import SuggestedAllocation from "./components/SuggestedAllocation";
+import SuggestedAllocationList from "./components/suggestedAllocation/SuggestedAllocationList";
 import SuggestedTrades from "./components/SuggestedTrades";
 
 class App extends React.Component<{}> {
@@ -31,7 +31,7 @@ class App extends React.Component<{}> {
             <hr />
           </div>
         </div>
-        <SuggestedAllocation />
+        <SuggestedAllocationList />
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <hr />

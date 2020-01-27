@@ -27,6 +27,14 @@ The asset allocation calculator
 */
 
 export default function computeSuggestedHoldings(undoableState: AppState): AccountHoldingsStateT {
+  // Data validations
+  if (undoableState.present.assets.find(asset => asset.taxTreatment === undefined)) {
+    return {};
+  }
+  if (undoableState.present.accounts.find(account => account.taxTreatment === undefined)) {
+    return {};
+  }
+
   let currentAccountHoldings = undoableState.present.holdings;
   let accountBalances =
     undoableState
@@ -36,7 +44,7 @@ export default function computeSuggestedHoldings(undoableState: AppState): Accou
       accountId: account.id,
       taxTreatment: account.taxTreatment,
       availableBalance:
-        Object.keys(currentAccountHoldings[account.id])
+        Object.keys(currentAccountHoldings[account.id] ?? {})
         .reduce((accountBalance: number, assetId: string): number => {
           accountBalance += currentAccountHoldings[account.id][assetId].balance;
           return accountBalance;
@@ -57,7 +65,7 @@ export default function computeSuggestedHoldings(undoableState: AppState): Accou
     .map(asset => <TargetAssetBalanceT>{
       assetId: asset.id,
       taxTreatment: asset.taxTreatment,
-      neededAllocation: asset.allocation * totalBalance
+      neededAllocation: ((asset.allocation / 100) * totalBalance)
     });
 
   let availableAccountBalanceByTaxTreatment: AvailableAccountBalanceByTaxTreatmentT =
