@@ -18,12 +18,14 @@ export default function accountsReducer(
       ];
     case AccountTypes.UPDATE_ACCOUNT_NAME:
       return state.map(account =>
-        account.id === account.id ? { ...account, name: account.name } : account
+        account.id === action.id ? { ...account, name: action.name } : account
+      );
+    case AccountTypes.UPDATE_ACCOUNT_TAX_TREATMENT:
+      return state.map(account =>
+        account.id === action.id ? { ...account, taxTreatment: action.taxTreatment } : account
       );
     case AccountTypes.REMOVE_ACCOUNT:
-      return state.map(account =>
-        account.id === account.id ? { ...account, name: account.name } : account
-      );
+      return state.filter(account => account.id !== action.id);
     default:
       return state;
   }

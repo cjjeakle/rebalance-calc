@@ -31,12 +31,12 @@ class Account extends React.Component<IAccountProps> {
     let account = this.props.account;
     
     let accountHoldings = this.props.holdings[account.id];
-    if (accountHoldings === null || accountHoldings === undefined) {
+    if (!accountHoldings) {
       accountHoldings = {};
     }
     let holdings = this.props.assets.map((asset: IAsset) => {
       let assetHoldings = accountHoldings[asset.id];
-      if (assetHoldings === null || assetHoldings === undefined) {
+      if (!assetHoldings) {
         assetHoldings = {
           balance: 0,
           notes: ""
@@ -79,7 +79,7 @@ class Account extends React.Component<IAccountProps> {
               <div className="col">
                 <div className="input-group">
                   <select 
-                    className={("form-control" + (account.taxTreatment as string === "" ? "" : " is-invalid"))}
+                    className={("form-control" + (account.taxTreatment as string === null ? " is-invalid" : ""))}
                     value={account.taxTreatment}
                     onChange={
                       (e: React.ChangeEvent<HTMLSelectElement>) => {

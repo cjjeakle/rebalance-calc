@@ -4,7 +4,7 @@ import * as AccountHoldingTypes from "../types/accountHoldingTypes";
 import * as AccountTypes from "../types/accountTypes";
 import * as AssetTypes from "../types/assetTypes";
 
-function accountHoldingsReducer(
+export default function accountHoldingsReducer(
   state: AccountHoldingTypes.AccountHoldingsStateT = {},
   action: AccountHoldingTypes.ActionTypes | AccountTypes.IRemoveAccount | AssetTypes.IRemoveAsset
 ): AccountHoldingTypes.AccountHoldingsStateT {
@@ -36,22 +36,23 @@ function accountHoldingsReducer(
       }
     }
     case AccountTypes.REMOVE_ACCOUNT:
-      return Object.keys(state).reduce((accountHoldings, accountId) => {
+      // Create a new object with the removed account filtered out
+      return Object.keys(state).reduce((newState, accountId) => {
         if (accountId !== action.id) {
-            accountHoldings[accountId] = state[accountId];
+            newState[accountId] = state[accountId];
         }
-        return accountHoldings;
+        return newState;
       }, {});
     case AssetTypes.REMOVE_ASSET: {
       let cleanedState = {};
       for(let accountId in Object.keys(state)) {
         // Create a new object with the removed asset filtered out
         cleanedState[accountId] =
-          Object.keys(state[accountId]).reduce((accountAssetHoldings, assetId) => {
+          Object.keys(state[accountId]).reduce((newAssetHoldingsState, assetId) => {
             if (assetId !== action.id) {
-                accountAssetHoldings[assetId] = state[accountId][assetId];
+                newAssetHoldingsState[assetId] = state[accountId][assetId];
             }
-            return accountAssetHoldings;
+            return newAssetHoldingsState;
           }, {});
       }
       return cleanedState;
@@ -67,10 +68,10 @@ function initHoldingIfPlaceholder(
   action: AccountHoldingTypes.ActionTypes
 ): AccountHoldingTypes.AccountHoldingsStateT {
   let stateWithSpecifiedHolding = { ...state };
-  if (state[action.accountId] === undefined) {
+  if (!stateWithSpecifiedHolding[action.accountId]) {
     stateWithSpecifiedHolding[action.accountId] = {};
   }
-  if (state[action.accountId][action.assetId] === undefined) {
+  if (!stateWithSpecifiedHolding[action.accountId][action.assetId]) {
     stateWithSpecifiedHolding[action.accountId][action.assetId] = {
       balance: 0,
       notes: ""
@@ -78,5 +79,3 @@ function initHoldingIfPlaceholder(
   }
   return stateWithSpecifiedHolding;
 }
-
-export default combineReducers(accountHoldingsReducer);
