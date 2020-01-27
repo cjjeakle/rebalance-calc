@@ -11,7 +11,8 @@ class App extends React.Component<IComponentProps> {
     return (
       <div className="row">
         <div className="col">
-          <h4>Suggested Allocation:</h4>
+          <h4>Suggested Trades:</h4>
+          <span>(to reach the suggested allocation)</span>
         </div>
       </div>
     );

@@ -5,6 +5,7 @@ import MoreInfo from "./components/MoreInfo";
 import AssetList from "./components/assets/AssetList";
 import AccountList from "./components/accounts/AccountList";
 import SuggestedAllocation from "./components/SuggestedAllocation";
+import SuggestedTrades from "./components/SuggestedTrades";
 
 class App extends React.Component<{}> {
   render() {
@@ -34,6 +35,23 @@ class App extends React.Component<{}> {
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <hr />
+          </div>
+        </div>
+        <SuggestedTrades />
+        <div className="row">
+          <div className="col-md-6 offset-md-3" style={{textAlign: "center"}}>
+            <hr />
+            <div className="row">
+              <div className="col-md-5">
+                Created by: <a href="https://www.chrisjeakle.com">Chris Jeakle</a>
+              </div>
+              <div className="col-md-2">
+                |
+              </div>
+              <div className="col-md-5">
+                <a href="https://github.com/cjjeakle/rebalance-calc">View project source</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

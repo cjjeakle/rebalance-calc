@@ -35,7 +35,7 @@ class AccountList extends React.Component<IAccountListProps> {
       <div className="container-fluid mb-1 border-left border-right border-primary rounded">
         <div className="row">
           <div className="col">
-            <h4>Account Balances:</h4>
+            <h4>Current Account Balances:</h4>
             <div className="alert alert-info alert-sm">For help classifying accounts, see the first bullet in the list <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#General_strategy">here</a>.</div>
           </div>
         </div>

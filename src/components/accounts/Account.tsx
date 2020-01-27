@@ -43,7 +43,7 @@ class Account extends React.Component<IAccountProps> {
         };
       }
       return (
-        <div className="col-xs-4" key={(account.id + asset.id)}>
+        <div className="col-md-4" key={(account.id + asset.id)}>
           <AccountHolding
             assetName = { asset.name }
             balance = { assetHoldings.balance }
@@ -61,7 +61,7 @@ class Account extends React.Component<IAccountProps> {
           <div className="col-md-3" style={{borderRight: "dotted 1px lightgrey"}}>
             <div className="row">
               <div className="col">
-                <input 
+                <input
                     type="text" 
                     className="form-control" 
                     placeholder="Account Name" 
@@ -88,9 +88,9 @@ class Account extends React.Component<IAccountProps> {
                     }
                   >
                     <option disabled selected value="">-- Select a Tax Category: --</option>
-                    <option value="deferred">Tax Deferred</option>
-                    <option value="exempt">Tax Exempt</option>
                     <option value="regular">Taxable</option>
+                    <option value="deferred">Tax deferred</option>
+                    <option value="exempt">Tax exempt</option>
                   </select>
                   <div className="input-group-append">
                     <span className="input-group-text">
@@ -100,22 +100,22 @@ class Account extends React.Component<IAccountProps> {
                         detail={
                           <div>
                             <p>
-                              <strong>Tax Deferred</strong>
+                              <strong>Taxable</strong>
+                              <br/>
+                              These are run-of-the-mill brokerage and investment accounts.
+                              They have no special tax advantages.
+                            </p>
+                            <p>
+                              <strong>Tax deferred</strong>
                               <br/>
                               These accounts don't owe taxes until you withdraw, thereby limiting the negative aspects of dividends and other tax-inefficient forms of returns.
                               Examples include traditional 401(k), 403(b), and IRA accounts.
                             </p>
                             <p>
-                              <strong>Tax Exempt</strong>
+                              <strong>Tax exempt</strong>
                               <br/>
                               Assets in these accounts are never taxed (if used correctly).
                               Examples include Roth accounts and HSAs.
-                            </p>
-                            <p>
-                              <strong>Taxable</strong>
-                              <br/>
-                              These are run-of-the-mill brokerage and investment accounts.
-                              They have no special tax advantages.
                             </p>
                           </div>
                         }>

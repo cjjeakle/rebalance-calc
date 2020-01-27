@@ -87,9 +87,9 @@ class Asset extends React.Component<IAssetProps> {
                 }
               >
                 <option disabled selected value="">-- Select a Tax Category: --</option>
+                <option value="regular">No special tax treatment</option>
                 <option value="inefficient">Tax inefficient</option>
                 <option value="advantaged">Tax efficient</option>
-                <option value="regular">No special tax treatment</option>
               </select>
               <div className="input-group-append">
                 <span className="input-group-text">
@@ -98,18 +98,6 @@ class Asset extends React.Component<IAssetProps> {
                     title="What to choose:"
                     detail={
                       <div>
-                        <p>
-                          <strong>Tax inefficient</strong>
-                          <br/>
-                          These assets primarily earn via non-qualified dividends.
-                          Examples include most bonds and REITs.
-                        </p>
-                        <p>
-                          <strong>Tax advantaged</strong>
-                          <br/>
-                          These assets are eligible for a tax credit on foreign tax, or those which are entirely tax-exempt. 
-                          Examples include ex-us stock funds and municipal bonds.
-                        </p>
                         <p>
                           <strong>No special tax treatment</strong>
                           <br/>
@@ -121,6 +109,18 @@ class Asset extends React.Component<IAssetProps> {
                             Pro tip: For optimal results, place assets in this category with the most growth potential toward the top of the asset list.
                             That ensures such assets are more likely to be allocated to a tax-advantaged account.
                           </em>
+                        </p>
+                        <p>
+                          <strong>Tax inefficient</strong>
+                          <br/>
+                          These assets primarily earn via non-qualified dividends.
+                          Examples include most bonds and REITs.
+                        </p>
+                        <p>
+                          <strong>Tax efficient</strong>
+                          <br/>
+                          These assets are eligible for a tax credit on foreign tax, or those which are entirely tax-exempt. 
+                          Examples include ex-us stock funds and municipal bonds.
                         </p>
                       </div>
                     }>
