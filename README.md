@@ -1,14 +1,29 @@
 # rebalance-calc
-A tool to help with rebalancing one's investment portfolio
+A tool to help with re-balancing one's investment portfolio.
 
 View the live site: www.rebalancecalc.com
 
-RebalanceCalc is a simple web app built using React, Redux, and the skeleton css framework.
+RebalanceCalc is a simple web app built using React, Redux, and the Bootstrap UI framework.
 
 ## Cool features:
+* The site automatically persists every change to the URL, making it easy to save, share, and restore your work
 
-* This site is entirely client-side, so one can [download](https://github.com/cjjeakle/rebalance-calc/archive/gh-pages.zip) the source zip from github and run rebalance calc entirely offline (even saving/loading via URL works!)
-* The site automatically persists every change to the URL, making it easy to undo, redo, save, share, and restore your work
+## Feel free to self-host!
+* Dependencies
+    * `nodejs`
+        * Any relatively new release should work (the current LTS release is a solid choice)
+        * Install from [here](https://nodejs.org/en/download/) or [via a package manager](https://nodejs.org/en/download/package-manager/).
+* Steps:
+    1. Download the source from this repo, or `git clone` the repo
+    1. Open a terminal or powershell session in the root folder of your copy of this repo
+    1. Run `npm install`
+    1. Run `npm dev`
+        * This builds the source code, bundles it, and starts a server
+        * The app should be available at http://localhost:1234 while npm dev runs
+        * Pressing `ctrl` + `c` or closing the terminal should kill the dev server
+
+## Using a previous version:
+To find a previous version, particularly if you'd like to self-host without needing to run any build tools, check out the older releases [here](https://github.com/cjjeakle/rebalance-calc/releases/).
 
 ## License:
 The MIT License (MIT)
