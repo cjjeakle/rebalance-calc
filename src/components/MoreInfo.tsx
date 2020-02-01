@@ -20,21 +20,21 @@ class MoreInfo extends React.Component<IMoreInfoProps> {
     return (
       <div className="container-fluid">
         <div className="row justify-content-center">
-          <div className="col-auto">
+          <div className="col-lg-auto">
             <button 
               onClick={this.props.toggleAboutVisible} 
               className={"btn btn-outline-info btn-sm" + (this.props.aboutVisible ? " active" : "")} >
               About ▼
             </button>
           </div>
-          <div className="col-auto">
+          <div className="col-lg-auto">
             <button 
               onClick={this.props.toggleHowItWorksVisible} 
               className={"btn btn-outline-info btn-sm" + (this.props.howItWorksVisible ? " active" : "")} >
               How It Works ▼
             </button>
           </div>
-          <div className="col-auto">
+          <div className="col-lg-auto">
             <button onClick={this.props.toggleTipsAndTricksVisible} 
             className={"btn btn-outline-info btn-sm" + (this.props.tipsAndTricksVisible ? " active" : "")} >
               Tips and Tricks ▼
@@ -58,7 +58,7 @@ class AboutTheApp extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
-        <div className="col-md-10">
+        <div className="col-lg-10">
           <br />
           <div className="row">
             <div className="col">
@@ -82,7 +82,7 @@ class HowItWorks extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
-        <div className="col-md-10">
+        <div className="col-lg-10">
           <br />
           <ol>
             <li>The total value of all accounts is determined, and is partitioned among the asset classes by percentage of the portfolio</li>
@@ -102,7 +102,7 @@ class UsabilityHints extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
-        <div className="col-md-10">
+        <div className="col-lg-10">
           <br />
           <ol>
             <li>

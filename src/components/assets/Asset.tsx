@@ -26,7 +26,7 @@ class Asset extends React.Component<IAssetProps> {
     return (
       <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightgrey"}}>
         <div className="row justify-content-center">
-          <div className="col-md-2">
+          <div className="col-lg-2">
             <input 
               type="text" 
               className="form-control" 
@@ -40,7 +40,7 @@ class Asset extends React.Component<IAssetProps> {
             >
             </input>
           </div>
-          <div className="col-md-2">
+          <div className="col-lg-2">
             <div className="input-group">
               <input 
                 type="number" 
@@ -75,7 +75,7 @@ class Asset extends React.Component<IAssetProps> {
               </div>
             </div>
           </div>
-          <div className="col-md-3">
+          <div className="col-lg-3">
             <div className="input-group">
               <select 
                 className={("form-control" + (asset.taxTreatment as string === undefined ? " is-invalid" : ""))}
@@ -129,7 +129,7 @@ class Asset extends React.Component<IAssetProps> {
               </div>
             </div>
           </div>
-          <div className="col-md">
+          <div className="col-lg">
             <input
               type="text" 
               className="form-control" 
@@ -143,7 +143,7 @@ class Asset extends React.Component<IAssetProps> {
             >
             </input>
           </div>
-          <div className="col-md-1 text-center">
+          <div className="col-lg-1 text-center">
             <button 
               className="btn btn-outline-danger"
               onClick={ () => {this.props.removeAsset(asset.id)} }

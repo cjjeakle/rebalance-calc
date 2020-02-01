@@ -19,7 +19,7 @@ class ControlPanel extends React.Component<IControlPanelProps> {
       <div className="container-fluid">
         <hr />
         <div className="row justify-content-center">
-          <div className="col-auto">
+          <div className="col-lg-auto">
             <button 
               onClick={this.props.undo} 
               className={"btn btn-outline-info btn-sm"} 
@@ -28,7 +28,7 @@ class ControlPanel extends React.Component<IControlPanelProps> {
               Undo
             </button>
           </div>
-          <div className="col-auto">
+          <div className="col-lg-auto">
             <button 
               onClick={this.props.redo} 
               className={"btn btn-outline-info btn-sm"} 

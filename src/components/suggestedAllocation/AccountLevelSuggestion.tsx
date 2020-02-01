@@ -40,7 +40,7 @@ class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProp
         assetSuggestion = { balance: 0, notes: ""}
       }
       return (
-        <div className="col-md-4" key={(account.id + asset.id)}>
+        <div className="col-lg-4" key={(account.id + asset.id)}>
           <AccountHolding
             assetName = { asset.name }
             currentHolding = { assetHolding.balance }
@@ -53,7 +53,7 @@ class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProp
     return (
       <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightgrey"}}>
         <div className="row">
-          <div className="col-md-3" style={{borderRight: "dotted 1px lightgrey"}}>
+          <div className="col-lg-3" style={{borderRight: "dotted 1px lightgrey"}}>
             <div className="row">
               <div className="col" style={{textAlign: "center"}}>
                 <b>{account.name}</b>
@@ -65,7 +65,7 @@ class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProp
               </div>
             </div>
           </div>
-          <div className="col-md">
+          <div className="col-lg">
             <div className="row">
             { assetLevelSuggestions }
             </div>

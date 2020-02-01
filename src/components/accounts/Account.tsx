@@ -43,7 +43,7 @@ class Account extends React.Component<IAccountProps> {
         };
       }
       return (
-        <div className="col-md-4" key={(account.id + asset.id)}>
+        <div className="col-lg-4" key={(account.id + asset.id)}>
           <AccountHolding
             assetName = { asset.name }
             balance = { assetHoldings.balance }
@@ -58,7 +58,7 @@ class Account extends React.Component<IAccountProps> {
     return (
       <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightgrey"}}>
         <div className="row">
-          <div className="col-md-3" style={{borderRight: "dotted 1px lightgrey"}}>
+          <div className="col-lg-3" style={{borderRight: "dotted 1px lightgrey"}}>
             <div className="row">
               <div className="col">
                 <input
@@ -126,12 +126,12 @@ class Account extends React.Component<IAccountProps> {
               </div>
             </div>
           </div>
-          <div className="col-md">
+          <div className="col-lg">
             <div className="row">
             { holdings }
             </div>
           </div>
-          <div className="col-md-1 text-center">
+          <div className="col-lg-1 text-center">
             <button 
               className="btn btn-outline-danger"
               onClick={ () => {this.props.remove(account.id)} }

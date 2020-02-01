@@ -21,34 +21,34 @@ class App extends React.Component<{}> {
         <MoreInfo />
         <AssetList />
         <div className="row">
-          <div className="col-md-6 offset-md-3">
+          <div className="col-lg-6 offset-lg-3">
             <hr />
           </div>
         </div>
         <AccountList />
         <div className="row">
-          <div className="col-md-6 offset-md-3">
+          <div className="col-lg-6 offset-lg-3">
             <hr />
           </div>
         </div>
         <SuggestedAllocationList />
         <div className="row">
-          <div className="col-md-6 offset-md-3">
+          <div className="col-lg-6 offset-lg-3">
             <hr />
           </div>
         </div>
         <SuggestedTrades />
         <div className="row">
-          <div className="col-md-6 offset-md-3" style={{textAlign: "center"}}>
+          <div className="col-lg-6 offset-lg-3" style={{textAlign: "center"}}>
             <hr />
             <div className="row">
-              <div className="col-md-5">
+              <div className="col-lg-5">
                 Created by: <a href="https://www.chrisjeakle.com">Chris Jeakle</a>
               </div>
-              <div className="col-md-2">
+              <div className="col-lg-2">
                 |
               </div>
-              <div className="col-md-5">
+              <div className="col-lg-5">
                 <a href="https://github.com/cjjeakle/rebalance-calc">View project source</a>
               </div>
             </div>

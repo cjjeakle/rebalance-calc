@@ -41,7 +41,7 @@ class AccountList extends React.Component<IAccountListProps> {
         </div>
         {listItems}
         <div className="row justify-content-center">
-          <div className="col-auto">
+          <div className="col-lg-auto">
             <Bootstrap.Button 
               variant="outline-primary" 
               className="btn-sm" 
