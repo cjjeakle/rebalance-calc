@@ -9,6 +9,14 @@ export function updateAccountHoldingBalance(accountId: string, assetId: string, 
   };
 }
 
+export function toggleAccountHoldingLock(accountId: string, assetId: string): AccountHoldingTypes.IToggleAccountHoldingLock {
+  return {
+    type: AccountHoldingTypes.TOGGLE_ACCOUNT_HOLDING_LOCK,
+    accountId,
+    assetId
+  }
+}
+
 export function updateAccountHoldingNotes(accountId: string, assetId: string, notes: string): AccountHoldingTypes.IUpdateAccountHoldingNotes {
   return {
     type: AccountHoldingTypes.UPDATE_ACCOUNT_HOLDING_NOTES,

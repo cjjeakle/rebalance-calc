@@ -20,6 +20,19 @@ export default function accountHoldingsReducer(
         }
       }
     }
+    case AccountHoldingTypes.TOGGLE_ACCOUNT_HOLDING_LOCK: {
+      let stateWithSpecifiedHolding = initHoldingIfPlaceholder(state, action);
+      return {
+        ...stateWithSpecifiedHolding,
+        [action.accountId] : {
+          ...stateWithSpecifiedHolding[action.accountId],
+          [action.assetId] : {
+            ...stateWithSpecifiedHolding[action.accountId][action.assetId],
+            lockAllocation: !stateWithSpecifiedHolding[action.accountId][action.assetId].lockAllocation
+          }
+        }
+      }
+    }
     case AccountHoldingTypes.UPDATE_ACCOUNT_HOLDING_NOTES: {
       let stateWithSpecifiedHolding = initHoldingIfPlaceholder(state, action);
       return {
@@ -72,6 +85,7 @@ function initHoldingIfPlaceholder(
   if (!stateWithSpecifiedHolding[action.accountId][action.assetId]) {
     stateWithSpecifiedHolding[action.accountId][action.assetId] = {
       balance: undefined,
+      lockAllocation: false,
       notes: ""
     }
   }

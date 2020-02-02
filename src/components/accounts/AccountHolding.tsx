@@ -23,6 +23,9 @@ export default class AccountHolding extends React.Component<IAccountHoldingProps
         <div className="row">
           <div className="col">
             <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="balance">$</span>
+              </div>
               <input 
                 type="number" 
                 className="form-control"
@@ -37,9 +40,6 @@ export default class AccountHolding extends React.Component<IAccountHoldingProps
                 }
               >
               </input>
-              <div className="input-group-prepend">
-                <span className="input-group-text" id="balance">$</span>
-              </div>
             </div>
           </div>
         </div>

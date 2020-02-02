@@ -161,6 +161,7 @@ function allocateAssets(
     if (!assetAllocationBuffer[currentAccount.accountId][currentAsset.assetId]) {
       assetAllocationBuffer[currentAccount.accountId][currentAsset.assetId] = {
         balance: 0,
+        lockAllocation: false,
         notes: ""
       }
     }

@@ -33,11 +33,11 @@ class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProp
     let assetLevelSuggestions = this.props.assets.map((asset: IAsset) => {
       let assetHolding = curHolding[asset.id];
       if (!assetHolding) {
-        assetHolding = { balance: 0, notes: "" };
+        assetHolding = { balance: 0, lockAllocation: false, notes: "" };
       }
       let assetSuggestion = suggestedHolding[asset.id];
       if (!assetSuggestion) {
-        assetSuggestion = { balance: 0, notes: ""}
+        assetSuggestion = { balance: 0, lockAllocation: false, notes: ""}
       }
       return (
         <div className="col-lg-4" key={(account.id + asset.id)}>
