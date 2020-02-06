@@ -24,7 +24,7 @@ class Asset extends React.Component<IAssetProps> {
   render() {
     let asset = this.props.asset;
     return (
-      <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightgrey"}}>
+      <div className="container-fluid form-group">
         <div className="row justify-content-center">
           <div className="col-lg-2">
             <input 
@@ -89,7 +89,7 @@ class Asset extends React.Component<IAssetProps> {
                 <option disabled selected value="">-- Select a Tax Category: --</option>
                 <option value="regular">No special tax treatment</option>
                 <option value="inefficient">Tax inefficient</option>
-                <option value="advantaged">Tax efficient</option>
+                <option value="advantaged">Tax advantaged</option>
               </select>
               <div className="input-group-append">
                 <span className="input-group-text">
@@ -117,7 +117,7 @@ class Asset extends React.Component<IAssetProps> {
                           Examples include most bonds and REITs.
                         </p>
                         <p>
-                          <strong>Tax efficient</strong>
+                          <strong>Tax advantaged</strong>
                           <br/>
                           These assets are eligible for a tax credit on foreign tax, or those which are entirely tax-exempt. 
                           Examples include ex-us stock funds and municipal bonds.
@@ -143,7 +143,7 @@ class Asset extends React.Component<IAssetProps> {
             >
             </input>
           </div>
-          <div className="col-lg-1 text-center">
+          <div className="col-lg-1 text-center" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
             <button 
               className="btn btn-outline-danger"
               onClick={ () => {this.props.removeAsset(asset.id)} }

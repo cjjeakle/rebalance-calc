@@ -23,16 +23,18 @@ class AccountList extends React.Component<IAccountListProps> {
       return (
         <div className="row" key={account.id}>
           <div className="col">
+            <div style={{textAlign:"center"}}>=-=</div>
             <Account
               account={account}
             />
+            <div style={{textAlign:"center"}}>-=-</div>
           </div>
         </div>
       );
     });
 
     return (
-      <div className="container-fluid mb-1 border-left border-right border-primary rounded">
+      <div className="container-fluid">
         <div className="row">
           <div className="col">
             <h4>Current Account Balances:</h4>
@@ -41,7 +43,7 @@ class AccountList extends React.Component<IAccountListProps> {
         </div>
         {listItems}
         <div className="row justify-content-center">
-          <div className="col-lg-auto">
+          <div className="col-lg-auto text-center">
             <Bootstrap.Button 
               variant="outline-primary" 
               className="btn-sm" 

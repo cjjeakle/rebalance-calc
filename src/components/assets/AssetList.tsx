@@ -32,7 +32,7 @@ class AssetList extends React.Component<IAssetTypeListProps> {
     });
 
     return (
-      <div className="container-fluid mb-1 border-left border-right border-primary rounded">
+      <div className="container-fluid">
         <div className="row">
           <div className="col">
             <h4>Desired Asset Allocation:</h4>
@@ -41,7 +41,7 @@ class AssetList extends React.Component<IAssetTypeListProps> {
         </div>
         {listItems}
         <div className="row justify-content-center">
-          <div className="col-lg-auto">
+          <div className="col-lg-auto text-center">
             <Bootstrap.Button 
               variant="outline-primary" 
               className="btn-sm" 

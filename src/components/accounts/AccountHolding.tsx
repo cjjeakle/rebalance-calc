@@ -14,7 +14,7 @@ export interface IAccountHoldingProps {
 export default class AccountHolding extends React.Component<IAccountHoldingProps> {
   render() {
     return (
-      <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightgrey"}}>
+      <div className="container-fluid form-group">
         <div className="row">
           <div className="col">
             <b>{this.props.assetName}&nbsp;</b>

@@ -39,6 +39,7 @@ class Account extends React.Component<IAccountProps> {
       if (!assetHoldings) {
         assetHoldings = {
           balance: undefined,
+          lockAllocation: false,
           notes: ""
         };
       }
@@ -56,71 +57,73 @@ class Account extends React.Component<IAccountProps> {
     });
 
     return (
-      <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightgrey"}}>
+      <div className="container-fluid form-group">
         <div className="row">
-          <div className="col-lg-3" style={{borderRight: "dotted 1px lightgrey"}}>
-            <div className="row">
-              <div className="col">
-                <input
-                    type="text" 
-                    className="form-control" 
-                    placeholder="Account Name" 
-                    value={account.name} 
-                    onChange={
-                      (e: React.ChangeEvent<HTMLInputElement>) => { 
-                        this.props.updateName(account.id, e.target.value);
+          <div className="col-lg-3" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+            <div>
+              <div className="row">
+                <div className="col">
+                  <input
+                      type="text" 
+                      className="form-control" 
+                      placeholder="Account Name" 
+                      value={account.name} 
+                      onChange={
+                        (e: React.ChangeEvent<HTMLInputElement>) => { 
+                          this.props.updateName(account.id, e.target.value);
+                        }
                       }
-                    }
-                  >
-                </input>
+                    >
+                  </input>
+                </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <div className="input-group">
-                  <select 
-                    className={("form-control" + (account.taxTreatment as string === undefined ? " is-invalid" : ""))}
-                    value={account.taxTreatment}
-                    onChange={
-                      (e: React.ChangeEvent<HTMLSelectElement>) => {
-                        this.props.updateTaxTreatment(account.id, e.target.value as AccountTaxTreatmentT);
+              <div className="row">
+                <div className="col">
+                  <div className="input-group">
+                    <select 
+                      className={("form-control" + (account.taxTreatment as string === undefined ? " is-invalid" : ""))}
+                      value={account.taxTreatment}
+                      onChange={
+                        (e: React.ChangeEvent<HTMLSelectElement>) => {
+                          this.props.updateTaxTreatment(account.id, e.target.value as AccountTaxTreatmentT);
+                        }
                       }
-                    }
-                  >
-                    <option disabled selected value="">-- Select a Tax Category: --</option>
-                    <option value="regular">Taxable</option>
-                    <option value="deferred">Tax deferred</option>
-                    <option value="exempt">Tax exempt</option>
-                  </select>
-                  <div className="input-group-append">
-                    <span className="input-group-text">
-                      <Info
-                        id={("tax-info-" + account.id)}
-                        title="What to choose:"
-                        detail={
-                          <div>
-                            <p>
-                              <strong>Taxable</strong>
-                              <br/>
-                              These are run-of-the-mill brokerage and investment accounts.
-                              They have no special tax advantages.
-                            </p>
-                            <p>
-                              <strong>Tax deferred</strong>
-                              <br/>
-                              These accounts don't owe taxes until you withdraw, thereby limiting the negative aspects of dividends and other tax-inefficient forms of returns.
-                              Examples include traditional 401(k), 403(b), and IRA accounts.
-                            </p>
-                            <p>
-                              <strong>Tax exempt</strong>
-                              <br/>
-                              Assets in these accounts are never taxed (if used correctly).
-                              Examples include Roth accounts and HSAs.
-                            </p>
-                          </div>
-                        }>
-                      </Info>
-                    </span>
+                    >
+                      <option disabled selected value="">-- Select a Tax Category: --</option>
+                      <option value="regular">Taxable</option>
+                      <option value="deferred">Tax deferred</option>
+                      <option value="exempt">Tax exempt</option>
+                    </select>
+                    <div className="input-group-append">
+                      <span className="input-group-text">
+                        <Info
+                          id={("tax-info-" + account.id)}
+                          title="What to choose:"
+                          detail={
+                            <div>
+                              <p>
+                                <strong>Taxable</strong>
+                                <br/>
+                                These are run-of-the-mill brokerage and investment accounts.
+                                They have no special tax advantages.
+                              </p>
+                              <p>
+                                <strong>Tax deferred</strong>
+                                <br/>
+                                These accounts don't owe taxes until you withdraw, thereby limiting the negative aspects of dividends and other tax-inefficient forms of returns.
+                                Examples include traditional 401(k), 403(b), and IRA accounts.
+                              </p>
+                              <p>
+                                <strong>Tax exempt</strong>
+                                <br/>
+                                Assets in these accounts are never taxed (if used correctly).
+                                Examples include Roth accounts and HSAs.
+                              </p>
+                            </div>
+                          }>
+                        </Info>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -131,7 +134,7 @@ class Account extends React.Component<IAccountProps> {
             { holdings }
             </div>
           </div>
-          <div className="col-lg-1 text-center">
+          <div className="col-lg-1 text-center" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
             <button 
               className="btn btn-outline-danger"
               onClick={ () => {this.props.remove(account.id)} }
