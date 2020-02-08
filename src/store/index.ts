@@ -2,6 +2,8 @@ import { createStore, combineReducers, applyMiddleware, Middleware } from "redux
 import { composeWithDevTools } from "redux-devtools-extension";
 import undoable from "redux-undo";
 
+import persistenceReducer from "./reducers/persistenceReducer";
+
 import uiReducer from "./reducers/uiReducer"
 import assetsReducer from "./reducers/assetsReducer";
 import accountsReducer from "./reducers/accountsReducer";
@@ -14,7 +16,9 @@ const rootReducer = combineReducers({
     holdings: accountHoldingsReducer
 });
 
-const undoableRootReducer = undoable(rootReducer);
+export type CoreAppStateT = ReturnType<typeof rootReducer>;
+
+const undoableRootReducer = undoable(persistenceReducer(rootReducer));
 
 export type AppState = ReturnType<typeof undoableRootReducer>;
 

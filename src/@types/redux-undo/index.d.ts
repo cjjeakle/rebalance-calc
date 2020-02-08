@@ -23,6 +23,6 @@ declare module "redux-undo" {
   export type undoableReducer<TState> = (state: undoableState<TState>, action: {}) => undoableState<TState>;
 
   export default function undoable<TState, TAction> (
-    reducer: (state: TState, action: {}) => TState
+    reducer: (state: TState, action: TAction) => TState
   ): undoableReducer<TState>;
 }
