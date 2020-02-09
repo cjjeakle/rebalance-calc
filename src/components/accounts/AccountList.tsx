@@ -14,7 +14,6 @@ export interface IAccountListProps {
 
   /* Actions */
   addAccount: typeof AccountActions.addAccount;
-  removeAccount: typeof AccountActions.removeAccount;
 }
 
 class AccountList extends React.Component<IAccountListProps> {

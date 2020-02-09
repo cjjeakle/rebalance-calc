@@ -5,7 +5,6 @@ import MoreInfo from "./components/MoreInfo";
 import AssetList from "./components/assets/AssetList";
 import AccountList from "./components/accounts/AccountList";
 import SuggestedAllocationList from "./components/suggestedAllocation/SuggestedAllocationList";
-import SuggestedTrades from "./components/SuggestedTrades";
 
 class App extends React.Component<{}> {
   render() {
