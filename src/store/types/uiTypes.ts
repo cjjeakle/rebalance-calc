@@ -2,6 +2,7 @@ import { Action } from "redux";
 
 /* State: */
 export interface IUIState {
+  backwardCompatLinkVisible: boolean;
   aboutVisible: boolean;
   howItWorksVisible: boolean;
   tipsAndTricksVisible: boolean;

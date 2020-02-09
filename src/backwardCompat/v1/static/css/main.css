@@ -1,0 +1,36 @@
+h6 {
+	font-weight: bold;
+}
+
+hr {
+	height: 1px;
+	border: 0 none;
+	color: rgb(240, 240, 240);
+	background-color: rgb(240, 240, 240);
+}
+
+.center {
+	text-align: center;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+.hidden {
+	display: none;
+}
+
+.user-input-row {
+	padding-top: 1.25rem;
+	border-top: thin solid lightgray;
+}
+
+input[type="text"],
+input[type="number"]{
+	width: 15em;
+}
+
+input[type="number"]{
+	width: 10em;
+}

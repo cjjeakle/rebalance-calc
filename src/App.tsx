@@ -13,7 +13,7 @@ class App extends React.Component<{}> {
       <div className="container-fluid">
         <div className="row">
           <div className="col">
-            <h1>Rebalance Calc</h1>
+            <h1>Rebalance Calc v2</h1>
             <div className="lead">A Portfolio Rebalancing Calculator</div>
           </div>
         </div>

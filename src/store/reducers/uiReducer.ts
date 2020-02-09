@@ -1,6 +1,7 @@
 import * as ActionTypes from "../types/uiTypes";
 
-const initialState: ActionTypes.IUIState = {
+export const initialState: ActionTypes.IUIState = {
+  backwardCompatLinkVisible: false,
   aboutVisible: false,
   howItWorksVisible: false,
   tipsAndTricksVisible: false
