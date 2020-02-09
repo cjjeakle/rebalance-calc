@@ -20,7 +20,7 @@ function loadState(): CoreAppStateT {
     }
   }
 
-  return ;
+  return state;
 }
 
 function persistState(curState: CoreAppStateT) {

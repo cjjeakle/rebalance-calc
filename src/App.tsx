@@ -14,7 +14,7 @@ class App extends React.Component<{}> {
         <div className="row">
           <div className="col">
             <h1>Rebalance Calc v2</h1>
-            <div className="lead">A Portfolio Rebalancing Calculator</div>
+            <div className="lead">A Portfolio Rebalancing and Tax Optimization Calculator</div>
           </div>
         </div>
         <ControlPanel />

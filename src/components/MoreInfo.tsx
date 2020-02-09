@@ -63,8 +63,18 @@ class AboutTheApp extends React.Component {
           <div className="row">
             <div className="col">
               <p>
-                This tool can help with re-balancing investment assets, and with building a tax efficient portfolio (in the U.S.). 
-                Periodically re-balancing keeps one's asset allocation (and exposure to risk) in a comfortable range, and works best when all investment accounts are treated as part of a single portfolio.
+                This tool can help you <a href="https://www.bogleheads.org/wiki/Rebalancing">re-balance</a> investments and build a tax efficient portfolio.
+              </p>
+              <p>
+                Periodically re-balancing is useful, it:
+                <ol>
+                  <li>Keeps your exposure to risk in a comfortable range</li>
+                  <li>Automatically helps you capture gains from investments that are "up" (relative to your other assets)</li>
+                  <li>Ensures you move funds into assets that have more upside/are currently down</li>
+                </ol>
+              </p>
+              <p>
+                Re-balancing works best when all investment accounts are treated as a single portfolio.
               </p>
               <p>
                 See the bogleheads wiki for info on <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement">tax efficiency</a>, 
@@ -85,12 +95,13 @@ class HowItWorks extends React.Component {
         <div className="col-lg-10">
           <br />
           <ol>
-            <li>The total value of all accounts is determined, and is partitioned among the asset classes by percentage of the portfolio</li>
-            <li>'Tax inefficient assets' are assigned to tax deferred accounts, then to tax free accounts, and finally taxable accounts</li>
-            <li>'Foreign and tax-exempt assets' are assigned to taxable accounts, and any remaining allocation is postponed to the final step</li>
-            <li>'Regular assets' are assigned to tax free accounts, any remaining allocation is postponed to the final step, as well</li>
-            <li>Any remaining asset value is distributed among the remaining accounts with available balances</li>
-            <li>The result of this is displayed below in a table</li>
+            <li>The total value of all accounts is determined</li>
+            <li>Your total account value is partitioned among the asset classes by percentage of the portfolio</li>
+            <li>'Tax inefficient' assets are assigned to tax deferred accounts, then to tax free accounts, and finally taxable accounts</li>
+            <li>'Tax advantaged' assets are assigned to taxable accounts, and any remaining allocation is postponed to the final step</li>
+            <li>Assets with 'no special tax treatment' are first assigned to tax free accounts, and any remaining allocation is postponed to the final step</li>
+            <li>Any remaining asset value is distributed among the remaining account balances, this is done in the order of the lists below</li>
+            <li>The result of this procedure is displayed below in a table</li>
           </ol>
         </div>
       </div>
@@ -104,15 +115,19 @@ class UsabilityHints extends React.Component {
       <div className="row justify-content-center">
         <div className="col-lg-10">
           <br />
-          <ol>
+          <ul>
             <li>
               To save your work, just bookmark this page
               <ul>
                 <li>All your changes are automatically updated in the private hash or "fragment identifier" (#) portion of the URL</li>
               </ul>
             </li>
+            <li>
+              To model a deposit or idle cash: use an "asset" with a 0% allocation.
+              Any account balance tagged as that cash asset type be assigned to a different, desired asset!
+            </li>
             <li>None of your input leaves this page, all calculations are done in-browser</li>
-          </ol>
+          </ul>
         </div>
       </div>
     );
