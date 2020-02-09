@@ -13,7 +13,7 @@ class App extends React.Component<{}> {
       <div className="container-fluid">
         <div className="row">
           <div className="col">
-            <h1>Rebalance Calc v2</h1>
+            <a href="/"><h1>Rebalance Calc v2</h1></a>
             <div className="lead">A Portfolio Rebalancing and Tax Optimization Calculator</div>
           </div>
         </div>
@@ -37,10 +37,8 @@ class App extends React.Component<{}> {
             <hr />
           </div>
         </div>
-        <SuggestedTrades />
         <div className="row">
           <div className="col-lg-6 offset-lg-3" style={{textAlign: "center"}}>
-            <hr />
             <div className="row">
               <div className="col-lg-5">
                 Created by: <a href="https://www.chrisjeakle.com">Chris Jeakle</a>
@@ -53,6 +51,8 @@ class App extends React.Component<{}> {
               </div>
             </div>
           </div>
+          <br />
+          <br />
         </div>
       </div>
     );

@@ -16,19 +16,22 @@ class SuggestedAllocationList extends React.Component<ISuggestedAllocationListPr
       return (
         <div className="row" key={account.id}>
           <div className="col">
+            <div style={{textAlign:"center"}}>=-=</div>
             <AccountLevelSuggestion
               account={account}
             />
+            <div style={{textAlign:"center"}}>-=-</div>
           </div>
         </div>
       );
     });
 
     return (
-      <div className="container-fluid mb-1 border-left border-right border-primary rounded">
+      <div className="container-fluid">
         <div className="row">
           <div className="col">
             <h4>Suggested Allocation:</h4>
+            <p>Use the <em>computed delta</em> to make trades that get you back in line with your desired asset allocation.</p>
           </div>
         </div>
         {listItems}

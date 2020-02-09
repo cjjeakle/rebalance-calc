@@ -51,17 +51,12 @@ class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProp
     });
 
     return (
-      <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightgrey"}}>
+      <div className="container-fluid form-group">
         <div className="row">
-          <div className="col-lg-3" style={{borderRight: "dotted 1px lightgrey"}}>
+          <div className="col-lg-3" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
             <div className="row">
               <div className="col" style={{textAlign: "center"}}>
                 <b>{account.name}</b>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <span>{this.props.account.taxTreatment}</span>
               </div>
             </div>
           </div>

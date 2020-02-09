@@ -7,13 +7,17 @@ export interface IAccountHoldingProps {
   suggestedHolding: number;
 }
 
+function roundToHundredths(value: number): number {
+  return Math.round((value + Number.EPSILON) * 100) / 100;
+}
+
 export default class AccountHolding extends React.Component<IAccountHoldingProps> {
   render() {
     // Round any long floating point balances to hundredths.
     // Add epsilon (the smallest value JS floats can represent) to ensure we round up when exactly at the rounding boundary.
-    let delta: number = Math.round(((this.props.suggestedHolding - this.props.currentHolding) + Number.EPSILON) * 100) / 100;
+    let delta: number = roundToHundredths(this.props.suggestedHolding - this.props.currentHolding);
     return (
-      <div className="container-fluid form-group" style={{borderStyle: "solid dashed solid dashed", borderRadius: ".25rem .25rem .5rem .5rem", borderColor: "lightgrey"}}>
+      <div className="container-fluid mb-1" style={{borderStyle:"solid", borderWidth:"1px", borderRadius:"5px", borderColor:"lightgrey"}}>
         <div className="row">
           <div className="col" style={{textAlign: "center"}}>
             <b>{this.props.assetName}&nbsp;</b>
@@ -21,12 +25,12 @@ export default class AccountHolding extends React.Component<IAccountHoldingProps
         </div>
         <div className="row">
           <div className="col">
-            <em>Current Holding</em> : ${this.props.currentHolding}
+            <em>Current Holding</em> : ${ roundToHundredths(this.props.currentHolding)}
           </div>
         </div>
         <div className="row">
           <div className="col">
-            <em>Suggested Holding </em> : ${this.props.suggestedHolding}
+            <em>Suggested Holding </em> : ${ roundToHundredths(this.props.suggestedHolding) }
           </div>
         </div>
         <div className="row">
@@ -39,8 +43,8 @@ export default class AccountHolding extends React.Component<IAccountHoldingProps
             <em>Computed Delta</em> :&nbsp;
             <span style={{backgroundColor:
                 (Math.sign(delta) === 1 ?
-                  "green" :
-                  (Math.sign(delta) === -1 ? "red" : ""))
+                  "lightgreen" :
+                  (Math.sign(delta) === -1 ? "tomato" : ""))
             }}>${delta}</span>
           </div>
         </div>
