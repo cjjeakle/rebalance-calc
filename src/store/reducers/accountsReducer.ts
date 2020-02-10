@@ -26,12 +26,8 @@ export default function accountsReducer(
       );
     case AccountTypes.MOVE_ACCOUNT:
       let newState = [...state];
-      newState.splice(action.oldIndex, 1); // Remove
-      if (action.newIndex === -1) {
-        newState.push(state[action.oldIndex]); // Append to end
-      } else {
-        newState.splice(action.newIndex, 0, state[action.oldIndex]); // Move to specified index, push that element out 1
-      }
+      newState.splice(action.oldIndex, 1); // Remove at the old index
+      newState.splice(action.newIndex, 0, state[action.oldIndex]); // Insert at the new index
       return newState;
     case AccountTypes.REMOVE_ACCOUNT:
       return state.filter(account => account.id !== action.id);
