@@ -41,11 +41,9 @@ class AssetList extends React.Component<IAssetTypeListProps> {
           >
             <div className="row" key={asset.id}>
               <div className="col">
-                <div style={{textAlign:"center"}}>=-=</div>
                 <Asset
                   asset={asset}
                 />
-                <div style={{textAlign:"center"}}>-=-</div>
               </div>
             </div>
           </div>

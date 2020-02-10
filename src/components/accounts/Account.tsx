@@ -22,6 +22,7 @@ export interface IAccountProps {
   updateName: typeof AccountActions.updateAccountName;
   updateTaxTreatment: typeof AccountActions.updateAccountTaxTreatment;
   remove: typeof AccountActions.removeAccount;
+  toggleAccountHoldingLock: typeof AccountHoldingActions.toggleAccountHoldingLock;
   updateHoldingBalance: typeof AccountHoldingActions.updateAccountHoldingBalance;
   updateHoldingNotes: typeof AccountHoldingActions.updateAccountHoldingNotes;
 }
@@ -46,9 +47,12 @@ class Account extends React.Component<IAccountProps> {
       return (
         <div className="col-lg-4" key={(account.id + asset.id)}>
           <AccountHolding
+            id = { account.id + asset.id }
             assetName = { asset.name }
+            lockAllocation = { assetHoldings.lockAllocation }
             balance = { assetHoldings.balance }
             notes = { assetHoldings.notes }
+            toggleAccountHoldingLock = { () => { this.props.toggleAccountHoldingLock(account.id, asset.id) } }
             updateBalance = { (balance: number) => { this.props.updateHoldingBalance(account.id, asset.id, balance) } }
             updateNotes = { (notes: string) => { this.props.updateHoldingNotes(account.id, asset.id, notes) } }
           />
@@ -157,8 +161,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   updateName: (id: string, name: string) => dispatch(AccountActions.updateAccountName(id, name)),
   updateTaxTreatment: (id: string, taxTreatment: AccountTaxTreatmentT) => dispatch(AccountActions.updateAccountTaxTreatment(id, taxTreatment)),
   remove: (id: string) => dispatch(AccountActions.removeAccount(id)),
-  updateHoldingBalance: (accountId: string, holdingId: string, balance: number) => dispatch(AccountHoldingActions.updateAccountHoldingBalance(accountId, holdingId, balance)),
-  updateHoldingNotes: (accountId: string, holdingId: string, notes: string) => dispatch(AccountHoldingActions.updateAccountHoldingNotes(accountId, holdingId, notes))
+  toggleAccountHoldingLock: (accountId: string, assetId: string) => dispatch(AccountHoldingActions.toggleAccountHoldingLock(accountId, assetId)),
+  updateHoldingBalance: (accountId: string, assetId: string, balance: number) => dispatch(AccountHoldingActions.updateAccountHoldingBalance(accountId, assetId, balance)),
+  updateHoldingNotes: (accountId: string, assetId: string, notes: string) => dispatch(AccountHoldingActions.updateAccountHoldingNotes(accountId, assetId, notes))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Account);

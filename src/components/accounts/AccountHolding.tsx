@@ -1,12 +1,17 @@
 import * as React from "react";
 
+import Info from "../Info";
+
 export interface IAccountHoldingProps {
   /* State */
+  id: string;
   assetName: string;
+  lockAllocation: boolean;
   balance: number;
-  notes: string
+  notes: string;
 
   /* Actions */
+  toggleAccountHoldingLock: () => void;
   updateBalance: (balance: number) => void;
   updateNotes: (notes: string) => void;
 }
@@ -18,6 +23,34 @@ export default class AccountHolding extends React.Component<IAccountHoldingProps
         <div className="row">
           <div className="col">
             <b>{this.props.assetName}&nbsp;</b>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-10">
+            <input
+              id={this.props.id}
+              type="checkbox"
+              checked={ this.props.lockAllocation }
+              onChange={ this.props.toggleAccountHoldingLock }
+            ></input>
+            <label htmlFor={this.props.id}>&nbsp;Lock Allocation</label>
+          </div>
+          <div className="col-2 pull-right" style={{textAlign:"right"}}>
+            <Info
+              id={("lock-allocation-info-" + this.props.id)}
+              title="Lock Allocation"
+              detail={
+                <div>
+                  <p>
+                    Use this checkbox to lock this particular allocation in this particular account, 
+                    even if that overrides the allocation calculator. 
+                  </p>
+                  <p>
+                    It's best to use this flag only to avoid selling legacy holdings with fairly high unrealized gains (to defer capital gains taxes).
+                  </p>
+                </div>
+              }>
+            </Info>
           </div>
         </div>
         <div className="row">

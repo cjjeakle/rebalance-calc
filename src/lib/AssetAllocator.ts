@@ -5,6 +5,7 @@ import { AssetTaxTreatmentT } from "../store/types/assetTypes";
 
 type AvailableAccountBalanceT = {
   accountId: string,
+  name: string,
   taxTreatment: AccountTaxTreatmentT,
   availableBalance: number
 }
@@ -14,6 +15,7 @@ type AvailableAccountBalanceByTaxTreatmentT = {
 
 type TargetAssetBalanceT = {
   assetId: string,
+  name: string,
   taxTreatment: AssetTaxTreatmentT,
   neededAllocation: number
 }
@@ -42,6 +44,7 @@ export default function computeSuggestedHoldings(undoableState: AppState): Accou
     .accounts
     .map(account => <AvailableAccountBalanceT>{
       accountId: account.id,
+      name: account.name,
       taxTreatment: account.taxTreatment,
       availableBalance:
         Object.keys(currentAccountHoldings[account.id] ?? {})
@@ -64,6 +67,7 @@ export default function computeSuggestedHoldings(undoableState: AppState): Accou
     .assets
     .map(asset => <TargetAssetBalanceT>{
       assetId: asset.id,
+      name: asset.name,
       taxTreatment: asset.taxTreatment,
       neededAllocation: ((asset.allocation / 100) * totalBalance)
     });
@@ -82,6 +86,34 @@ export default function computeSuggestedHoldings(undoableState: AppState): Accou
     }, { "regular" : [], "inefficient": [], "advantaged": [] });
 
   let suggestedAccountHoldings: AccountHoldingsStateT = {};
+  undoableState.present.accounts.map(account => {
+    if (!suggestedAccountHoldings[account.id]) {
+      suggestedAccountHoldings[account.id] = {};
+    }
+    undoableState.present.assets.map(asset => {
+      suggestedAccountHoldings[account.id][asset.id] = {
+        balance: 0,
+        lockAllocation: false,
+        notes: ""
+      };
+      if (
+        currentAccountHoldings[account.id]
+        && currentAccountHoldings[account.id][asset.id]
+        && currentAccountHoldings[account.id][asset.id].lockAllocation
+      ) {
+        let lockedBalance = currentAccountHoldings[account.id][asset.id].balance;
+        suggestedAccountHoldings[account.id][asset.id].balance = lockedBalance;
+        let accountBalanceIndex =
+          availableAccountBalanceByTaxTreatment[account.taxTreatment]
+          .findIndex(availableBalance => availableBalance.accountId == account.id);
+        availableAccountBalanceByTaxTreatment[account.taxTreatment][accountBalanceIndex].availableBalance -= lockedBalance;
+        let accountAssetIndex =
+          targetAssetBalanceByTaxTreatment[asset.taxTreatment]
+          .findIndex(targetAssetBalance => targetAssetBalance.assetId == asset.id);
+        targetAssetBalanceByTaxTreatment[asset.taxTreatment][accountAssetIndex].neededAllocation -= lockedBalance;
+      }
+    });
+  });
 
   // Assign least tax efficient assets to:
   // Tax deferred -> tax free -> taxable
@@ -155,16 +187,6 @@ function allocateAssets(
       currentAccount.availableBalance -= fundsApplied;
     }
 
-    if (!assetAllocationBuffer[currentAccount.accountId]) {
-      assetAllocationBuffer[currentAccount.accountId] = {};
-    }
-    if (!assetAllocationBuffer[currentAccount.accountId][currentAsset.assetId]) {
-      assetAllocationBuffer[currentAccount.accountId][currentAsset.assetId] = {
-        balance: 0,
-        lockAllocation: false,
-        notes: ""
-      }
-    }
     assetAllocationBuffer[currentAccount.accountId][currentAsset.assetId].balance += fundsApplied;
   }
 }
