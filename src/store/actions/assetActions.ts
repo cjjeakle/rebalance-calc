@@ -38,11 +38,11 @@ export function updateAssetNotes(id: string, notes: string): AssetTypes.IUpdateA
   }
 }
 
-export function moveAsset(id: string, movedBeforeId): AssetTypes.IMoveAsset {
+export function moveAsset(oldIndex: number, newIndex: number): AssetTypes.IMoveAsset {
   return {
     type: AssetTypes.MOVE_ASSET,
-    id,
-    movedBeforeId
+    oldIndex,
+    newIndex
   }
 }
 

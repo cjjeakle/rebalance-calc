@@ -22,6 +22,14 @@ export function updateAccountTaxTreatment(id: string, taxTreatment: AccountTypes
   }
 }
 
+export function moveAccount(oldIndex: number, newIndex: number): AccountTypes.IMoveAccount {
+  return {
+    type: AccountTypes.MOVE_ACCOUNT,
+    oldIndex,
+    newIndex
+  }
+}
+
 export function removeAccount(id: string): AccountTypes.IRemoveAccount {
   return {
     type: AccountTypes.REMOVE_ACCOUNT,

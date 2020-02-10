@@ -14,6 +14,7 @@ export type AccountStateT = IAccount[];
 export const ADD_ACCOUNT = "ADD_ACCOUNT";
 export const UPDATE_ACCOUNT_TAX_TREATMENT = "UPDATE_ACCOUNT_TAX_TREATMENT";
 export const UPDATE_ACCOUNT_NAME = "UPDATE_ACCOUNT_NAME";
+export const MOVE_ACCOUNT = "MOVE_ACCOUNT";
 export const REMOVE_ACCOUNT = "REMOVE_ACCOUNT";
 export const INIT_ACCOUNT_HOLDINGS = "";
 
@@ -34,6 +35,12 @@ export interface IUpdateAccountTaxTreatment extends Action {
   taxTreatment: AccountTaxTreatmentT;
 }
 
+export interface IMoveAccount extends Action {
+  type: typeof MOVE_ACCOUNT;
+  oldIndex: number;
+  newIndex: number;
+}
+
 export interface IRemoveAccount extends Action {
   type: typeof REMOVE_ACCOUNT;
   id: string;
@@ -44,4 +51,5 @@ export type ActionTypes =
   IAddAccount
   | IUpdateAccountName
   | IUpdateAccountTaxTreatment
+  | IMoveAccount
   | IRemoveAccount;

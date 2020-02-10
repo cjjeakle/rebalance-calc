@@ -28,6 +28,7 @@
   },
   "homepage": "https://www.rebalancecalc.com",
   "dependencies": {
+    "@types/react-beautiful-dnd": "^12.1.1",
     "bootstrap": "^4.4.1",
     "gh-pages": "^2.2.0",
     "jquery": "^3.4.1",

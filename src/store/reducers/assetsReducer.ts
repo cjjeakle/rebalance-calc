@@ -36,13 +36,11 @@ export default function assetsReducer(
       );
     case AssetTypes.MOVE_ASSET:
       let newState = [...state];
-      let movedFromIndex = state.findIndex(asset => asset.id === action.id);
-      let movedBeforeIndex = state.findIndex(asset => asset.id === action.movedBeforeId);
-      newState.splice(movedFromIndex, 1); // Remove
-      if (movedBeforeIndex === -1) {
-        newState.push(state[movedFromIndex]); // Append to end
+      newState.splice(action.oldIndex, 1); // Remove
+      if (action.newIndex === -1) {
+        newState.push(state[action.oldIndex]); // Append to end
       } else {
-        newState.splice(movedBeforeIndex, 0, state[movedFromIndex]); // Move to specified index, push that element out 1
+        newState.splice(action.newIndex, 0, state[action.oldIndex]); // Move to specified index, push that element out 1
       }
       return newState;
     case AssetTypes.REMOVE_ASSET:

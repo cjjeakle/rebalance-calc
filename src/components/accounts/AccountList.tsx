@@ -2,6 +2,7 @@ import * as React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import * as Bootstrap from "react-bootstrap";
+import * as DnD from "react-beautiful-dnd";
 
 import { AppState } from "../../store";
 import { IAccount, AccountStateT } from "../../store/types/accountTypes";
@@ -14,21 +15,42 @@ export interface IAccountListProps {
 
   /* Actions */
   addAccount: typeof AccountActions.addAccount;
+  moveAccount: typeof AccountActions.moveAccount;
 }
 
 class AccountList extends React.Component<IAccountListProps> {
   render() {
-    const listItems = this.props.accounts.map((account: IAccount) => {
+    const onDragEnd = (result: DnD.DropResult, provided: DnD.ResponderProvided): void => {
+      if (!result.destination) {
+        return;
+      }
+
+      let oldIndex = result.source.index;
+      let newIndex = result.destination.index;
+      this.props.moveAccount(oldIndex, newIndex);
+    };
+
+    const listItems = this.props.accounts.map((account: IAccount, index: number) => {
       return (
-        <div className="row" key={account.id}>
-          <div className="col">
-            <div style={{textAlign:"center"}}>=-=</div>
-            <Account
-              account={account}
-            />
-            <div style={{textAlign:"center"}}>-=-</div>
+        <DnD.Draggable key={account.id} draggableId={account.id} index={index}>
+        {(provided: DnD.DraggableProvided) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            <div className="row" key={account.id}>
+              <div className="col">
+                <div style={{textAlign:"center"}}>=-=</div>
+                <Account
+                  account={account}
+                />
+                <div style={{textAlign:"center"}}>-=-</div>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
+        </DnD.Draggable>
       );
     });
 
@@ -40,7 +62,19 @@ class AccountList extends React.Component<IAccountListProps> {
             <div className="alert alert-info alert-sm">For help classifying accounts, see the first bullet in the list <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#General_strategy">here</a>.</div>
           </div>
         </div>
-        {listItems}
+        <DnD.DragDropContext onDragEnd={onDragEnd}>
+          <DnD.Droppable droppableId="droppable">
+            {(provided: DnD.DroppableProvided) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {listItems}
+                {provided.placeholder}
+              </div>
+            )}
+          </DnD.Droppable>
+        </DnD.DragDropContext>
         <div className="row justify-content-center">
           <div className="col-lg-auto text-center">
             <Bootstrap.Button 
@@ -62,7 +96,8 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addAccount: () => dispatch(AccountActions.addAccount())
+  addAccount: () => dispatch(AccountActions.addAccount()),
+  moveAccount: (oldIndex: number, newIndex: number) => dispatch(AccountActions.moveAccount(oldIndex, newIndex))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountList);

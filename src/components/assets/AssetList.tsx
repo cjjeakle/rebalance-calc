@@ -2,6 +2,7 @@ import * as React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import * as Bootstrap from "react-bootstrap";
+import * as DnD from "react-beautiful-dnd";
 
 import { AppState } from "../../store";
 import { IAsset, AssetStateT } from "../../store/types/assetTypes";
@@ -19,15 +20,37 @@ export interface IAssetTypeListProps {
 
 class AssetList extends React.Component<IAssetTypeListProps> {
   render() {
-    const listItems = this.props.assets.map((asset: IAsset) => {
+    const onDragEnd = (result: DnD.DropResult, provided: DnD.ResponderProvided): void => {
+      if (!result.destination) {
+        return;
+      }
+    
+      let oldIndex = result.source.index;
+      let newIndex = result.destination.index;
+      this.props.moveAsset(oldIndex, newIndex);
+    };
+
+    const listItems = this.props.assets.map((asset: IAsset, index: number) => {
       return (
-        <div className="row" key={asset.id}>
-          <div className="col">
-            <Asset
-              asset={asset}
-            />
+        <DnD.Draggable key={asset.id} draggableId={asset.id} index={index}>
+        {(provided: DnD.DraggableProvided) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            <div className="row" key={asset.id}>
+              <div className="col">
+                <div style={{textAlign:"center"}}>=-=</div>
+                <Asset
+                  asset={asset}
+                />
+                <div style={{textAlign:"center"}}>-=-</div>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
+        </DnD.Draggable>
       );
     });
 
@@ -39,7 +62,19 @@ class AssetList extends React.Component<IAssetTypeListProps> {
             <div className="alert alert-info alert-sm">For help classifying assets, <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>.</div>
           </div>
         </div>
-        {listItems}
+        <DnD.DragDropContext onDragEnd={onDragEnd}>
+          <DnD.Droppable droppableId="droppable">
+            {(provided: DnD.DroppableProvided) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {listItems}
+                {provided.placeholder}
+              </div>
+            )}
+          </DnD.Droppable>
+        </DnD.DragDropContext>
         <div className="row justify-content-center">
           <div className="col-lg-auto text-center">
             <Bootstrap.Button 
@@ -62,7 +97,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   addAsset: () => dispatch(AssetActions.addAsset()),
-  moveAsset: (id: string, movedBeforeId: string) => dispatch(AssetActions.moveAsset(id, movedBeforeId))
+  moveAsset: (oldIndex: number, newIndex: number) => dispatch(AssetActions.moveAsset(oldIndex, newIndex))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssetList);

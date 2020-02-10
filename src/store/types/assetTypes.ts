@@ -53,8 +53,8 @@ export interface IUpdateAssetNotes extends Action {
 
 export interface IMoveAsset extends Action {
   type: typeof MOVE_ASSET;
-  id: string;
-  movedBeforeId: string; // The asset ID this asset was moved in front of, null or empty if moved end of list
+  oldIndex: number;
+  newIndex: number;
 }
 
 export interface IRemoveAsset extends Action {
