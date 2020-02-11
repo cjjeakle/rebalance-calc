@@ -64,6 +64,7 @@ class Account extends React.Component<IAccountProps> {
       <div className="container-fluid form-group">
         <div className="row">
           <div className="col-lg-3" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+            ↕ &nbsp;
             <div>
               <div className="row">
                 <div className="col">

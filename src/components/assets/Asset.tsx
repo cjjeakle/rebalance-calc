@@ -26,6 +26,7 @@ class Asset extends React.Component<IAssetProps> {
     return (
       <div className="container-fluid form-group">
         <div className="row justify-content-center">
+          ↕
           <div className="col-lg-2">
             <input 
               type="text" 
