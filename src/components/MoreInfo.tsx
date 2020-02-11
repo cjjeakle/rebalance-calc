@@ -58,7 +58,7 @@ class AboutTheApp extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
-        <div className="col-lg-10">
+        <div className="col-lg-8">
           <br />
           <div className="row">
             <div className="col">
@@ -92,7 +92,7 @@ class HowItWorks extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
-        <div className="col-lg-10">
+        <div className="col-lg-8">
           <br />
           <ol>
             <li>The total value of all accounts is determined</li>
@@ -113,9 +113,17 @@ class UsabilityHints extends React.Component {
   render() {
     return (
       <div className="row justify-content-center">
-        <div className="col-lg-10">
+        <div className="col-lg-8">
           <br />
           <ul>
+            <li>
+              You can re-arrange assets, re-arrange accounts, and use the "Lock Allocation" flag to tweak the calculator's suggestions
+              <ul>
+                <li>A good order for assets: lowest percentage -> highest percentage</li>
+                <li>A good order for accounts: highest balance -> lowest balance</li>
+                <li>That ordering helps ensure the fewest number of accounts end up needing trades (by virtue of the calculator's order of operations)</li>
+              </ul>
+            </li>
             <li>
               To save your work, just bookmark this page
               <ul>
@@ -123,9 +131,13 @@ class UsabilityHints extends React.Component {
               </ul>
             </li>
             <li>
-              To model a deposit or idle cash: use an "asset" with a 0% allocation.
-              Any account balance tagged as that cash asset type be assigned to a different, desired asset!
+              Want to account for deposits or idle cash?
+              <ul>
+                <li>Use an "asset" with a 0% allocation!</li>
+                <li>Any account with funds in a 0% allocation asset will have them assigned to a different, desired asset</li>
+              </ul>
             </li>
+            <li>It's easy to start a new session with a clean state, just click the title at the top of this page</li>
             <li>None of your input leaves this page, all calculations are done in-browser</li>
           </ul>
         </div>
