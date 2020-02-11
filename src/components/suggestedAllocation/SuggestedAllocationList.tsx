@@ -12,15 +12,15 @@ export interface ISuggestedAllocationListProps {
 
 class SuggestedAllocationList extends React.Component<ISuggestedAllocationListProps> {
   render() {
-    const listItems = this.props.accounts.map((account: IAccount) => {
+    const listItems = this.props.accounts.map((account: IAccount, index: number) => {
       return (
         <div className="row" key={account.id}>
           <div className="col">
-            <div style={{textAlign:"center"}}>=-=</div>
+            <br />
             <AccountLevelSuggestion
+              alternateBackground={(index % 2) > 0}
               account={account}
             />
-            <div style={{textAlign:"center"}}>-=-</div>
           </div>
         </div>
       );

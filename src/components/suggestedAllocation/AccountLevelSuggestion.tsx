@@ -12,6 +12,7 @@ import computeSuggestedHoldings from "../../lib/AssetAllocator";
 
 export interface IAccountLevelSuggestionProps {
   /* State */
+  alternateBackground: boolean;
   account: IAccount;
   assets: AssetStateT;
   holdings: AccountHoldingsStateT;
@@ -51,7 +52,7 @@ class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProp
     });
 
     return (
-      <div className="container-fluid form-group">
+      <div className="container-fluid form-group" style={{backgroundColor:this.props.alternateBackground ? "WhiteSmoke" : "" }}>
         <div className="row">
           <div className="col-lg-3" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
             <div className="row">
@@ -62,7 +63,7 @@ class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProp
           </div>
           <div className="col-lg">
             <div className="row">
-            { assetLevelSuggestions }
+              { assetLevelSuggestions }
             </div>
           </div>
         </div>
