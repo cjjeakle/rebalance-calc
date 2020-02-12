@@ -30,11 +30,19 @@ The asset allocation calculator
 
 export default function computeSuggestedHoldings(appState: CoreAppStateT): AccountHoldingsStateT {
   // Data validations
-  appState.assets.forEach(asset => {
+  let totalAssetAllocation = appState.assets.reduce((totalAllocation, asset) => {
     if (asset.taxTreatment === undefined) {
       throw "Please specify a tax treatment for the asset named: " + asset.name;
     }
-  });
+    return totalAllocation + asset.allocation;
+  }, 0);
+
+  if (totalAssetAllocation > 100) {
+    throw "The total specified asset allocation (" + totalAssetAllocation + ") adds up to more than 100%!"
+  } else if (totalAssetAllocation < 100) {
+    throw "The total specified asset allocation (" + totalAssetAllocation + ") adds up to less than 100%"
+  }
+
   appState.accounts.forEach(account => {
     if (account.taxTreatment === undefined) {
       throw "Please specify a tax treatment for the account named: " + account.name;
@@ -105,14 +113,17 @@ export default function computeSuggestedHoldings(appState: CoreAppStateT): Accou
       ) {
         let lockedBalance = currentAccountHoldings[account.id][asset.id].balance;
         suggestedAccountHoldings[account.id][asset.id].balance = lockedBalance;
-        let accountBalanceIndex =
+        let lockedAccountIndex =
           availableAccountBalanceByTaxTreatment[account.taxTreatment]
           .findIndex(availableBalance => availableBalance.accountId == account.id);
-        availableAccountBalanceByTaxTreatment[account.taxTreatment][accountBalanceIndex].availableBalance -= lockedBalance;
-        let accountAssetIndex =
+        availableAccountBalanceByTaxTreatment[account.taxTreatment][lockedAccountIndex].availableBalance -= lockedBalance;
+        let lockedAssetIndex =
           targetAssetBalanceByTaxTreatment[asset.taxTreatment]
           .findIndex(targetAssetBalance => targetAssetBalance.assetId == asset.id);
-        targetAssetBalanceByTaxTreatment[asset.taxTreatment][accountAssetIndex].neededAllocation -= lockedBalance;
+        if (targetAssetBalanceByTaxTreatment[asset.taxTreatment][lockedAssetIndex].neededAllocation < lockedBalance) {
+          throw "More funds are locked to the asset class '" + asset.name + "' than can be permitted by the specified asset allocation.";
+        }
+        targetAssetBalanceByTaxTreatment[asset.taxTreatment][lockedAssetIndex].neededAllocation -= lockedBalance;
       }
     });
   });
