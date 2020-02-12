@@ -4,118 +4,123 @@ import * as ActionTypes from "../types/persistenceTypes";
 import { initialState as defaultUiState } from "../reducers/uiReducer";
 
 let exampleState: CoreAppStateT = {
-  uiState: defaultUiState,
-  assets: [
+  "uiState": {
+    "backwardCompatLinkVisible": false,
+    "aboutVisible": false,
+    "howItWorksVisible": false,
+    "tipsAndTricksVisible": true
+  },
+  "assets": [
     {
-      id: "aab1a816-2f9f-4a67-bcfd-32449601af4a",
-      name: "Deposits",
-      taxTreatment: "regular",
-      allocation: 0,
-      notes: "0% allocation to ensure deposits are invested"
+      "id": "aab1a816-2f9f-4a67-bcfd-32449601af4a",
+      "name": "Deposits",
+      "taxTreatment": "regular",
+      "allocation": 0,
+      "notes": "0% allocation to ensure deposits are invested"
     },
     {
-      id: "8c77accd-6762-43cc-89c1-447f723a3028",
-      name: "Idle Cash",
-      taxTreatment: "regular",
-      allocation: 0,
-      notes: "0% allocation to ensure idle cash is invested"
+      "id": "8c77accd-6762-43cc-89c1-447f723a3028",
+      "name": "Idle Cash",
+      "taxTreatment": "regular",
+      "allocation": 0,
+      "notes": "0% allocation to ensure idle cash is invested"
     },
     {
-      id: "28735fca-a9ed-4015-8d11-3098670db53a",
-      name: "US Bond",
-      taxTreatment: "inefficient",
-      allocation: 30,
-      notes: "BND, FBIDX, ..."
+      "id": "176053db-d81b-4fb1-abd8-2b56309cf180",
+      "name": "Ex-US Stock",
+      "taxTreatment": "advantaged",
+      "allocation": 17.5,
+      "notes": "VXUS, FSGUX, ..."
     },
     {
-      id: "176053db-d81b-4fb1-abd8-2b56309cf180",
-      name: "Ex-US Stock",
-      taxTreatment: "advantaged",
-      allocation: 17.5,
-      notes: "VXUS, FSGUX, ..."
+      "id": "28735fca-a9ed-4015-8d11-3098670db53a",
+      "name": "US Bond",
+      "taxTreatment": "inefficient",
+      "allocation": 30,
+      "notes": "BND, FBIDX, ..."
     },
     {
-      id: "e9495523-3b04-4a64-a863-424c72761c97",
-      name: "US Stock",
-      taxTreatment: "regular",
-      allocation: 52.5,
-      notes: "VTI, FSTMX, ..."
+      "id": "e9495523-3b04-4a64-a863-424c72761c97",
+      "name": "US Stock",
+      "taxTreatment": "regular",
+      "allocation": 52.5,
+      "notes": "VTI, FSTMX, ..."
     }
   ],
-  accounts: [
+  "accounts": [
     {
-      id: "eb925f4e-960e-43b7-a05d-6cda4ffd281a",
-      name: "Brokerage Account",
-      taxTreatment: "regular"
+      "id": "3644d01d-7136-4e8d-a0f7-30b27f404373",
+      "name": "401 (k)",
+      "taxTreatment": "deferred"
     },
     {
-      id: "3644d01d-7136-4e8d-a0f7-30b27f404373",
-      name: "401 (k)",
-      taxTreatment: "deferred"
+      "id": "163c6a0c-6d90-4611-bdfe-299e640f54b8",
+      "name": "Roth IRA",
+      "taxTreatment": "exempt"
     },
     {
-      id: "b37d454f-27d8-42d9-ad93-50fb9a68933e",
-      name: "HSA",
-      taxTreatment: "exempt"
+      "id": "eb925f4e-960e-43b7-a05d-6cda4ffd281a",
+      "name": "Brokerage Account",
+      "taxTreatment": "regular"
     },
     {
-      id: "163c6a0c-6d90-4611-bdfe-299e640f54b8",
-      name: "Roth IRA",
-      taxTreatment: "exempt"
+      "id": "b37d454f-27d8-42d9-ad93-50fb9a68933e",
+      "name": "HSA",
+      "taxTreatment": "exempt"
     }
   ],
-  holdings: {
+  "holdings": {
     "eb925f4e-960e-43b7-a05d-6cda4ffd281a": {
       "176053db-d81b-4fb1-abd8-2b56309cf180": {
-        balance: 2000,
-        lockAllocation: false,
-        notes: ""
+        "balance": 2000,
+        "lockAllocation": false,
+        "notes": ""
       },
       "aab1a816-2f9f-4a67-bcfd-32449601af4a": {
-        balance: 250,
-        lockAllocation: false,
-        notes: ""
+        "balance": 250,
+        "lockAllocation": false,
+        "notes": ""
       },
       "8c77accd-6762-43cc-89c1-447f723a3028": {
-       balance: 1000,
-       lockAllocation: false,
-       notes: ""
+        "balance": 1000,
+        "lockAllocation": false,
+        "notes": ""
       },
       "e9495523-3b04-4a64-a863-424c72761c97": {
-       balance: 900,
-       lockAllocation: true,
-       notes: "Locked to avoid selling, due to accrued capital gains"
+        "balance": 900,
+        "lockAllocation": true,
+        "notes": "Locked to avoid selling, due to accrued capital gains"
       }
     },
     "3644d01d-7136-4e8d-a0f7-30b27f404373": {
       "28735fca-a9ed-4015-8d11-3098670db53a": {
-       balance: 4000,
-       lockAllocation: false,
-       notes: ""
+        "balance": 4000,
+        "lockAllocation": false,
+        "notes": ""
       },
       "176053db-d81b-4fb1-abd8-2b56309cf180": {
-       balance: 4000,
-       lockAllocation: false,
-       notes: ""
+        "balance": 4000,
+        "lockAllocation": false,
+        "notes": ""
       },
       "e9495523-3b04-4a64-a863-424c72761c97": {
-       balance: 4000,
-       lockAllocation: false,
-       notes: ""
+        "balance": 4000,
+        "lockAllocation": false,
+        "notes": ""
       }
     },
     "b37d454f-27d8-42d9-ad93-50fb9a68933e": {
       "28735fca-a9ed-4015-8d11-3098670db53a": {
-       balance: 4000,
-       lockAllocation: false,
-       notes: ""
+        "balance": 2000,
+        "lockAllocation": false,
+        "notes": ""
       }
     },
     "163c6a0c-6d90-4611-bdfe-299e640f54b8": {
       "e9495523-3b04-4a64-a863-424c72761c97": {
-       balance: 4000,
-       lockAllocation: false,
-       notes: ""
+        "balance": 6000,
+        "lockAllocation": false,
+        "notes": ""
       }
     }
   }
