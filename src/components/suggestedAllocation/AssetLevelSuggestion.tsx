@@ -1,14 +1,12 @@
 import * as React from "react";
 
+import { roundToHundredths } from "../../lib/Utility";
+
 export interface IAccountHoldingProps {
   /* State */
   assetName: string;
   currentHolding: number;
   suggestedHolding: number;
-}
-
-function roundToHundredths(value: number): number {
-  return Math.round((value + Number.EPSILON) * 100) / 100;
 }
 
 export default class AccountHolding extends React.Component<IAccountHoldingProps> {

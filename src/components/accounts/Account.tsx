@@ -12,6 +12,8 @@ import * as AccountHoldingActions from "../../store/actions/accountHoldingAction
 import AccountHolding from "./AccountHolding";
 import Info from "../Info";
 
+import { roundToHundredths } from "../../lib/Utility";
+
 export interface IAccountProps {
   /* State */
   alternateBackground: boolean;
@@ -135,7 +137,7 @@ class Account extends React.Component<IAccountProps> {
               </div>
               <div className="row">
                 <div className="col text-center">
-                  <em>Account Balance: $</em>{ Object.keys(accountHoldings).reduce((sum, assetId) => { return sum + accountHoldings[assetId].balance }, 0) }
+                  <em>Account Balance: $</em>{ roundToHundredths(Object.keys(accountHoldings).reduce((sum, assetId) => { return sum + accountHoldings[assetId].balance }, 0)) }
                 </div>
               </div>
             </div>

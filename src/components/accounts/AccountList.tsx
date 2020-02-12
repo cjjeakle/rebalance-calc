@@ -9,9 +9,12 @@ import { IAccount, AccountStateT } from "../../store/types/accountTypes";
 import * as AccountActions from "../../store/actions/accountActions";
 import Account from "./Account";
 
+import { roundToHundredths } from "../../lib/Utility";
+
 export interface IAccountListProps {
   /* State */
   accounts: AccountStateT;
+  portfolioBalance: number;
 
   /* Actions */
   addAccount: typeof AccountActions.addAccount;
@@ -60,6 +63,7 @@ class AccountList extends React.Component<IAccountListProps> {
         <div className="row">
           <div className="col">
             <h4>Current Account Balances:</h4>
+            <em>Total Portfolio Balance: $</em>{roundToHundredths(this.props.portfolioBalance)}
             <div className="alert alert-info alert-sm">For help classifying accounts, see the first bullet in the list <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#General_strategy">here</a>.</div>
           </div>
         </div>
@@ -93,7 +97,13 @@ class AccountList extends React.Component<IAccountListProps> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-  accounts: state.present.accounts
+  accounts: state.present.accounts,
+  portfolioBalance: Object.keys(state.present.holdings).reduce((accountSum, accountId) => {
+    let accountHoldings = state.present.holdings[accountId];
+    return accountSum + Object.keys(accountHoldings).reduce((assetSum, assetId) => {
+      return assetSum + accountHoldings[assetId].balance;
+    }, 0);
+  }, 0)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
