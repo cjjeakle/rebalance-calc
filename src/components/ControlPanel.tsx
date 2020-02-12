@@ -2,16 +2,19 @@ import * as React from "react";
 import { connect } from "react-redux";
 import * as ReduxUndo from "redux-undo";
 import { AppState } from "../store";
+import * as PersistenceActions from "../store/actions/persistenceActions";
 
 interface IControlPanelProps {
   /* State */
   showBackwardCompatLink: boolean;
+  showExampleDataPrompt: boolean;
   undoAvailable: boolean;
   redoAvailable: boolean;
 
   /* Actions */
-  undo: () => void;
-  redo: () => void;
+  undo: typeof ReduxUndo.ActionCreators.undo;
+  redo: typeof ReduxUndo.ActionCreators.redo;
+  loadExampleData: typeof PersistenceActions.loadExampleData;
 }
 
 class ControlPanel extends React.Component<IControlPanelProps> {
@@ -30,8 +33,28 @@ class ControlPanel extends React.Component<IControlPanelProps> {
             }
           </div>
         </div>
+        <div className="row">
+          <div className="col" style={{textAlign:"center"}}>
+            {
+              this.props.showExampleDataPrompt &&
+              <div className="alert alert-success alert-sm">
+                  Welcome! Try loading some example data to see how the app works:
+                  <br />
+                  <br />
+                  <button
+                    onClick={this.props.loadExampleData} 
+                    className={"btn btn-success btn-sm"} 
+                  >
+                    Load example data
+                  </button>
+                  <br />
+                  <br />
+              </div>
+            }
+          </div>
+        </div>
         <div className="row justify-content-center">
-          <div className="col-lg-auto">
+          <div className="col-auto">
             <button 
               onClick={this.props.undo} 
               className={"btn btn-outline-info btn-sm"} 
@@ -40,7 +63,7 @@ class ControlPanel extends React.Component<IControlPanelProps> {
               Undo
             </button>
           </div>
-          <div className="col-lg-auto">
+          <div className="col-auto">
             <button 
               onClick={this.props.redo} 
               className={"btn btn-outline-info btn-sm"} 
@@ -59,6 +82,7 @@ class ControlPanel extends React.Component<IControlPanelProps> {
 function mapStateToProps(state: AppState) {
   return {
     showBackwardCompatLink: state.present.uiState.backwardCompatLinkVisible,
+    showExampleDataPrompt: state.present.accounts.length == 0 && state.present.assets.length == 0,
     undoAvailable: state.past.length > 0,
     redoAvailable: state.future.length > 0
   }
@@ -66,7 +90,8 @@ function mapStateToProps(state: AppState) {
 
 const dispatchToProps = {
   undo: ReduxUndo.ActionCreators.undo,
-  redo: ReduxUndo.ActionCreators.redo
+  redo: ReduxUndo.ActionCreators.redo,
+  loadExampleData: PersistenceActions.loadExampleData
 };
 
 export default connect(mapStateToProps, dispatchToProps)(ControlPanel);
