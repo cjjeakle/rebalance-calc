@@ -1,12 +1,22 @@
 import * as React from "react";
-
+import { connect } from "react-redux";
+import * as PersistenceActions from "./store/actions/persistenceActions";
 import ControlPanel from "./components/ControlPanel";
 import MoreInfo from "./components/MoreInfo";
 import AssetList from "./components/assets/AssetList";
 import AccountList from "./components/accounts/AccountList";
 import SuggestedAllocationList from "./components/suggestedAllocation/SuggestedAllocationList";
 
-class App extends React.Component<{}> {
+export interface IAppProps {
+  /* Actions */
+  loadSavedData: typeof PersistenceActions.loadSavedData;
+}
+
+class App extends React.Component<IAppProps> {
+  componentDidMount() {
+    this.props.loadSavedData();
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -58,4 +68,8 @@ class App extends React.Component<{}> {
   }
 }
 
-export default App;
+const mapDispatchToProps = {
+  loadSavedData: PersistenceActions.loadSavedData
+};
+
+export default connect(null, mapDispatchToProps)(App);

@@ -43,16 +43,17 @@ class Asset extends React.Component<IAssetProps> {
           </div>
           <div className="col-lg-2">
             <div className="input-group">
-              <input 
-                type="number" 
+              <input
+                type="number"
                 className="form-control"
                 id="allocation"
-                min="0" 
-                max="100" 
-                placeholder="Allocation" 
-                value={asset.allocation} 
+                min="0"
+                max="100"
+                step="0.01"
+                placeholder="Allocation"
+                value={asset.allocation}
                 onChange={
-                  (e: React.ChangeEvent<HTMLInputElement>) => { 
+                  (e: React.ChangeEvent<HTMLInputElement>) => {
                     this.props.updateAllocation(asset.id, e.target.valueAsNumber);
                   }
                 }

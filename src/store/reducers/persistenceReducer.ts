@@ -126,21 +126,18 @@ let exampleState: CoreAppStateT = {
   }
 };
 
-function loadState(defaultState: CoreAppStateT): CoreAppStateT {
-  if (window.location.hash) {
-    let loadedState = JSON.parse(decodeURI(window.location.hash.substring(1)));
-    // TODO: Check for compat, and set a UI flag to go to v1 backward compat here
-    if (loadedState["accounts"]) { // Looks like the current schema
-      return {
-        ...defaultState,
-        ...loadedState
-      };
-    } else if (loadedState["assetClassesInefficient"]) { // Looks like the old schema, don't load, but present a link to backward compat mode
-      defaultState.uiState.backwardCompatLinkVisible = true;
-      return defaultState;
-    }
+let appInitialized: boolean = false;
+let urlHashContent = window.location.hash ? JSON.parse(decodeURI(window.location.hash.substring(1))) : {};
+let loadedData = null;
+if (urlHashContent["accounts"]) { // Looks like the current schema
+  loadedData = {
+    ...urlHashContent,
+    uiState: defaultUiState
   }
-  return defaultState;
+}
+let legacyDataPresent: boolean = false;
+if (urlHashContent["assetClassesInefficient"]) { // Looks like the old schema -- don't load, but present a link to backward compat mode
+  legacyDataPresent = true;
 }
 
 function persistState(curState: CoreAppStateT) {
@@ -158,21 +155,32 @@ function persistState(curState: CoreAppStateT) {
 }
 
 export default function persistenceReducer (
-  coreAppStateReducer: (state: CoreAppStateT, action: Action) => CoreAppStateT
-): (state: CoreAppStateT, action: Action) => CoreAppStateT {
+  coreAppStateReducer: (state: CoreAppStateT, action: ActionTypes.PersistenceActionTypes) => CoreAppStateT
+): (state: CoreAppStateT, action: ActionTypes.PersistenceActionTypes) => CoreAppStateT {
   return (state: CoreAppStateT, action: Action) => {
     switch (action.type) {
-      case "@@INIT":
-        return loadState(coreAppStateReducer(state, action));
+      case ActionTypes.LOAD_SAVED_DATA:
+        appInitialized = true;
+        if (legacyDataPresent) {
+          return {
+            ...state,
+            uiState: {
+              ...state.uiState,
+              backwardCompatLinkVisible: true
+            }
+          };
+        } else if (loadedData) {
+          return coreAppStateReducer(loadedData, action);
+        }
+        return coreAppStateReducer(state, action);
       case ActionTypes.LOAD_EXAMPLE_DATA:
           state = exampleState;
           // vvv Intentional fall-through vvv
       default:
         let updatedState = coreAppStateReducer(state, action);
-        if (updatedState.uiState.backwardCompatLinkVisible) {
-          updatedState.uiState.backwardCompatLinkVisible = false; // Clear the backward compat banner if we're going to replace the legacy data in the URL
+        if (appInitialized) {
+          persistState(updatedState);
         }
-        persistState(updatedState);
         return updatedState;
     }
   };

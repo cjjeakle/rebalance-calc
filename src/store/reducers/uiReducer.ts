@@ -28,6 +28,9 @@ export default function uiReducer(
         tipsAndTricksVisible: !state.tipsAndTricksVisible
       };
     default:
-      return state;
+      return {
+        ...state,
+        backwardCompatLinkVisible: false
+      };
   }
 }
