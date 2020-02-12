@@ -57,6 +57,7 @@ class AssetList extends React.Component<IAssetTypeListProps> {
         <div className="row">
           <div className="col">
             <h4>Desired Asset Allocation:</h4>
+            <em>Total Allocation: </em> { this.props.assets.reduce((sum, asset) => { return sum + asset.allocation; }, 0) }%
             <div className="alert alert-info alert-sm">For help classifying assets, <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement#Step_1:_Categorize_your_portfolio.27s_tax_efficiency">see this chart</a>.</div>
           </div>
         </div>
