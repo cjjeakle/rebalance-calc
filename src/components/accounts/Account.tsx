@@ -62,7 +62,7 @@ class Account extends React.Component<IAccountProps> {
     });
 
     return (
-      <div className="container-fluid form-group" style={{backgroundColor:this.props.alternateBackground ? "WhiteSmoke" : "" }}>
+      <div className="container-fluid form-group" style={{backgroundColor:this.props.alternateBackground ? "WhiteSmoke" : "#EDF5F5" }}>
         <div className="row">
           <div className="col-lg-3" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
             ↕ &nbsp;
