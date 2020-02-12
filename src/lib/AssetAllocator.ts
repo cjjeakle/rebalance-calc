@@ -32,7 +32,7 @@ export default function computeSuggestedHoldings(appState: CoreAppStateT): Accou
   // Data validations
   let totalAssetAllocation = appState.assets.reduce((totalAllocation, asset) => {
     if (asset.taxTreatment === undefined) {
-      throw "Please specify a tax treatment for the asset named: " + asset.name;
+      throw "Please specify a tax treatment for the asset named: '" + asset.name + "'";
     }
     return totalAllocation + asset.allocation;
   }, 0);
@@ -45,7 +45,7 @@ export default function computeSuggestedHoldings(appState: CoreAppStateT): Accou
 
   appState.accounts.forEach(account => {
     if (account.taxTreatment === undefined) {
-      throw "Please specify a tax treatment for the account named: " + account.name;
+      throw "Please specify a tax treatment for the account named: '" + account.name + "'";
     }
   });
 
