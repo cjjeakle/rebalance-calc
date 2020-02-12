@@ -2,32 +2,30 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import { AppState } from "../../store";
-import { IAccount, AccountTaxTreatmentT } from "../../store/types/accountTypes";
+import { IAccount } from "../../store/types/accountTypes";
 import { AssetStateT, IAsset } from "../../store/types/assetTypes";
-import { AccountHoldingsStateT } from "../../store/types/accountHoldingTypes";
+import { IAccountHoldings } from "../../store/types/accountHoldingTypes";
 
 import AccountHolding from "./AssetLevelSuggestion";
-
-import computeSuggestedHoldings from "../../lib/AssetAllocator";
 
 export interface IAccountLevelSuggestionProps {
   /* State */
   alternateBackground: boolean;
   account: IAccount;
+  holdings: IAccountHoldings;
+  suggestedHoldings: IAccountHoldings;
   assets: AssetStateT;
-  holdings: AccountHoldingsStateT;
-  suggestedHoldings: AccountHoldingsStateT;
 }
 
 class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProps> {
   render() {
     let account = this.props.account;
 
-    let curHolding = this.props.holdings[account.id];
+    let curHolding = this.props.holdings;
     if (!curHolding) {
       curHolding = {};
     }
-    let suggestedHolding = this.props.suggestedHoldings[account.id];
+    let suggestedHolding = this.props.suggestedHoldings;
     if (!suggestedHolding) {
       suggestedHolding = {};
     }
@@ -73,9 +71,7 @@ class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProp
 }
 
 const mapStateToProps = (state: AppState) => ({
-  assets: state.present.assets,
-  holdings: state.present.holdings,
-  suggestedHoldings: computeSuggestedHoldings(state)
+  assets: state.present.assets
 });
 
 export default connect(mapStateToProps, null)(AccountLevelSuggestion);

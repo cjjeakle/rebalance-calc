@@ -1,4 +1,4 @@
-import { AppState } from "../store";
+import { CoreAppStateT } from "../store";
 import { AccountHoldingsStateT } from "../store/types/accountHoldingTypes";
 import { AccountTaxTreatmentT } from "../store/types/accountTypes";
 import { AssetTaxTreatmentT } from "../store/types/assetTypes";
@@ -28,19 +28,22 @@ The asset allocation calculator
 -------------------------------
 */
 
-export default function computeSuggestedHoldings(undoableState: AppState): AccountHoldingsStateT {
+export default function computeSuggestedHoldings(appState: CoreAppStateT): AccountHoldingsStateT {
   // Data validations
-  if (undoableState.present.assets.find(asset => asset.taxTreatment === undefined)) {
-    return {};
-  }
-  if (undoableState.present.accounts.find(account => account.taxTreatment === undefined)) {
-    return {};
-  }
+  appState.assets.forEach(asset => {
+    if (asset.taxTreatment === undefined) {
+      throw "Please specify a tax treatment for the asset named: " + asset.name;
+    }
+  });
+  appState.accounts.forEach(account => {
+    if (account.taxTreatment === undefined) {
+      throw "Please specify a tax treatment for the account named: " + account.name;
+    }
+  });
 
-  let currentAccountHoldings = undoableState.present.holdings;
+  let currentAccountHoldings = appState.holdings;
   let accountBalances =
-    undoableState
-    .present
+    appState
     .accounts
     .map(account => <AvailableAccountBalanceT>{
       accountId: account.id,
@@ -62,8 +65,7 @@ export default function computeSuggestedHoldings(undoableState: AppState): Accou
     }, 0);
 
   let assetTargets =
-    undoableState
-    .present
+    appState
     .assets
     .map(asset => <TargetAssetBalanceT>{
       assetId: asset.id,
@@ -86,11 +88,11 @@ export default function computeSuggestedHoldings(undoableState: AppState): Accou
     }, { "regular" : [], "inefficient": [], "advantaged": [] });
 
   let suggestedAccountHoldings: AccountHoldingsStateT = {};
-  undoableState.present.accounts.map(account => {
+  appState.accounts.map(account => {
     if (!suggestedAccountHoldings[account.id]) {
       suggestedAccountHoldings[account.id] = {};
     }
-    undoableState.present.assets.map(asset => {
+    appState.assets.map(asset => {
       suggestedAccountHoldings[account.id][asset.id] = {
         balance: 0,
         lockAllocation: false,

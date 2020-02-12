@@ -8,7 +8,7 @@ let exampleState: CoreAppStateT = {
     "backwardCompatLinkVisible": false,
     "aboutVisible": false,
     "howItWorksVisible": false,
-    "tipsAndTricksVisible": true
+    "tipsAndTricksVisible": false
   },
   "assets": [
     {

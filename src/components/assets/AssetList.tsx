@@ -90,7 +90,8 @@ class AssetList extends React.Component<IAssetTypeListProps> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-  assets: state.present.assets
+  assets: state.present.assets,
+  suggestedHoldings: state.present
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
