@@ -31,14 +31,14 @@ let exampleState: CoreAppStateT = {
       id: "176053db-d81b-4fb1-abd8-2b56309cf180",
       name: "Ex-US Stock",
       taxTreatment: "advantaged",
-      allocation: 18.75,
+      allocation: 17.5,
       notes: "VXUS, FSGUX, ..."
     },
     {
       id: "e9495523-3b04-4a64-a863-424c72761c97",
       name: "US Stock",
       taxTreatment: "regular",
-      allocation: 51.25,
+      allocation: 52.5,
       notes: "VTI, FSTMX, ..."
     }
   ],
@@ -82,7 +82,7 @@ let exampleState: CoreAppStateT = {
        notes: ""
       },
       "e9495523-3b04-4a64-a863-424c72761c97": {
-       balance: 1500,
+       balance: 900,
        lockAllocation: true,
        notes: "Locked to avoid selling, due to accrued capital gains"
       }
