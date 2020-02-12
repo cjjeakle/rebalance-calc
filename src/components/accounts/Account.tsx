@@ -133,6 +133,11 @@ class Account extends React.Component<IAccountProps> {
                   </div>
                 </div>
               </div>
+              <div className="row">
+                <div className="col text-center">
+                  <em>Account Balance: $</em>{ Object.keys(accountHoldings).reduce((sum, assetId) => { return sum + accountHoldings[assetId].balance }, 0) }
+                </div>
+              </div>
             </div>
           </div>
           <div className="col-lg">
