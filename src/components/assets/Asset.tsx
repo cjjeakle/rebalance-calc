@@ -2,7 +2,7 @@ import * as React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
-import { AppState } from "../../store";
+import { AppStateT } from "../../store";
 import { IAsset, AssetTaxTreatmentT } from "../../store/types/assetTypes";
 import * as AssetActions from "../../store/actions/assetActions";
 
@@ -159,7 +159,7 @@ class Asset extends React.Component<IAssetProps> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({assets: state.present.assets });
+const mapStateToProps = (state: AppStateT) => ({assets: state.present.assets });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   updateName: (id: string, name: string) => dispatch(AssetActions.updateAssetName(id, name)),

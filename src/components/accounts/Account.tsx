@@ -2,7 +2,7 @@ import * as React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
-import { AppState } from "../../store";
+import { AppStateT } from "../../store";
 import { IAccount, AccountTaxTreatmentT } from "../../store/types/accountTypes";
 import { AssetStateT, IAsset } from "../../store/types/assetTypes";
 import { AccountHoldingsStateT } from "../../store/types/accountHoldingTypes";
@@ -161,7 +161,7 @@ class Account extends React.Component<IAccountProps> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppStateT) => ({
   assets: state.present.assets,
   holdings: state.present.holdings
 });

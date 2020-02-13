@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { AppState } from "../../store";
+import { AppStateT } from "../../store";
 import { IAccount } from "../../store/types/accountTypes";
 import { AssetStateT, IAsset } from "../../store/types/assetTypes";
 import { IAccountHoldings } from "../../store/types/accountHoldingTypes";
@@ -70,7 +70,7 @@ class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProp
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppStateT) => ({
   assets: state.present.assets
 });
 

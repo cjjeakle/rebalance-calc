@@ -20,7 +20,7 @@ export type CoreAppStateT = ReturnType<typeof rootReducer>;
 
 const undoableRootReducer = undoable(persistenceReducer(rootReducer));
 
-export type AppState = ReturnType<typeof undoableRootReducer>;
+export type AppStateT = ReturnType<typeof undoableRootReducer>;
 
 export default function configureStore() {
   const middleware: Middleware[] = [];

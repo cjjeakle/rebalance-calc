@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { AppState } from "../store";
+import { AppStateT } from "../store";
 import * as UiActionCreators from "../store/actions/uiActions";
 
 interface IMoreInfoProps {
@@ -146,7 +146,7 @@ class UsabilityHints extends React.Component {
   }
 }
 
-const mapStateToProps = (state: AppState) => state.present.uiState;
+const mapStateToProps = (state: AppStateT) => state.present.uiState;
 
 const dispatchToProps = {
   toggleAboutVisible: UiActionCreators.toggleAboutVisible,

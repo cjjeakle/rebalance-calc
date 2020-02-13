@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import * as Bootstrap from "react-bootstrap";
 import * as DnD from "react-beautiful-dnd";
 
-import { AppState } from "../../store";
+import { AppStateT } from "../../store";
 import { IAsset, AssetStateT } from "../../store/types/assetTypes";
 import * as AssetActions from "../../store/actions/assetActions";
 import Asset from "./Asset";
@@ -90,7 +90,7 @@ class AssetList extends React.Component<IAssetTypeListProps> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppStateT) => ({
   assets: state.present.assets,
   suggestedHoldings: state.present
 });

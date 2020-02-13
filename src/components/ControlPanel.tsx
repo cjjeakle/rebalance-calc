@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import * as ReduxUndo from "redux-undo";
-import { AppState } from "../store";
+import { AppStateT } from "../store";
 import * as PersistenceActions from "../store/actions/persistenceActions";
 
 interface IControlPanelProps {
@@ -79,7 +79,7 @@ class ControlPanel extends React.Component<IControlPanelProps> {
   }
 }
 
-function mapStateToProps(state: AppState) {
+function mapStateToProps(state: AppStateT) {
   return {
     showBackwardCompatLink: state.present.uiState.backwardCompatLinkVisible,
     showExampleDataPrompt: state.present.accounts.length == 0 && state.present.assets.length == 0,

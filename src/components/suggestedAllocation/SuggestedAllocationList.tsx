@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { AppState, CoreAppStateT } from "../../store";
+import { AppStateT, CoreAppStateT } from "../../store";
 import { IAccount, AccountStateT } from "../../store/types/accountTypes";
 import { AccountHoldingsStateT } from "../../store/types/accountHoldingTypes";
 
@@ -67,7 +67,7 @@ class SuggestedAllocationList extends React.Component<ISuggestedAllocationListPr
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppStateT) => ({
   accounts: state.present.accounts,
   holdings: state.present.holdings,
   curAppState: state.present

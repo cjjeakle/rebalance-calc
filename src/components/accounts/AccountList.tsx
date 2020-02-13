@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import * as Bootstrap from "react-bootstrap";
 import * as DnD from "react-beautiful-dnd";
 
-import { AppState } from "../../store";
+import { AppStateT } from "../../store";
 import { IAccount, AccountStateT } from "../../store/types/accountTypes";
 import * as AccountActions from "../../store/actions/accountActions";
 import Account from "./Account";
@@ -96,7 +96,7 @@ class AccountList extends React.Component<IAccountListProps> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppStateT) => ({
   accounts: state.present.accounts,
   portfolioBalance: Object.keys(state.present.holdings).reduce((accountSum, accountId) => {
     let accountHoldings = state.present.holdings[accountId];
