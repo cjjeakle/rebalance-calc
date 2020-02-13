@@ -54,7 +54,7 @@ class AccountLevelSuggestion extends React.Component<IAccountLevelSuggestionProp
         <div className="row">
           <div className="col-lg-3" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
             <div className="row">
-              <div className="col" style={{textAlign: "center"}}>
+              <div className="col-lg-12" style={{textAlign: "center"}}>
                 <b>{account.name}</b>
               </div>
             </div>

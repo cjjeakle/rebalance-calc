@@ -70,7 +70,7 @@ class Account extends React.Component<IAccountProps> {
             ↕ &nbsp;
             <div>
               <div className="row">
-                <div className="col">
+                <div className="col-lg-12">
                   <input
                       type="text" 
                       className="form-control" 
