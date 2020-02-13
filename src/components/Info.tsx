@@ -10,7 +10,7 @@ export interface IInfoProps {
 export default class Info extends React.Component<IInfoProps> {
   render() {
     return (
-      <Bootstrap.OverlayTrigger 
+      <Bootstrap.OverlayTrigger
         trigger="hover"
         placement="auto"
         overlay={

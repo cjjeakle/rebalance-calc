@@ -16,7 +16,6 @@ export const UPDATE_ACCOUNT_TAX_TREATMENT = "UPDATE_ACCOUNT_TAX_TREATMENT";
 export const UPDATE_ACCOUNT_NAME = "UPDATE_ACCOUNT_NAME";
 export const MOVE_ACCOUNT = "MOVE_ACCOUNT";
 export const REMOVE_ACCOUNT = "REMOVE_ACCOUNT";
-export const INIT_ACCOUNT_HOLDINGS = "";
 
 /* Action Interfaces: */
 export interface IAddAccount extends Action {
