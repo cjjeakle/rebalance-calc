@@ -82,10 +82,15 @@ function getStateAsUrlHash() {
     }
 }
 
+var isLoading = false;
 function pushStateToUrl() {
+    if (isLoading) {
+        return;
+    }
+
     var stateHash = getStateAsUrlHash();
     if (window.location.hash != stateHash) {
-        history.pushState({}, '', '/' + stateHash);
+        history.pushState({}, '', window.location.href + "/" + stateHash);
     }
     updateSaveLink();
 }
@@ -105,6 +110,7 @@ function toggleUrlLink() {
 }
 
 function loadState(portfolioJSON) {
+    isLoading = true;
     detachAddAndRemoveSubscriptions();
 
     var portfolioData = JSON.parse(portfolioJSON);
@@ -149,6 +155,7 @@ function loadState(portfolioJSON) {
     
     attachAddAndRemoveSubscriptions();
     invokeAddAndRemoveEventSubscribers();
+    isLoading = false;
 }
 
 function loadFromCurrentUrl() {
