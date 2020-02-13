@@ -1,15 +1,31 @@
-# rebalance-calc
-A tool to help with re-balancing one's investment portfolio.
+# Rebalance Calc
+
+## About this repo
+A Portfolio Rebalancing and Tax Optimization Calculator
 
 View the live site: www.rebalancecalc.com
 
-RebalanceCalc is a simple web app built using React, Redux, and the Bootstrap UI framework.
+If you have data from the previous version, a backward compatibility mode can be found [here](www.rebalancecalc.com/backwardCompat/v1/)
 
 ## Cool features:
-* The site automatically persists every change to the URL, making it easy to save, share, and restore your work
+
+### The app is newly refactored!
+
+Shiny new features:
+* Drag-and-drop
+* Concrete sale and purchase suggestions on an account and asset level
+    * The previous version suggested an allocation, but trade amounts were left as an exercise to the user
+* Improved error detection and clearer error messages
+
+Core features that haven't gone anywhere
+* The site automatically persists every change to the URL
+    * It's easy to save, share, and restore your work
+* Your input never leaves the page
+    * There's no analytics, and the URL hash (where the data persists) doesn't get sent to the server
 
 ## Feel free to self-host!
-* These steps can be used to develop locally, or to self-host the site
+These steps can be used to develop locally, or to self-host the site
+
 * Dependencies
     * `nodejs`
         * Any relatively new release should work (the current LTS release is a solid choice)
@@ -26,11 +42,11 @@ RebalanceCalc is a simple web app built using React, Redux, and the Bootstrap UI
         * The app should be available at http://localhost:1234 while npm dev runs
         * Pressing `ctrl` + `c` or closing the terminal should kill the dev server
     1. Start a web server in the `./dist/` folder
-        1. Start a new terminal and open `./dist/`
-        1. `python3 -m http.server 8000`
+        1. Open an additional terminal and navigate to the `./dist/` folder
+        1. Run `python3 -m http.server 8000`
         1. Open a browser and navigate to http://localhost:8000
-            * Use this link because you don't have to manually navigate to `index.html` to open the site (a bug noted above)
-        1. pressing `ctrl` + `c` or closing the terminal should kill the http server
+            * Use this link because you don't have to manually navigate to `index.html` to open the site (a bug noted above in the dependencies section)
+        1. Pressing `ctrl` + `c` or closing the terminal should kill the http server
 
 ## Using a previous version:
 To find a previous version, particularly if you'd like to self-host without needing to run any build tools, check out the older releases [here](https://github.com/cjjeakle/rebalance-calc/releases/).
