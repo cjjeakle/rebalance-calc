@@ -11,8 +11,6 @@ export interface IAccountHoldingProps {
 
 export default class AccountHolding extends React.Component<IAccountHoldingProps> {
   render() {
-    // Round any long floating point balances to hundredths.
-    // Add epsilon (the smallest value JS floats can represent) to ensure we round up when exactly at the rounding boundary.
     let delta: number = roundToHundredths(this.props.suggestedHolding - this.props.currentHolding);
     let numberColor: string = (Math.sign(delta) === 1 ? "lightgreen" : (Math.sign(delta) === -1 ? "red" : ""))
     let borderColor: string = (Math.sign(delta) === 1 ? "green" : (Math.sign(delta) === -1 ? "tomato" : "lightgrey"))
