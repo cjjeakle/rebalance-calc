@@ -34,7 +34,7 @@ class ControlPanel extends React.Component<IControlPanelProps> {
           </div>
         </div>
         <div className="row">
-          <div className="col" style={{textAlign:"center"}}>
+          <div className="col text-center">
             {
               this.props.showExampleDataPrompt &&
               <div className="alert alert-success alert-sm">

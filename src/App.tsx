@@ -47,7 +47,7 @@ class App extends React.Component<IAppProps> {
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-6 offset-lg-3" style={{textAlign: "center"}}>
+          <div className="col-lg-6 offset-lg-3 text-center">
             <div className="row">
               <div className="col-lg-5">
                 Created by: <a href="https://www.chrisjeakle.com">Chris Jeakle</a>
