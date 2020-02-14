@@ -1,4 +1,5 @@
 import * as React from "react";
+import { FiInfo } from "react-icons/fi";
 import * as Bootstrap from "react-bootstrap";
 
 export interface IInfoProps {
@@ -20,7 +21,7 @@ export default class Info extends React.Component<IInfoProps> {
         </Bootstrap.Popover>
         }
       >
-        <span>🛈</span>
+        <FiInfo />
       </Bootstrap.OverlayTrigger>
     );
   }
