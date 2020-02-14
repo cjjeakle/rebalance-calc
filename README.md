@@ -16,10 +16,14 @@ Shiny new features:
 * Concrete sale and purchase suggestions on an account and asset level
     * The previous version suggested an allocation, but trade amounts were left as an exercise to the user
 * Improved error detection and clearer error messages
+* URL state is replaced, rather than adding to the browser history
+    * This should making the browser back button much more usable with this version of the app
 
 Core features that haven't gone anywhere
+* Rich example data to demonstrate most key features
+* Lots of helpful tips and tricks, be sure to take a look!
 * The site automatically persists every change to the URL
-    * It's easy to save, share, and restore your work
+    * It's easy to save, share, and restore your work via bookmarks and copy-paste
 * Your input never leaves the page
     * There's no analytics, and the URL hash (where the data persists) doesn't get sent to the server
 
@@ -36,8 +40,9 @@ These steps can be used to develop locally, or to self-host the site
     1. Run `npm install`
     1. Run `npm dev`
         * This watches for changes, builds the source code, bundles it, and starts a server
+            * Caveat: the `assets` directory is only copied at startup, you'll have to stop and re-run `npm dev` to get updates to files in that folder
         * The app should be available at http://localhost:1234 while npm dev runs
-        * Pressing `ctrl` + `c` or closing the terminal should kill the dev server
+        * Press `ctrl` + `c` or close the terminal to stop the dev server
 
 ## Using a previous version:
 To find a previous version, particularly if you'd like to self-host without needing to run any build tools, check out the older releases [here](https://github.com/cjjeakle/rebalance-calc/releases/).

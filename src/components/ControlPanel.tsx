@@ -49,6 +49,7 @@ class ControlPanel extends React.Component<IControlPanelProps> {
                   </button>
                   <br />
                   <br />
+                  The tips and tricks button (in the menu below) can be helpful, too!
               </div>
             }
           </div>

@@ -96,12 +96,12 @@ class HowItWorks extends React.Component {
           <br />
           <ol>
             <li>The total value of all accounts is determined</li>
-            <li>Your total account value is partitioned among the asset classes by percentage of the portfolio</li>
+            <li>Your total account value is partitioned among the asset classes by percentage</li>
             <li>'Tax inefficient' assets are assigned to tax deferred accounts, then to tax free accounts, and finally taxable accounts</li>
             <li>'Tax advantaged' assets are assigned to taxable accounts, and any remaining allocation is postponed to the final step</li>
             <li>Assets with 'no special tax treatment' are first assigned to tax free accounts, and any remaining allocation is postponed to the final step</li>
-            <li>Any remaining asset value is distributed among the remaining account balances, this is done in the order of the lists below</li>
-            <li>The result of this procedure is displayed below in a table</li>
+            <li>Any remaining asset value is distributed among the remaining account balances, this is done in the same order as the lists below</li>
+            <li>The result of this procedure is displayed in a table</li>
           </ol>
         </div>
       </div>
@@ -133,8 +133,15 @@ class UsabilityHints extends React.Component {
             <li>
               Want to account for deposits or idle cash?
               <ul>
-                <li>Use an "asset" with a 0% allocation!</li>
+                <li>Use an "asset" with a 0% allocation</li>
                 <li>Any account with funds in a 0% allocation asset will have them assigned to a different, desired asset</li>
+              </ul>
+            </li>
+            <li>
+              Want to account for withdrawals?
+              <ul>
+                <li>Use an "asset" with a 0% allocation, and "fund" that asset with a negative balance in the account you plan to withdraw from</li>
+                <li>The calculator will see the 0% allocation target, and will sell appropriate assets to bring that negative balance to 0</li>
               </ul>
             </li>
             <li>It's easy to start a new session with a clean state, just click the title at the top of this page</li>
