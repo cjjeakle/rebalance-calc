@@ -26,6 +26,13 @@ let exampleState: CoreAppStateT = {
       "notes": "0% allocation to ensure idle cash is invested"
     },
     {
+      "id": "05dce348-d717-4a5b-9206-fb43da0c44b1",
+      "name": "Withdrawls",
+      "taxTreatment": "regular",
+      "allocation": 0,
+      "notes": "0% allocation so assets are sold to cover any balance <0"
+    },
+    {
       "id": "176053db-d81b-4fb1-abd8-2b56309cf180",
       "name": "Ex-US Stock",
       "taxTreatment": "advantaged",
@@ -89,7 +96,7 @@ let exampleState: CoreAppStateT = {
       "e9495523-3b04-4a64-a863-424c72761c97": {
         "balance": 900,
         "lockAllocation": true,
-        "notes": "Locked to avoid selling, due to accrued capital gains"
+        "notes": "Advanced: This holding is locked to avoid selling, do this to defer capital gains"
       }
     },
     "3644d01d-7136-4e8d-a0f7-30b27f404373": {
@@ -105,6 +112,11 @@ let exampleState: CoreAppStateT = {
       },
       "e9495523-3b04-4a64-a863-424c72761c97": {
         "balance": 4000,
+        "lockAllocation": false,
+        "notes": ""
+      },
+      "05dce348-d717-4a5b-9206-fb43da0c44b1": {
+        "balance": -1000,
         "lockAllocation": false,
         "notes": ""
       }
