@@ -30,7 +30,6 @@
   "dependencies": {
     "@types/react-beautiful-dnd": "^12.1.1",
     "bootstrap": "^4.4.1",
-    "gh-pages": "^2.2.0",
     "jquery": "^3.4.1",
     "parcel-plugin-asset-copier": "^1.0.0",
     "react": "^16.12.0",
@@ -47,6 +46,7 @@
     "@types/react-dom": "^16.9.5",
     "@types/react-redux": "^7.1.7",
     "@types/uuid": "^3.4.5",
+    "gh-pages": "^2.2.0",
     "parcel-bundler": "^1.12.4",
     "redux-devtools-extension": "^2.13.8",
     "typescript": "^3.7.5"
