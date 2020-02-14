@@ -90,7 +90,7 @@ function pushStateToUrl() {
 
     var stateHash = getStateAsUrlHash();
     if (window.location.hash != stateHash) {
-        history.pushState({}, '', window.location.href + "/" + stateHash);
+        history.pushState(undefined, undefined, stateHash);
     }
     updateSaveLink();
 }
