@@ -38,9 +38,11 @@ export default function computeSuggestedHoldings(appState: CoreAppStateT): Accou
   }, 0);
 
   if (totalAssetAllocation > 100) {
-    throw "The total specified asset allocation (" + totalAssetAllocation + ") adds up to more than 100%!"
+    throw "The total specified asset allocation (" + totalAssetAllocation + ") adds up to more than 100%!";
   } else if (totalAssetAllocation < 100) {
-    throw "The total specified asset allocation (" + totalAssetAllocation + ") adds up to less than 100%"
+    throw "The total specified asset allocation (" + totalAssetAllocation + ") adds up to less than 100%";
+  } else if (!totalAssetAllocation) {
+    throw "It appears there are missing asset allocation percentages, or invalid data was entered.";
   }
 
   appState.accounts.forEach(account => {
