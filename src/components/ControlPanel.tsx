@@ -28,7 +28,7 @@ class ControlPanel extends React.Component<IControlPanelProps> {
               this.props.showBackwardCompatLink &&
               <div className="alert alert-warning alert-sm">
                 Based on the URL bar, it appears you're trying to load data from a previous version of this site.
-                Click <a href={"../backwardCompat/v1/" + window.location.hash}>this link</a> to open your saved data in backward compatibility mode.
+                Click <a href={"/backwardCompat/v1/index.html" + window.location.hash}>this link</a> to open your saved data in backward compatibility mode.
               </div>
             }
           </div>

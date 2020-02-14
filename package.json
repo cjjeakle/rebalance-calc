@@ -4,8 +4,8 @@
   "description": "A tool to help with rebalancing one's investment portfolio",
   "main": "src/index.html",
   "scripts": {
-    "dev": "parcel src/index.html src/backwardCompat/v1/index.html",
-    "build": "parcel build src/index.html src/backwardCompat/v1/index.html",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
     "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

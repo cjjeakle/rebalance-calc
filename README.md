@@ -30,9 +30,6 @@ These steps can be used to develop locally, or to self-host the site
     * `nodejs`
         * Any relatively new release should work (the current LTS release is a solid choice)
         * Install from [here](https://nodejs.org/en/download/) or [via a package manager](https://nodejs.org/en/download/package-manager/).
-    * `python3`
-        * This is necessary to work around [a bug](https://github.com/parcel-bundler/parcel/issues/1778), and should be fixed [when parcel 2 comes out](https://github.com/parcel-bundler/parcel/pull/3996)
-        * `python3` is available from most package managers and the Windows 10 app store
 * Steps:
     1. `git clone` this repo or download the source as a zip from GitHub
     1. Open a terminal or powershell session in the root folder of your copy of this repo
@@ -41,12 +38,6 @@ These steps can be used to develop locally, or to self-host the site
         * This watches for changes, builds the source code, bundles it, and starts a server
         * The app should be available at http://localhost:1234 while npm dev runs
         * Pressing `ctrl` + `c` or closing the terminal should kill the dev server
-    1. Start a web server in the `./dist/` folder
-        1. Open an additional terminal and navigate to the `./dist/` folder
-        1. Run `python3 -m http.server 8000`
-        1. Open a browser and navigate to http://localhost:8000
-            * Use this link because you don't have to manually navigate to `index.html` to open the site (a bug noted above in the dependencies section)
-        1. Pressing `ctrl` + `c` or closing the terminal should kill the http server
 
 ## Using a previous version:
 To find a previous version, particularly if you'd like to self-host without needing to run any build tools, check out the older releases [here](https://github.com/cjjeakle/rebalance-calc/releases/).
