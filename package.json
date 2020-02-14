@@ -5,8 +5,8 @@
   "main": "src/index.html",
   "scripts": {
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html",
-    "deploy": "gh-pages -d dist",
+    "build": "rimraf dist && parcel build src/index.html",
+    "deploy": "npm run build && gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -50,6 +50,7 @@
     "gh-pages": "^2.2.0",
     "parcel-bundler": "^1.12.4",
     "redux-devtools-extension": "^2.13.8",
+    "rimraf": "^3.0.2",
     "typescript": "^3.7.5"
   }
 }
