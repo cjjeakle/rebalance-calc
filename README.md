@@ -3,9 +3,9 @@
 ## About this repo
 A Portfolio Rebalancing and Tax Optimization Calculator
 
-View the live site: www.rebalancecalc.com
+View the live site: https://www.rebalancecalc.com
 
-If you have data from the previous version, a backward compatibility mode can be found [here](www.rebalancecalc.com/backwardCompat/v1/)
+If you have data from the previous version, a backward compatibility mode can be found [here](http://www.rebalancecalc.com/backwardCompat/v1/)
 
 ## Cool features:
 
@@ -19,13 +19,16 @@ Shiny new features:
 * URL state is replaced, rather than adding to the browser history
     * This should making the browser back button much more usable with this version of the app
 
-Core features that haven't gone anywhere
+Core features that haven't gone anywhere:
 * Rich example data to demonstrate most key features
 * Lots of helpful tips and tricks, be sure to take a look!
 * The site automatically persists every change to the URL
     * It's easy to save, share, and restore your work via bookmarks and copy-paste
 * Your input never leaves the page
     * There's no analytics, and the URL hash (where the data persists) doesn't get sent to the server
+
+## UX Caveats
+This tool is best used on a computer, the UI can get quite overwhelming on mobile (it works, but can be clunky).
 
 ## Feel free to self-host!
 These steps can be used to develop locally, or to self-host the site
