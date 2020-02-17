@@ -27,7 +27,7 @@ let exampleState: CoreAppStateT = {
     },
     {
       "id": "05dce348-d717-4a5b-9206-fb43da0c44b1",
-      "name": "Withdrawls",
+      "name": "Withdrawals",
       "taxTreatment": "regular",
       "allocation": 0,
       "notes": "0% allocation so assets are sold to cover any balance <0"
