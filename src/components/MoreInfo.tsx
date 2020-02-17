@@ -77,7 +77,7 @@ class AboutTheApp extends React.Component {
                 Re-balancing works best when all investment accounts are treated as part of a single portfolio.
               </p>
               <p>
-                See the bogleheads wiki for info on <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement">tax efficiency</a>, 
+                See the Bogleheads wiki for info on <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement">tax efficiency</a>, 
                 and for <a href="https://www.bogleheads.org/wiki/Video:Bogleheads%C2%AE_investment_philosophy">general investing suggestions</a>.
               </p>
             </div>
