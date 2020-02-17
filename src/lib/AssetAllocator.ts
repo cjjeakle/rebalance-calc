@@ -70,6 +70,9 @@ export default function computeSuggestedHoldings(appState: CoreAppStateT): Accou
   let totalBalance =
     accountBalances
     .reduce((balanceSum: number, accountBalance: AvailableAccountBalanceT): number => {
+      if (accountBalance.availableBalance < 0) {
+        throw "The account named '" + accountBalance.name + "' has a negative overall balance. It appears there are withdrawals that total more than the account's available value.";
+      }
       balanceSum += accountBalance.availableBalance;
       return balanceSum;
     }, 0);
