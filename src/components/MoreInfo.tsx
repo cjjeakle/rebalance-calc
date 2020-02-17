@@ -69,12 +69,12 @@ class AboutTheApp extends React.Component {
                 Periodically re-balancing is useful, it:
                 <ol>
                   <li>Keeps your exposure to risk in a comfortable range</li>
-                  <li>Automatically helps you capture gains from investments that are "up" (relative to your other assets)</li>
-                  <li>Ensures you move funds into assets that have more upside/are currently down</li>
+                  <li>Automatically helps you capture gains from investments that are "up"/outperforming (relative to your other assets)</li>
+                  <li>Ensures you stay the course by putting contributions and gains to work according to the portfolio-wide asset allocation you are pursuing</li>
                 </ol>
               </p>
               <p>
-                Re-balancing works best when all investment accounts are treated as a single portfolio.
+                Re-balancing works best when all investment accounts are treated as part of a single portfolio.
               </p>
               <p>
                 See the bogleheads wiki for info on <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement">tax efficiency</a>, 
