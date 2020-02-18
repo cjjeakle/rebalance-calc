@@ -70,7 +70,7 @@ class AboutTheApp extends React.Component {
                 <ol>
                   <li>Keeps your exposure to risk in a comfortable range</li>
                   <li>Automatically helps you capture gains from investments that are "up"/outperforming (relative to your other assets)</li>
-                  <li>Ensures you stay the course by putting contributions and gains to work according to the portfolio-wide asset allocation you are pursuing</li>
+                  <li>Ensures you stay the course by putting contributions and gains to work according to your asset allocation</li>
                 </ol>
               </p>
               <p>
@@ -97,9 +97,9 @@ class HowItWorks extends React.Component {
           <ol>
             <li>The total value of all accounts is determined</li>
             <li>Your total account value is partitioned among the asset classes by percentage</li>
-            <li>'Tax inefficient' assets are assigned to tax deferred accounts, then to tax free accounts, and finally taxable accounts</li>
-            <li>'Tax advantaged' assets are assigned to taxable accounts, and any remaining allocation is postponed to the final step</li>
-            <li>Assets with 'no special tax treatment' are first assigned to tax free accounts, and any remaining allocation is postponed to the final step</li>
+            <li>"Tax inefficient" assets are assigned to tax deferred accounts, then to tax free accounts, and finally taxable accounts</li>
+            <li>"Tax advantaged" assets are assigned to taxable accounts, then any remaining allocation is postponed to the final step</li>
+            <li>Assets with "no special tax treatment" are first assigned to tax free accounts, then any remaining allocation is postponed to the final step</li>
             <li>Any remaining asset value is distributed among the remaining account balances, this is done in the same order as the lists below</li>
             <li>The result of this procedure is displayed in a table</li>
           </ol>
