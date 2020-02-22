@@ -12,7 +12,8 @@ If you have data from the previous version, a backward compatibility mode can be
 ### The app is newly refactored!
 
 Shiny new features:
-* Drag-and-drop
+* Lists support drag-and-drop re-ordering
+* Undo and redo support
 * Concrete sale and purchase suggestions on an account and asset level
     * The previous version suggested an allocation, but trade amounts were left as an exercise to the user
 * Improved error detection and clearer error messages
@@ -20,12 +21,14 @@ Shiny new features:
     * This should making the browser back button much more usable with this version of the app
 
 Core features that haven't gone anywhere:
-* Rich example data to demonstrate most key features
+* Rich example data to demonstrate key features
 * Lots of helpful tips and tricks, be sure to take a look!
-* The site automatically persists every change to the URL
-    * It's easy to save, share, and restore your work via bookmarks and copy-paste
-* Your input never leaves the page
-    * There's no analytics, and the URL hash (where the data persists) doesn't get sent to the server
+* It's easy to persist and sync state
+    * Simply bookmark the page in a state you want to preserve, the URL bar contains everything you've entered
+    * Use your browser's bookmark sync feature (or copy-paste) to take your URL state elsewhere
+* The tool respects your privacy
+    * There are no ads or analytics
+    * The tool's state saves to the "#" fragment of the URL, and browsers do not send the URL hash to the server
 
 ## UX Caveats
 This tool is best used on a computer, the UI can get quite overwhelming on mobile (it works, but can be clunky).
