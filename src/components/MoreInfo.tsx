@@ -80,6 +80,11 @@ class AboutTheApp extends React.Component {
                 See the Bogleheads wiki for info on <a href="https://www.bogleheads.org/wiki/Principles_of_tax-efficient_fund_placement">tax efficiency</a>, 
                 and for <a href="https://www.bogleheads.org/wiki/Video:Bogleheads%C2%AE_investment_philosophy">general investing suggestions</a>.
               </p>
+              <p>
+                License:<br/>
+                This tool is free to use, and is made available under <a href="https://github.com/cjjeakle/rebalance-calc#license">the MIT license</a>.
+                Please note there is no warranty. The tool's author is not your financial advisor, the calculator's output is a suggestion, and this tool does not provide personalized financial advice.
+              </p>
             </div>
           </div>
         </div>
