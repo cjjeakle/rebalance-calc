@@ -44,12 +44,11 @@ class AccountList extends React.Component<IAccountListProps> {
           >
             <div className="row" key={account.id}>
               <div className="col">
-                <div style={{textAlign:"center"}}>=-=</div>
+                <br />
                 <Account
                   alternateBackground={(index % 2) > 0}
                   account={account}
                 />
-                <div style={{textAlign:"center"}}>-=-</div>
               </div>
             </div>
           </div>
