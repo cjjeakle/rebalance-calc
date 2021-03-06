@@ -44,7 +44,7 @@ These steps can be used to develop locally, or to self-host the site
     1. `git clone` this repo or download the source as a zip from GitHub
     1. Open a terminal or powershell session in the root folder of your copy of this repo
     1. Run `npm install`
-    1. Run `npm dev`
+    1. Run `npm run dev`
         * This watches for changes, builds the source code, bundles it, and starts a server
             * Caveat: the `assets` directory is only copied at startup, you'll have to stop and re-run `npm dev` to get updates to files in that folder
         * The app should be available at http://localhost:1234 while npm dev runs
