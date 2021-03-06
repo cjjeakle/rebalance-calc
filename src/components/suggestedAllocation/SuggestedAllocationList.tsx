@@ -40,7 +40,6 @@ class SuggestedAllocationList extends React.Component<ISuggestedAllocationListPr
       return (
         <div className="row" key={account.id}>
           <div className="col">
-            <br />
             <AccountLevelSuggestion
               holdings={this.props.holdings[account.id]}
               suggestedHoldings={suggestedHoldings[account.id]}
