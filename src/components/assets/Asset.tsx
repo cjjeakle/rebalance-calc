@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FaArrowsAltV } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
@@ -27,8 +27,8 @@ class Asset extends React.Component<IAssetProps> {
     return (
       <div className="container-fluid form-group">
         <div className="row justify-content-center">
-          <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-            <FaArrowsAltV />
+          <div style={{display:"flex", alignItems:"center", justifyContent:"center", margin:".5em 0 .5em 0"}}>
+            <FaBars />
           </div>
           <div className="col-lg-2">
             <input 

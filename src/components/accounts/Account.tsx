@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FaArrowsAltV } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
@@ -67,8 +67,8 @@ class Account extends React.Component<IAccountProps> {
     return (
       <div className="container-fluid form-group" style={{backgroundColor:this.props.alternateBackground ? "WhiteSmoke" : "#EDF5F5" }}>
         <div className="row">
-          <div className="col-lg-3" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-            <FaArrowsAltV />&nbsp;
+          <div className="col-lg-3" style={{display:"flex", alignItems:"center", justifyContent:"center", marginBottom:".5em 0 .5em 0"}}>
+            <FaBars />&nbsp;&nbsp;
             <div>
               <div className="row">
                 <div className="col-lg-12">
