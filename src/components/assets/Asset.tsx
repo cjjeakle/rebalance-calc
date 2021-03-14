@@ -26,7 +26,7 @@ class Asset extends React.Component<IAssetProps> {
     let asset = this.props.asset;
     return (
       <div style={{display:"flex"}}>
-        <div style={{display:"flex", alignItems:"center", justifyContent:"center", marginRight:"1rem"}}>
+        <div style={{display:"flex", alignItems:"center", justifyContent:"center", marginRight:".5rem"}}>
           <FaGripVertical />
         </div>
         <div className="container-fluid form-group" style={{/*override form group margins*/margin:".5rem 0 .5rem 0", backgroundColor:"#F8F8F8"}}>

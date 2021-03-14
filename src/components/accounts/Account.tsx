@@ -66,7 +66,7 @@ class Account extends React.Component<IAccountProps> {
 
     return (
       <div style={{display:"flex"}}>
-        <div style={{display:"flex", alignItems:"center", justifyContent:"center", marginRight:"1rem"}}>
+        <div style={{display:"flex", alignItems:"center", justifyContent:"center", marginRight:".5rem"}}>
           <FaGripVertical />
         </div>
         <div className="container-fluid form-group" style={{/*override form group margins*/margin:".5rem 0 .5rem 0", backgroundColor:this.props.alternateBackground ? "WhiteSmoke" : "#EDF5F5"}}>
