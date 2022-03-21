@@ -7,7 +7,7 @@ import assetsReducer from "./reducers/assetsReducer";
 import accountsReducer from "./reducers/accountsReducer";
 import accountHoldingsReducer from "./reducers/accountHoldingsReducer";
 
-import persistenceReducer from "./reducers/persistenceReducer";
+import { coreAppPersistenceReducer, undoRedoPersistenceReducer} from "./reducers/persistenceReducer";
 
 const coreAppReducer = combineReducers({
     uiState: uiReducer,
@@ -15,19 +15,20 @@ const coreAppReducer = combineReducers({
     accounts: accountsReducer,
     holdings: accountHoldingsReducer
 });
-
 export type CoreAppStateT = ReturnType<typeof coreAppReducer>;
 
-const undoableAppReducer = undoable(persistenceReducer(coreAppReducer));
+const undoableAppReducer = undoable(coreAppPersistenceReducer(coreAppReducer));
+export type UndoableAppStateT = ReturnType<typeof undoableAppReducer>;
 
-export type AppStateT = ReturnType<typeof undoableAppReducer>;
+const completeAppReducer = undoRedoPersistenceReducer(undoableAppReducer);
+export type CompleteAppStateT = ReturnType<typeof completeAppReducer>;
 
 export default function configureStore() {
   const middleware: Middleware[] = [];
   const middlewareEnhancer = applyMiddleware(...middleware);
 
   const store = createStore(
-    undoableAppReducer,
+    completeAppReducer,
     composeWithDevTools(middlewareEnhancer)
   );
 

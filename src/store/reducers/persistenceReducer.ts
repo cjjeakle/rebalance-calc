@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { CoreAppStateT } from "../index";
+import { CoreAppStateT, UndoableAppStateT } from "../index";
 import * as ActionTypes from "../types/persistenceTypes";
 import { initialState as defaultUiState } from "../reducers/uiReducer";
 
@@ -166,7 +166,7 @@ function persistState(curState: CoreAppStateT) {
   }
 }
 
-export default function persistenceReducer (
+export function coreAppPersistenceReducer (
   coreAppStateReducer: (state: CoreAppStateT, action: ActionTypes.PersistenceActionTypes) => CoreAppStateT
 ): (state: CoreAppStateT, action: ActionTypes.PersistenceActionTypes) => CoreAppStateT {
   return (state: CoreAppStateT, action: Action) => {
@@ -193,6 +193,19 @@ export default function persistenceReducer (
         if (appInitialized) {
           persistState(updatedState);
         }
+        return updatedState;
+    }
+  };
+}
+
+export function undoRedoPersistenceReducer (
+  undoRedoAppStateReducer: (state: UndoableAppStateT, action: ActionTypes.PersistenceActionTypes) => UndoableAppStateT
+): (state: UndoableAppStateT, action: ActionTypes.PersistenceActionTypes) => UndoableAppStateT {
+  return (state: UndoableAppStateT, action: Action) => {
+    switch (action.type) {
+      default:
+        let updatedState = undoRedoAppStateReducer(state, action);
+        persistState(updatedState.present);
         return updatedState;
     }
   };
