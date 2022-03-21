@@ -166,13 +166,12 @@ function persistState(curState: CoreAppStateT) {
   }
 }
 
-export function coreAppPersistenceReducer (
+export function loadFromUrlReducer (
   coreAppStateReducer: (state: CoreAppStateT, action: ActionTypes.PersistenceActionTypes) => CoreAppStateT
 ): (state: CoreAppStateT, action: ActionTypes.PersistenceActionTypes) => CoreAppStateT {
   return (state: CoreAppStateT, action: Action) => {
     switch (action.type) {
       case ActionTypes.LOAD_SAVED_DATA:
-        appInitialized = true;
         if (legacyDataPresent) {
           return {
             ...state,
@@ -189,22 +188,18 @@ export function coreAppPersistenceReducer (
           state = exampleState;
           // vvv Intentional fall-through vvv
       default:
-        let updatedState = coreAppStateReducer(state, action);
-        if (appInitialized) {
-          persistState(updatedState);
-        }
-        return updatedState;
+        return coreAppStateReducer(state, action);;
     }
   };
 }
 
-export function undoRedoPersistenceReducer (
-  undoRedoAppStateReducer: (state: UndoableAppStateT, action: ActionTypes.PersistenceActionTypes) => UndoableAppStateT
+export function persistToUrlReducer (
+  undoableAppStateReducer: (state: UndoableAppStateT, action: ActionTypes.PersistenceActionTypes) => UndoableAppStateT
 ): (state: UndoableAppStateT, action: ActionTypes.PersistenceActionTypes) => UndoableAppStateT {
   return (state: UndoableAppStateT, action: Action) => {
     switch (action.type) {
       default:
-        let updatedState = undoRedoAppStateReducer(state, action);
+        let updatedState = undoableAppStateReducer(state, action);
         persistState(updatedState.present);
         return updatedState;
     }

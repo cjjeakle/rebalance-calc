@@ -7,7 +7,7 @@ import assetsReducer from "./reducers/assetsReducer";
 import accountsReducer from "./reducers/accountsReducer";
 import accountHoldingsReducer from "./reducers/accountHoldingsReducer";
 
-import { coreAppPersistenceReducer, undoRedoPersistenceReducer} from "./reducers/persistenceReducer";
+import { loadFromUrlReducer, persistToUrlReducer} from "./reducers/persistenceReducer";
 
 const coreAppReducer = combineReducers({
     uiState: uiReducer,
@@ -17,10 +17,10 @@ const coreAppReducer = combineReducers({
 });
 export type CoreAppStateT = ReturnType<typeof coreAppReducer>;
 
-const undoableAppReducer = undoable(coreAppPersistenceReducer(coreAppReducer));
+const undoableAppReducer = undoable(loadFromUrlReducer(coreAppReducer));
 export type UndoableAppStateT = ReturnType<typeof undoableAppReducer>;
 
-const completeAppReducer = undoRedoPersistenceReducer(undoableAppReducer);
+const completeAppReducer = persistToUrlReducer(undoableAppReducer);
 export type CompleteAppStateT = ReturnType<typeof completeAppReducer>;
 
 export default function configureStore() {
