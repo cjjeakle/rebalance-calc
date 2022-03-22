@@ -209,7 +209,6 @@ export function persistToUrlReducer (
   undoableAppStateReducer: (state: UndoableAppStateT, action: ActionTypes.PersistenceActionTypes) => UndoableAppStateT
 ): (state: UndoableAppStateT, action: ActionTypes.PersistenceActionTypes) => UndoableAppStateT {
   return (state: UndoableAppStateT, action: Action) => {
-    console.log(action);
     let updatedState = undoableAppStateReducer(state, action);
     // If the app isn't initialized, then there is nothing of consequence to persist.
     // Plus, we don't want to clobber the URL and lose state we want to load!
