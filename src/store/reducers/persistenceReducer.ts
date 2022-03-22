@@ -138,17 +138,22 @@ let exampleState: CoreAppStateT = {
   }
 };
 
+// React initializes the app's state using a magical action that we ought not depend on the ID of.
+// We know that action fires once and only once at startup, so we use this bool to track whether
+// it's happened or not.
 let appInitialized: boolean = false;
 let urlHashContent = window.location.hash ? JSON.parse(decodeURI(window.location.hash.substring(1))) : {};
 let loadedData = null;
-if (urlHashContent["accounts"]) { // Looks like the current schema
+if (urlHashContent["accounts"]) {
+  // Looks like the current schema
   loadedData = {
     ...urlHashContent,
     uiState: defaultUiState
   }
 }
 let legacyDataPresent: boolean = false;
-if (urlHashContent["assetClassesInefficient"]) { // Looks like the old schema -- don't load, but present a link to backward compat mode
+if (urlHashContent["assetClassesInefficient"]) {
+  // Looks like the old schema -- don't load, but present a link to backward compat mode
   legacyDataPresent = true;
 }
 
@@ -173,6 +178,7 @@ export function loadFromUrlReducer (
     switch (action.type) {
       case ActionTypes.LOAD_SAVED_DATA:
         if (legacyDataPresent) {
+          // Stop processing immediately and display the backward compat link.
           return {
             ...state,
             uiState: {
@@ -181,15 +187,21 @@ export function loadFromUrlReducer (
             }
           };
         } else if (loadedData) {
-          return coreAppStateReducer(loadedData, action);
+          // Set our current state to the loaded data.
+          state = loadedData;
+        } else {
+          // Do nothing, proceed with the existing state.
         }
-        return coreAppStateReducer(state, action);
+        break;
       case ActionTypes.LOAD_EXAMPLE_DATA:
-          state = exampleState;
-          // vvv Intentional fall-through vvv
+        // Set the current state to that of the example data.
+        state = exampleState;
+        break;
       default:
-        return coreAppStateReducer(state, action);;
+        break;
     }
+    // Process the loaded state through the upstream reducer.
+    return coreAppStateReducer(state, action);
   };
 }
 
@@ -197,11 +209,25 @@ export function persistToUrlReducer (
   undoableAppStateReducer: (state: UndoableAppStateT, action: ActionTypes.PersistenceActionTypes) => UndoableAppStateT
 ): (state: UndoableAppStateT, action: ActionTypes.PersistenceActionTypes) => UndoableAppStateT {
   return (state: UndoableAppStateT, action: Action) => {
-    switch (action.type) {
-      default:
-        let updatedState = undoableAppStateReducer(state, action);
-        persistState(updatedState.present);
-        return updatedState;
+    console.log(action);
+    let updatedState = undoableAppStateReducer(state, action);
+    // If the app isn't initialized, then there is nothing of consequence to persist.
+    // Plus, we don't want to clobber the URL and lose state we want to load!
+    if (!appInitialized) {
+      appInitialized = true;
+      return updatedState;
     }
+    switch (action.type) {
+      case ActionTypes.LOAD_SAVED_DATA:
+        // If there's legacy data in the URL, then early-exit and skip persistence.
+        // We want to leave that data in the URL for the backward compat link to work.
+        if (legacyDataPresent) {
+          return updatedState;
+        }
+      default:
+        break;
+    }
+    persistState(updatedState.present);
+    return updatedState;
   };
 }
